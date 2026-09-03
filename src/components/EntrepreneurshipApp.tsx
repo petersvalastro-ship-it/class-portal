@@ -243,6 +243,7 @@ const SORTING_GAME_ITEMS = [
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   
   // Universal Design for Learning (UDL) Accessibility Settings
   const [dyslexicFont, setDyslexicFont] = useState(false);
