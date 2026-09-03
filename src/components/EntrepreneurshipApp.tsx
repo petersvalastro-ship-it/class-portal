@@ -1743,7 +1743,30 @@ function VentureSimulatorView({ setXp, highContrast, speakText }) {
               <option value="Baked Goods & Refreshments">Baked Goods & Refreshments</option>
               <option value="Other">Other (Write Your Own...)</option>
             </select>
+
+            {bizCategory === 'Other' && (
+              <div className="pt-2 space-y-1">
+                <label className={`text-xs font-semibold ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+                  Write your own industry / service type
+                </label>
+                <input
+                  type="text"
+                  value={customCategory}
+                  onChange={(e) => setCustomCategory(e.target.value)}
+                  placeholder="e.g. Handmade Jewelry, Lawn Care, Photo Editing..."
+                  className={`w-full px-3 py-2 rounded-xl text-sm focus:outline-none shadow-xs ${
+                    highContrast
+                      ? 'bg-black text-white border-2 border-yellow-400 font-bold placeholder:text-zinc-500'
+                      : 'bg-[#414042]/5 border border-[#C51C63]/40 text-[#414042] focus:border-[#C51C63] placeholder:text-[#414042]/40'
+                  }`}
+                />
+                <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>
+                  This name is used in your elevator pitch and pitch deck card.
+                </p>
+              </div>
+            )}
           </div>
+
 
           {/* Form fields continued... */}
           <div className="grid grid-cols-2 gap-3 pt-1">
