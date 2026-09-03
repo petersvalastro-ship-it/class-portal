@@ -5,7 +5,7 @@ import {
   CheckCircle2, XCircle, ArrowRight, HelpCircle, RefreshCw, 
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
-  Target, Briefcase, Plus, Trash2, ChevronRight, Zap
+  Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X
 } from 'lucide-react';
 
 const GLOSSARY_DATA = [
