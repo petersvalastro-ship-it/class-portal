@@ -1532,7 +1532,111 @@ function PracticeView({ completedScenarios, setCompletedScenarios, setXp, speakT
           })}
         </div>
       )}
+
+      {/* COST SORTING CHALLENGE */}
+      {activeTab === 'sorting' && (
+        <div className="space-y-4">
+          <div className={`p-5 rounded-2xl border shadow-xs ${
+            highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border-[#414042]/15'
+          }`}>
+            <h3 className={`font-black text-lg ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+              Scenario: Alex launches "Apex Sticker Lab" 🏷️
+            </h3>
+            <p className={`text-xs mt-1 leading-relaxed ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
+              Alex designs custom vinyl stickers and sells them online and at school craft fairs.
+              Before setting a price, Alex must split every cost into <strong>Fixed</strong> (stays the same no matter
+              how many stickers sell) or <strong>Variable</strong> (grows with each sticker sold). Sort all
+              {' '}{sortingItems.length} costs correctly to earn 40 XP.
+            </p>
+            <button
+              onClick={() => speakText("Sort each of Alex's sticker business costs into Fixed costs, which stay the same, or Variable costs, which grow with every sticker sold.")}
+              className={`mt-2 text-xs font-bold inline-flex items-center gap-1 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}
+            >
+              <Volume2 className="w-4 h-4" /> Read directions aloud
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {sortingItems.map((item, idx) => {
+              const choice = userCategories[idx];
+              const graded = sortingScore !== null;
+              const isRight = choice === item.correctCategory;
+              return (
+                <div
+                  key={item.name}
+                  className={`p-4 rounded-2xl border shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                    highContrast
+                      ? 'bg-zinc-900 border-2 border-white text-white'
+                      : graded
+                        ? isRight ? 'bg-[#EFA835]/15 border-[#EFA835]' : 'bg-[#E94928]/10 border-[#E94928]/40'
+                        : 'bg-white border-[#414042]/15'
+                  }`}
+                >
+                  <div>
+                    <div className={`text-sm font-bold ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{item.name}</div>
+                    {graded && (
+                      <div className={`text-[11px] mt-1 ${highContrast ? 'text-zinc-300' : 'text-[#414042]/70'}`}>
+                        {isRight ? '✅ Correct — ' : `❌ This is a ${item.correctCategory} cost — `}{item.why}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={`flex gap-1 p-1 rounded-xl border shrink-0 ${
+                    highContrast ? 'bg-black border-white' : 'bg-[#414042]/10 border-[#414042]/15'
+                  }`}>
+                    {['Fixed', 'Variable'].map(cat => (
+                      <button
+                        key={cat}
+                        onClick={() => {
+                          setUserCategories({ ...userCategories, [idx]: cat });
+                          setSortingScore(null);
+                        }}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                          choice === cat
+                            ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white'
+                            : highContrast ? 'text-white' : 'text-[#414042] hover:text-[#C51C63]'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={checkSortingGame}
+              disabled={Object.keys(userCategories).length < sortingItems.length}
+              className={`font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-xs disabled:opacity-40 disabled:cursor-not-allowed ${
+                highContrast ? 'bg-yellow-400 text-black border-2 border-white font-extrabold' : 'bg-[#C51C63] hover:bg-[#a81452] text-white'
+              }`}
+            >
+              Check My Sorting
+            </button>
+            <button
+              onClick={() => { setUserCategories({}); setSortingScore(null); }}
+              className={`font-semibold px-4 py-2.5 rounded-xl text-xs border transition ${
+                highContrast ? 'bg-zinc-800 text-white border-white' : 'bg-white text-[#414042] border-[#414042]/20 hover:bg-[#414042]/5'
+              }`}
+            >
+              Reset
+            </button>
+            {sortingScore !== null && (
+              <span className={`text-sm font-black ${
+                highContrast ? 'text-yellow-300' : sortingScore === sortingItems.length ? 'text-[#C51C63]' : 'text-[#E94928]'
+              }`}>
+                {sortingScore} / {sortingItems.length} correct
+                {sortingScore === sortingItems.length ? ' 🎉 +40 XP!' : ' — review the red cards and try again.'}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
+
   );
 }
 
