@@ -5,7 +5,7 @@ import {
   CheckCircle2, XCircle, ArrowRight, HelpCircle, RefreshCw, 
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
-  Target, Briefcase, Plus, Trash2, ChevronRight, Zap
+  Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X
 } from 'lucide-react';
 
 const GLOSSARY_DATA = [
@@ -243,6 +243,7 @@ const SORTING_GAME_ITEMS = [
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   
   // Universal Design for Learning (UDL) Accessibility Settings
   const [dyslexicFont, setDyslexicFont] = useState(false);
@@ -393,39 +394,111 @@ export default function EntrepreneurshipApp() {
       <nav className={`px-4 transition-colors duration-200 ${
         highContrast ? 'bg-black border-b-2 border-yellow-400' : 'border-b border-[#414042]/10 bg-white'
       }`}>
-        <div className="max-w-7xl mx-auto flex space-x-1 sm:space-x-2 overflow-x-auto py-2.5 scrollbar-none">
-          {[
-            { id: 'dashboard', label: 'Dashboard & Roadmap', icon: Rocket },
-            { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
-            { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
-            { id: 'practice', label: 'Interactive Scenarios', icon: Target },
-            { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap ${
-                  isActive 
-                    ? highContrast 
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white' 
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20' 
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${
-                  isActive 
-                    ? highContrast ? 'text-black' : 'text-white' 
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                {tab.label}
-              </button>
-            );
-          })}
+        <div className="max-w-7xl mx-auto">
+          {/* MOBILE HAMBURGER MENU */}
+          <div className="md:hidden flex items-center justify-between py-2.5">
+            <button
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+                highContrast
+                  ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                  : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+              }`}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileNavOpen}
+            >
+              {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <span>{mobileNavOpen ? 'Close' : 'Menu'}</span>
+            </button>
+            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs ${
+              highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-[#EFA835]/15 text-[#414042]'
+            }`}>
+              {(() => {
+                const current = [
+                  { id: 'dashboard', label: 'Dashboard' },
+                  { id: 'glossary', label: 'Glossary' },
+                  { id: 'calculators', label: 'Math Lab' },
+                  { id: 'practice', label: 'Scenarios' },
+                  { id: 'simulator', label: 'Pitch Builder' },
+                ].find((t) => t.id === activeTab);
+                return current ? current.label : 'Menu';
+              })()}
+            </div>
+          </div>
+
+          {/* MOBILE DROPDOWN PANEL */}
+          {mobileNavOpen && (
+            <div className="md:hidden flex flex-col gap-1.5 pb-3 animate-in fade-in slide-in-from-top-2 duration-200">
+              {[
+                { id: 'dashboard', label: 'Dashboard & Roadmap', icon: Rocket },
+                { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
+                { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+                { id: 'practice', label: 'Interactive Scenarios', icon: Target },
+                { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => { setActiveTab(tab.id); setMobileNavOpen(false); }}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                      isActive
+                        ? highContrast
+                          ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                          : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                        : highContrast
+                          ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                          : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 ${
+                      isActive
+                        ? highContrast ? 'text-black' : 'text-white'
+                        : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                    }`} />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* DESKTOP NAV TABS */}
+          <div className="hidden md:flex space-x-2 overflow-x-auto py-2.5 scrollbar-none">
+            {[
+              { id: 'dashboard', label: 'Dashboard & Roadmap', icon: Rocket },
+              { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
+              { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+              { id: 'practice', label: 'Interactive Scenarios', icon: Target },
+              { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                    isActive
+                      ? highContrast
+                        ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                        : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                      : highContrast
+                        ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                        : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                  }`}
+                >
+                  <Icon className={`w-4 h-4 ${
+                    isActive
+                      ? highContrast ? 'text-black' : 'text-white'
+                      : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                  }`} />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </nav>
 
