@@ -229,13 +229,16 @@ const PRACTICE_SCENARIOS = [
 ];
 
 const SORTING_GAME_ITEMS = [
-  { name: 'Lemonade Pitchers (Reusable)', correctCategory: 'Fixed' },
-  { name: 'Fresh Lemons & Sugar', correctCategory: 'Variable' },
-  { name: 'City Business Permit ($15 flat fee)', correctCategory: 'Fixed' },
-  { name: 'Paper Cups & Straws', correctCategory: 'Variable' },
-  { name: 'Wooden Stand Poster / Banner', correctCategory: 'Fixed' },
-  { name: 'Ice Bags bought daily based on sales', correctCategory: 'Variable' }
+  { name: 'Vinyl Cutting Machine for the sticker studio', correctCategory: 'Fixed', why: 'Bought once — the cost stays the same whether you sell 1 sticker or 500.' },
+  { name: 'Sheets of vinyl used for each sticker order', correctCategory: 'Variable', why: 'More orders means more vinyl, so this cost rises with sales.' },
+  { name: 'Monthly design software subscription ($12)', correctCategory: 'Fixed', why: 'You pay the same $12 every month no matter how much you sell.' },
+  { name: 'Shipping mailers and postage per package', correctCategory: 'Variable', why: 'Every shipped order adds another mailer and stamp.' },
+  { name: 'Craft-fair booth fee ($25 flat)', correctCategory: 'Fixed', why: 'The booth costs $25 whether you sell out or sell nothing.' },
+  { name: 'Ink and laminate used per sticker sheet', correctCategory: 'Variable', why: 'Supplies are consumed in proportion to units produced.' },
+  { name: 'Printed banner for the sales table', correctCategory: 'Fixed', why: 'One-time signage cost that does not change with volume.' },
+  { name: 'Marketplace fee charged on each sale', correctCategory: 'Variable', why: 'The platform takes a cut on every single order.' }
 ];
+
 
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
@@ -1411,7 +1414,7 @@ function PracticeView({ completedScenarios, setCompletedScenarios, setXp, speakT
                 : highContrast ? 'text-white' : 'text-[#414042]'
             }`}
           >
-            Cost Sorting Challenge 🍋
+            Cost Sorting Challenge 🏷️
           </button>
         </div>
       </div>
@@ -1529,7 +1532,111 @@ function PracticeView({ completedScenarios, setCompletedScenarios, setXp, speakT
           })}
         </div>
       )}
+
+      {/* COST SORTING CHALLENGE */}
+      {activeTab === 'sorting' && (
+        <div className="space-y-4">
+          <div className={`p-5 rounded-2xl border shadow-xs ${
+            highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border-[#414042]/15'
+          }`}>
+            <h3 className={`font-black text-lg ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+              Scenario: Alex launches "Apex Sticker Lab" 🏷️
+            </h3>
+            <p className={`text-xs mt-1 leading-relaxed ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
+              Alex designs custom vinyl stickers and sells them online and at school craft fairs.
+              Before setting a price, Alex must split every cost into <strong>Fixed</strong> (stays the same no matter
+              how many stickers sell) or <strong>Variable</strong> (grows with each sticker sold). Sort all
+              {' '}{sortingItems.length} costs correctly to earn 40 XP.
+            </p>
+            <button
+              onClick={() => speakText("Sort each of Alex's sticker business costs into Fixed costs, which stay the same, or Variable costs, which grow with every sticker sold.")}
+              className={`mt-2 text-xs font-bold inline-flex items-center gap-1 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}
+            >
+              <Volume2 className="w-4 h-4" /> Read directions aloud
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {sortingItems.map((item, idx) => {
+              const choice = userCategories[idx];
+              const graded = sortingScore !== null;
+              const isRight = choice === item.correctCategory;
+              return (
+                <div
+                  key={item.name}
+                  className={`p-4 rounded-2xl border shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                    highContrast
+                      ? 'bg-zinc-900 border-2 border-white text-white'
+                      : graded
+                        ? isRight ? 'bg-[#EFA835]/15 border-[#EFA835]' : 'bg-[#E94928]/10 border-[#E94928]/40'
+                        : 'bg-white border-[#414042]/15'
+                  }`}
+                >
+                  <div>
+                    <div className={`text-sm font-bold ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{item.name}</div>
+                    {graded && (
+                      <div className={`text-[11px] mt-1 ${highContrast ? 'text-zinc-300' : 'text-[#414042]/70'}`}>
+                        {isRight ? '✅ Correct — ' : `❌ This is a ${item.correctCategory} cost — `}{item.why}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={`flex gap-1 p-1 rounded-xl border shrink-0 ${
+                    highContrast ? 'bg-black border-white' : 'bg-[#414042]/10 border-[#414042]/15'
+                  }`}>
+                    {['Fixed', 'Variable'].map(cat => (
+                      <button
+                        key={cat}
+                        onClick={() => {
+                          setUserCategories({ ...userCategories, [idx]: cat });
+                          setSortingScore(null);
+                        }}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                          choice === cat
+                            ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white'
+                            : highContrast ? 'text-white' : 'text-[#414042] hover:text-[#C51C63]'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={checkSortingGame}
+              disabled={Object.keys(userCategories).length < sortingItems.length}
+              className={`font-bold px-5 py-2.5 rounded-xl text-xs transition shadow-xs disabled:opacity-40 disabled:cursor-not-allowed ${
+                highContrast ? 'bg-yellow-400 text-black border-2 border-white font-extrabold' : 'bg-[#C51C63] hover:bg-[#a81452] text-white'
+              }`}
+            >
+              Check My Sorting
+            </button>
+            <button
+              onClick={() => { setUserCategories({}); setSortingScore(null); }}
+              className={`font-semibold px-4 py-2.5 rounded-xl text-xs border transition ${
+                highContrast ? 'bg-zinc-800 text-white border-white' : 'bg-white text-[#414042] border-[#414042]/20 hover:bg-[#414042]/5'
+              }`}
+            >
+              Reset
+            </button>
+            {sortingScore !== null && (
+              <span className={`text-sm font-black ${
+                highContrast ? 'text-yellow-300' : sortingScore === sortingItems.length ? 'text-[#C51C63]' : 'text-[#E94928]'
+              }`}>
+                {sortingScore} / {sortingItems.length} correct
+                {sortingScore === sortingItems.length ? ' 🎉 +40 XP!' : ' — review the red cards and try again.'}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
     </div>
+
   );
 }
 
@@ -1636,7 +1743,30 @@ function VentureSimulatorView({ setXp, highContrast, speakText }) {
               <option value="Baked Goods & Refreshments">Baked Goods & Refreshments</option>
               <option value="Other">Other (Write Your Own...)</option>
             </select>
+
+            {bizCategory === 'Other' && (
+              <div className="pt-2 space-y-1">
+                <label className={`text-xs font-semibold ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+                  Write your own industry / service type
+                </label>
+                <input
+                  type="text"
+                  value={customCategory}
+                  onChange={(e) => setCustomCategory(e.target.value)}
+                  placeholder="e.g. Handmade Jewelry, Lawn Care, Photo Editing..."
+                  className={`w-full px-3 py-2 rounded-xl text-sm focus:outline-none shadow-xs ${
+                    highContrast
+                      ? 'bg-black text-white border-2 border-yellow-400 font-bold placeholder:text-zinc-500'
+                      : 'bg-[#414042]/5 border border-[#C51C63]/40 text-[#414042] focus:border-[#C51C63] placeholder:text-[#414042]/40'
+                  }`}
+                />
+                <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>
+                  This name is used in your elevator pitch and pitch deck card.
+                </p>
+              </div>
+            )}
           </div>
+
 
           {/* Form fields continued... */}
           <div className="grid grid-cols-2 gap-3 pt-1">
