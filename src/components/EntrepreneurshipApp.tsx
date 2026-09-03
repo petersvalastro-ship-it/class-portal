@@ -1414,7 +1414,7 @@ function PracticeView({ completedScenarios, setCompletedScenarios, setXp, speakT
                 : highContrast ? 'text-white' : 'text-[#414042]'
             }`}
           >
-            Cost Sorting Challenge 🍋
+            Cost Sorting Challenge 🏷️
           </button>
         </div>
       </div>
