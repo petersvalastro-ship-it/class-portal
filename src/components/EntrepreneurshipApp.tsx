@@ -1184,7 +1184,160 @@ function CalculatorsView({ speakText, highContrast }) {
           </div>
         </div>
       )}
+
+      {/* CALCULATOR 3: ROI % */}
+      {activeCalc === 'roi' && (
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-2xl border shadow-xs ${
+          highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border-[#414042]/15'
+        }`}>
+          <div className="space-y-4">
+            <div className={`p-3 rounded-xl text-xs font-mono font-bold border ${
+              highContrast ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-[#C51C63]/10 border-[#C51C63]/30 text-[#C51C63]'
+            }`}>
+              Formula: ROI = (Net Profit ÷ Cost of Investment) × 100
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold flex justify-between">
+                <span>Cost of Investment ($)</span>
+                <span className={highContrast ? 'text-red-400 font-mono' : 'text-[#E94928] font-mono'}>${investmentCost}</span>
+              </label>
+              <input type="range" min="1" max="500" step="1" value={investmentCost} onChange={(e) => setInvestmentCost(Number(e.target.value))} className="w-full accent-red-500 cursor-pointer" />
+              <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>What you spent on equipment, supplies, or ads</p>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold flex justify-between">
+                <span>Net Profit Gained ($)</span>
+                <span className={highContrast ? 'text-yellow-300 font-mono' : 'text-[#C51C63] font-mono'}>${netProfitGained}</span>
+              </label>
+              <input type="range" min="0" max="1000" step="5" value={netProfitGained} onChange={(e) => setNetProfitGained(Number(e.target.value))} className="w-full accent-yellow-400 cursor-pointer" />
+              <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>Money earned back after covering costs</p>
+            </div>
+          </div>
+
+          <div className={`p-6 rounded-2xl border flex flex-col justify-center items-center text-center space-y-4 ${
+            highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#414042]/5 border-[#414042]/10'
+          }`}>
+            <div className="w-full text-right">
+              <button
+                onClick={() => speakText(`Your Return on Investment is ${computedROI} percent. Net profit of ${netProfitGained} dollars divided by an investment of ${investmentCost} dollars, times one hundred.`)}
+                className={`p-1.5 ${highContrast ? 'text-yellow-300 hover:text-white' : 'text-[#414042]/60 hover:text-[#C51C63]'}`}
+              >
+                <Volume2 className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div>
+              <span className={`text-xs uppercase font-mono tracking-wider font-semibold ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Return on Investment</span>
+              <div className={`text-4xl sm:text-5xl font-black mt-1 ${highContrast ? 'text-yellow-300' : Number(computedROI) >= 100 ? 'text-[#C51C63]' : 'text-[#EFA835]'}`}>
+                {computedROI}%
+              </div>
+            </div>
+
+            <div className={`w-full text-xs font-mono font-semibold space-y-2 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              <div className="flex justify-between">
+                <span>Invested: ${investmentCost}</span>
+                <span>Returned: ${netProfitGained}</span>
+              </div>
+              <div className="w-full h-4 bg-zinc-800 rounded-full overflow-hidden border border-white">
+                <div style={{ width: `${Math.min(100, Number(computedROI) / 5)}%` }} className="bg-yellow-400 h-full"></div>
+              </div>
+              <p className={`text-[11px] font-sans ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>
+                {Number(computedROI) >= 100
+                  ? 'Great! You more than doubled your money.'
+                  : 'Under 100% means you earned back less than you invested.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CALCULATOR 4: BREAK-EVEN */}
+      {activeCalc === 'break-even' && (
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-2xl border shadow-xs ${
+          highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border-[#414042]/15'
+        }`}>
+          <div className="space-y-4">
+            <div className={`p-3 rounded-xl text-xs font-mono font-bold border ${
+              highContrast ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-[#E94928]/10 border-[#E94928]/30 text-[#E94928]'
+            }`}>
+              Formula: Break-Even Units = Fixed Costs ÷ (Price - Variable Cost)
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold flex justify-between">
+                <span>Fixed Costs ($)</span>
+                <span className={highContrast ? 'text-red-400 font-mono' : 'text-[#E94928] font-mono'}>${fixedCosts}</span>
+              </label>
+              <input type="range" min="0" max="500" step="5" value={fixedCosts} onChange={(e) => setFixedCosts(Number(e.target.value))} className="w-full accent-red-500 cursor-pointer" />
+              <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>Costs that stay the same: booth fee, equipment, signage</p>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold flex justify-between">
+                <span>Price per Unit ($)</span>
+                <span className={highContrast ? 'text-yellow-300 font-mono' : 'text-[#C51C63] font-mono'}>${pricePerUnit}</span>
+              </label>
+              <input type="range" min="1" max="100" value={pricePerUnit} onChange={(e) => setPricePerUnit(Number(e.target.value))} className="w-full accent-yellow-400 cursor-pointer" />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold flex justify-between">
+                <span>Variable Cost per Unit ($)</span>
+                <span className={highContrast ? 'text-red-400 font-mono' : 'text-[#E94928] font-mono'}>${variableCostPerUnit}</span>
+              </label>
+              <input type="range" min="0" max="100" value={variableCostPerUnit} onChange={(e) => setVariableCostPerUnit(Number(e.target.value))} className="w-full accent-red-500 cursor-pointer" />
+              <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>Ingredients or materials used for each single sale</p>
+            </div>
+          </div>
+
+          <div className={`p-6 rounded-2xl border flex flex-col justify-center items-center text-center space-y-4 ${
+            highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#414042]/5 border-[#414042]/10'
+          }`}>
+            <div className="w-full text-right">
+              <button
+                onClick={() => speakText(
+                  marginPerUnit > 0
+                    ? `You break even after selling ${breakEvenUnits} units. Each unit earns ${marginPerUnit} dollars of contribution margin.`
+                    : 'Your price must be higher than your variable cost, or you can never break even.'
+                )}
+                className={`p-1.5 ${highContrast ? 'text-yellow-300 hover:text-white' : 'text-[#414042]/60 hover:text-[#C51C63]'}`}
+              >
+                <Volume2 className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div>
+              <span className={`text-xs uppercase font-mono tracking-wider font-semibold ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Units Needed to Break Even</span>
+              <div className={`text-4xl sm:text-5xl font-black mt-1 ${highContrast ? 'text-yellow-300' : marginPerUnit > 0 ? 'text-[#C51C63]' : 'text-[#E94928]'}`}>
+                {breakEvenUnits}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 w-full">
+              <div className={`p-3 rounded-xl border shadow-xs ${highContrast ? 'bg-zinc-900 border-white text-white' : 'bg-white border-[#414042]/15'}`}>
+                <div className={`text-[10px] font-mono uppercase font-semibold ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Margin / Unit</div>
+                <div className={`text-2xl font-bold ${highContrast ? 'text-white' : 'text-[#EFA835]'}`}>${marginPerUnit}</div>
+              </div>
+              <div className={`p-3 rounded-xl border shadow-xs ${highContrast ? 'bg-zinc-900 border-white text-white' : 'bg-white border-[#414042]/15'}`}>
+                <div className={`text-[10px] font-mono uppercase font-semibold ${highContrast ? 'text-red-400' : 'text-[#414042]/60'}`}>Sales at Break-Even</div>
+                <div className={`text-2xl font-bold ${highContrast ? 'text-red-400' : 'text-[#E94928]'}`}>
+                  {marginPerUnit > 0 ? `$${Number(breakEvenUnits) * pricePerUnit}` : 'N/A'}
+                </div>
+              </div>
+            </div>
+
+            <p className={`text-[11px] ${highContrast ? 'text-zinc-300' : 'text-[#414042]/60'}`}>
+              {marginPerUnit > 0
+                ? `Every sale past unit ${breakEvenUnits} is pure profit.`
+                : 'Raise your price above the variable cost to make breaking even possible.'}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
+
   );
 }
 
