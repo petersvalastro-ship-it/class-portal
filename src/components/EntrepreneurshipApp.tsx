@@ -495,10 +495,10 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             <Sparkles className={`w-3.5 h-3.5 ${highContrast ? 'text-black' : 'text-[#EFA835]'}`} /> Middle School Financial Literacy & Entrepreneurship
           </div>
           <h1 className={`text-3xl sm:text-5xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            Master the Language of <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Money & Business</span>
+            Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
           </h1>
           <p className={`leading-relaxed ${highContrast ? 'text-zinc-100 font-medium' : 'text-[#414042]/80'}`}>
-            Welcome to your interactive practice hub! Learn essential money skills, calculate net worth, analyze business costs, and pitch your own venture—aligned with 7th & 8th grade business standards.
+            Welcome to your interactive practice hub! Discover how money works, master the math behind smart business decisions, and learn to think like an entrepreneur. From calculating net worth and analyzing real-world costs to pitching your own big ideas, you’ll build the mindset and skills to turn your vision into reality
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <button 
@@ -1391,7 +1391,7 @@ function PracticeView({ completedScenarios, setCompletedScenarios, setXp, speakT
             <Target className={`w-6 h-6 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} /> Interactive Practice Hub
           </h2>
           <p className={`text-xs mt-1 ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
-            Solve math word problems directly from the curriculum and test your business knowledge.
+            Solve math word problems and practice your knowledge.
           </p>
         </div>
 
