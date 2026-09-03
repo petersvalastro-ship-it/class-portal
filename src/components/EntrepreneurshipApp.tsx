@@ -229,13 +229,16 @@ const PRACTICE_SCENARIOS = [
 ];
 
 const SORTING_GAME_ITEMS = [
-  { name: 'Lemonade Pitchers (Reusable)', correctCategory: 'Fixed' },
-  { name: 'Fresh Lemons & Sugar', correctCategory: 'Variable' },
-  { name: 'City Business Permit ($15 flat fee)', correctCategory: 'Fixed' },
-  { name: 'Paper Cups & Straws', correctCategory: 'Variable' },
-  { name: 'Wooden Stand Poster / Banner', correctCategory: 'Fixed' },
-  { name: 'Ice Bags bought daily based on sales', correctCategory: 'Variable' }
+  { name: 'Vinyl Cutting Machine for the sticker studio', correctCategory: 'Fixed', why: 'Bought once — the cost stays the same whether you sell 1 sticker or 500.' },
+  { name: 'Sheets of vinyl used for each sticker order', correctCategory: 'Variable', why: 'More orders means more vinyl, so this cost rises with sales.' },
+  { name: 'Monthly design software subscription ($12)', correctCategory: 'Fixed', why: 'You pay the same $12 every month no matter how much you sell.' },
+  { name: 'Shipping mailers and postage per package', correctCategory: 'Variable', why: 'Every shipped order adds another mailer and stamp.' },
+  { name: 'Craft-fair booth fee ($25 flat)', correctCategory: 'Fixed', why: 'The booth costs $25 whether you sell out or sell nothing.' },
+  { name: 'Ink and laminate used per sticker sheet', correctCategory: 'Variable', why: 'Supplies are consumed in proportion to units produced.' },
+  { name: 'Printed banner for the sales table', correctCategory: 'Fixed', why: 'One-time signage cost that does not change with volume.' },
+  { name: 'Marketplace fee charged on each sale', correctCategory: 'Variable', why: 'The platform takes a cut on every single order.' }
 ];
+
 
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
