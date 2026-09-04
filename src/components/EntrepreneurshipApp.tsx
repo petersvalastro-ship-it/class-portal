@@ -607,6 +607,8 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </button>
           </div>
         </div>
+        </div>
+        </div>
       </div>
 
       {/* QUICK STATS */}
