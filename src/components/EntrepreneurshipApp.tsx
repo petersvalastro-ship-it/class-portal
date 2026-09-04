@@ -7,6 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X
 } from 'lucide-react';
+import neiaHero from '../assets/neia-hero.png.asset.json';
 
 const GLOSSARY_DATA = [
   {
