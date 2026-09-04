@@ -555,10 +555,8 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* HERO BANNER */}
-      <div className={`relative overflow-hidden rounded-3xl p-6 sm:p-10 shadow-xs ${
-        highContrast
-          ? 'bg-zinc-900 border-2 border-yellow-400 text-white'
-          : 'bg-gradient-to-br from-[#EFA835]/10 via-white to-[#C51C63]/10 border border-[#414042]/15'
+      <div className={`relative w-screen left-1/2 -translate-x-1/2 overflow-hidden shadow-xs ${
+        highContrast ? 'bg-zinc-900' : 'bg-[#414042]'
       }`}>
         {/* Hero background image (NEIA campus) */}
         <div
@@ -569,8 +567,9 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         {/* Legibility overlay */}
         <div
           aria-hidden="true"
-          className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/90' : 'bg-gradient-to-r from-white/95 via-white/85 to-white/55'}`}
+          className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/85 via-white/60 to-white/25'}`}
         />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="relative max-w-2xl space-y-4">
           <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${
             highContrast 
