@@ -8,6 +8,7 @@ import {
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
+import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
 
 const GLOSSARY_DATA = [
   {
@@ -607,6 +608,52 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </button>
           </div>
         </div>
+        </div>
+      </div>
+
+      {/* TEACHER INTRODUCTION */}
+      <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+          {/* Photo */}
+          <div className="relative md:col-span-1 flex items-center justify-center bg-[#EFA835]/10 p-6">
+            <img
+              src={pietroPhoto.url}
+              alt="Mr. Pietro Valastro, Entrepreneurship teacher"
+              className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full border-4 border-white shadow-lg"
+            />
+          </div>
+          {/* Introduction text */}
+          <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            <div className="flex items-center gap-2">
+              <span className={`text-2xl`}>👋</span>
+              <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+                A Word From Your Teacher
+              </h2>
+            </div>
+            <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>
+              <p>
+                Welcome! I am your Entrepreneurship teacher, <strong className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}>Mr. Pietro Valastro</strong>, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets.
+              </p>
+              <p>
+                Over the coming months, you will learn to think like a problem harvester and an opportunity seeker. We will reset our approach to goal setting, cultivate resilience, and fundamentally redefine how we view failure. After all, are we truly failing if we are experimenting, learning, and trying again?
+              </p>
+              <p>
+                True impact happens when learning moves past theory and transforms into action. My goal is to help you take what you learn in this room, combine it with your unique passions, and turn it into tangible results.
+              </p>
+              <p>
+                I am glad you are here, and I am in your corner every step of the way.
+              </p>
+              <p className={`text-lg sm:text-xl font-black pt-2 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>
+                Ready. Set. Innovate.
+              </p>
+            </div>
+            <button
+              onClick={() => speakText("Welcome! I am your Entrepreneurship teacher, Mr. Pietro Valastro, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets. Over the coming months, you will learn to think like a problem harvester and an opportunity seeker. We will reset our approach to goal setting, cultivate resilience, and fundamentally redefine how we view failure. After all, are we truly failing if we are experimenting, learning, and trying again? True impact happens when learning moves past theory and transforms into action. My goal is to help you take what you learn in this room, combine it with your unique passions, and turn it into tangible results. I am glad you are here, and I am in your corner every step of the way. Ready. Set. Innovate.")}
+              className={`mt-2 px-4 py-2 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-[#EFA835]/10 hover:bg-[#EFA835]/20 text-[#414042] border border-[#414042]/20'}`}
+            >
+              <Volume2 className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} /> Read Aloud
+            </button>
+          </div>
         </div>
       </div>
 
