@@ -565,24 +565,24 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${neiaHero.url})` }}
         />
-        {/* Legibility overlay */}
+        {/* Legibility overlay — strong on the left behind the text, fading right so the green campus shows through */}
         <div
           aria-hidden="true"
-          className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/85 via-white/60 to-white/25'}`}
+          className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/95 via-white/60 to-white/15'}`}
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="relative max-w-2xl space-y-4">
-          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${
+          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border drop-shadow-sm ${
             highContrast 
               ? 'bg-yellow-400 text-black border-white' 
               : 'bg-[#E94928]/10 border-[#E94928]/30 text-[#E94928]'
           }`}>
             <Sparkles className={`w-3.5 h-3.5 ${highContrast ? 'text-black' : 'text-[#EFA835]'}`} /> Middle School Financial Literacy & Entrepreneurship
           </div>
-          <h1 className={`text-3xl sm:text-5xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+          <h1 className={`text-3xl sm:text-5xl font-black tracking-tight drop-shadow-sm ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
             Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
           </h1>
-          <p className={`leading-relaxed ${highContrast ? 'text-zinc-100 font-medium' : 'text-[#414042]/80'}`}>
+          <p className={`leading-relaxed font-medium drop-shadow-sm ${highContrast ? 'text-zinc-100' : 'text-[#414042]'}`}>
             Welcome to your interactive practice hub! Discover how money works, master the math behind smart business decisions, and learn to think like an entrepreneur. From calculating net worth and analyzing real-world costs to pitching your own big ideas, you’ll build the mindset and skills to turn your vision into reality
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
@@ -613,13 +613,13 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
 
       {/* TEACHER INTRODUCTION */}
       <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-          {/* Photo */}
-          <div className="relative md:col-span-1 flex items-center justify-center bg-[#EFA835]/10 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 items-stretch">
+          {/* Photo — aligned to the top of the container, on a white background */}
+          <div className="relative md:col-span-1 flex items-start justify-center bg-white p-6">
             <img
               src={pietroPhoto.url}
               alt="Mr. Pietro Valastro, Entrepreneurship teacher"
-              className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full border-4 border-white shadow-lg"
+              className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full border-4 border-[#EFA835]/30 shadow-lg"
             />
           </div>
           {/* Introduction text */}
@@ -627,12 +627,12 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             <div className="flex items-center gap-2">
               <span className={`text-2xl`}>👋</span>
               <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-                A Word From Your Teacher
+                Welcome!
               </h2>
             </div>
             <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>
               <p>
-                Welcome! I am your Entrepreneurship teacher, <strong className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}>Mr. Pietro Valastro</strong>, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets.
+                I am your Entrepreneurship teacher, <strong className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}>Mr. Pietro Valastro</strong>, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets.
               </p>
               <p>
                 Over the coming months, you will learn to think like a problem harvester and an opportunity seeker. We will reset our approach to goal setting, cultivate resilience, and fundamentally redefine how we view failure. After all, are we truly failing if we are experimenting, learning, and trying again?
