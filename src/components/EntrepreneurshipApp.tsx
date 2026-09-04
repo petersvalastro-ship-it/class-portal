@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
+import neiaLogo from '../assets/neia-logo.png.asset.json';
 
 const GLOSSARY_DATA = [
   {
@@ -316,10 +317,12 @@ export default function EntrepreneurshipApp() {
             className="flex items-center gap-2.5 font-bold text-left group hover:opacity-85 transition cursor-pointer focus:outline-none"
             title="Go to Dashboard & Roadmap"
           >
-            <div className={`p-1.5 rounded-xl transition ${
-              highContrast ? 'bg-yellow-400 text-black' : 'bg-[#E94928]/10 text-[#E94928] group-hover:bg-[#E94928]/20'
-            }`}>
-              <Zap className="w-5 h-5 animate-pulse" />
+            <div className="p-1 rounded-xl transition bg-white group-hover:bg-[#E94928]/5">
+              <img
+                src={neiaLogo.url}
+                alt="New England Innovation Academy logo"
+                className="w-8 h-8 object-contain"
+              />
             </div>
             <span className={`text-sm md:text-base tracking-wide font-extrabold transition ${
               highContrast ? 'text-white' : 'text-[#414042] group-hover:text-[#C51C63]'
