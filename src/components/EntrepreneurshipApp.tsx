@@ -309,7 +309,7 @@ export default function EntrepreneurshipApp() {
       <header className={`sticky top-0 z-50 px-4 py-2.5 text-xs md:text-sm shadow-xs transition-colors duration-200 ${
         highContrast 
           ? 'bg-black text-white border-b-2 border-yellow-400' 
-          : 'border-b border-[#414042]/15 bg-white/95 backdrop-blur-md'
+          : 'border-b border-white/10 bg-[#414042] text-white shadow-lg'
       }`}>
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
           <button 
@@ -317,7 +317,7 @@ export default function EntrepreneurshipApp() {
             className="flex items-center gap-2.5 font-bold text-left group hover:opacity-85 transition cursor-pointer focus:outline-none"
             title="Go to Dashboard & Roadmap"
           >
-            <div className="p-1 rounded-xl transition bg-white group-hover:bg-[#E94928]/5">
+            <div className="p-1 rounded-full transition bg-white group-hover:bg-white/90">
               <img
                 src={neiaLogo.url}
                 alt="New England Innovation Academy logo"
@@ -325,7 +325,7 @@ export default function EntrepreneurshipApp() {
               />
             </div>
             <span className={`text-sm md:text-base tracking-wide font-extrabold transition ${
-              highContrast ? 'text-white' : 'text-[#414042] group-hover:text-[#C51C63]'
+              highContrast ? 'text-white' : 'text-white group-hover:text-[#EFA835]'
             }`}>
               Entrepreneurship Resource & Knowledge Practice Hub
             </span>
@@ -333,18 +333,18 @@ export default function EntrepreneurshipApp() {
 
           {/* UDL Accessibility Controls */}
           <div className={`flex items-center gap-2 p-1 rounded-xl border ${
-            highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-[#414042]/5 border-[#414042]/10'
+            highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white/10 border-white/20 text-white'
           }`}>
-            <span className={`text-xs hidden lg:inline pl-1 font-semibold ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Accessibility:</span>
+            <span className={`text-xs hidden lg:inline pl-1 font-semibold ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>Accessibility:</span>
             
             <button 
               onClick={() => setHighContrast(!highContrast)}
               className={`p-1.5 rounded-lg text-xs flex items-center gap-1 transition ${
-                highContrast ? 'bg-yellow-400 text-black font-extrabold border-2 border-white' : 'hover:bg-[#414042]/10 text-[#414042]'
+                highContrast ? 'bg-yellow-400 text-black font-extrabold border-2 border-white' : 'hover:bg-white/15 text-white'
               }`}
               title="Toggle High Contrast Mode"
             >
-              {highContrast ? <Sun className="w-4 h-4 text-black" /> : <Moon className="w-4 h-4 text-[#C51C63]" />}
+              {highContrast ? <Sun className="w-4 h-4 text-black" /> : <Moon className="w-4 h-4 text-[#EFA835]" />}
               <span className="hidden sm:inline">Contrast</span>
             </button>
 
@@ -353,18 +353,18 @@ export default function EntrepreneurshipApp() {
               className={`p-1.5 rounded-lg text-xs flex items-center gap-1 transition ${
                 dyslexicFont 
                   ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold' 
-                  : highContrast ? 'text-white hover:bg-zinc-800' : 'hover:bg-[#414042]/10 text-[#414042]'
+                  : highContrast ? 'text-white hover:bg-zinc-800' : 'hover:bg-white/15 text-white'
               }`}
               title="Toggle Readable Font"
             >
-              <Type className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} />
+              <Type className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
               <span className="hidden sm:inline">Font</span>
             </button>
 
-            <div className={`flex items-center border-l pl-1 ${highContrast ? 'border-white/40' : 'border-[#414042]/20'}`}>
+            <div className={`flex items-center border-l pl-1 ${highContrast ? 'border-white/40' : 'border-white/20'}`}>
               <button 
                 onClick={() => setTextSize(textSize === 'normal' ? 'large' : textSize === 'large' ? 'xl' : 'normal')}
-                className={`px-2 py-1 text-xs font-bold ${highContrast ? 'text-yellow-300 hover:text-white' : 'text-[#414042] hover:text-[#C51C63]'}`}
+                className={`px-2 py-1 text-xs font-bold ${highContrast ? 'text-yellow-300 hover:text-white' : 'text-white hover:text-[#EFA835]'}`}
                 title="Change Text Size"
               >
                 A{textSize === 'large' ? '+' : textSize === 'xl' ? '++' : ''}
@@ -386,7 +386,7 @@ export default function EntrepreneurshipApp() {
           {/* Gamification Badge */}
           <div className="flex items-center gap-3">
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
-              highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-[#EFA835]/15 border-[#EFA835]/40 text-[#414042]'
+              highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
             }`}>
               <Trophy className="w-4 h-4 text-[#EFA835]" />
               <span>{xp} XP</span>
@@ -717,40 +717,40 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
               title: '1. Essential Glossary',
               desc: 'Master Assets, Liabilities, Compound Interest, Fixed vs Variable Costs.',
               icon: BookOpen,
-              borderColor: 'border-[#C51C63]/30',
-              bgColor: 'bg-[#C51C63]/5',
-              btnColor: 'bg-[#C51C63] hover:bg-[#a81452] text-white',
-              iconColor: 'text-[#C51C63]'
+               borderColor: 'border-[#C51C63]',
+               bgColor: 'bg-[#C51C63]',
+               btnColor: 'bg-white/15 hover:bg-white/25 text-white border border-white/30',
+               iconColor: 'text-white'
             },
             {
               tab: 'calculators',
               title: '2. Math & Formula Lab',
               desc: 'Interactive visual tools for Net Worth, Net Profit, ROI, and Break-Even.',
               icon: Calculator,
-              borderColor: 'border-[#E94928]/30',
-              bgColor: 'bg-[#E94928]/5',
-              btnColor: 'bg-[#E94928] hover:bg-[#d43a1b] text-white',
-              iconColor: 'text-[#E94928]'
+               borderColor: 'border-[#E94928]',
+               bgColor: 'bg-[#E94928]',
+               btnColor: 'bg-white/15 hover:bg-white/25 text-white border border-white/30',
+               iconColor: 'text-white'
             },
             {
               tab: 'practice',
               title: '3. Real-World Practice',
               desc: 'Solve Alex’s Sneaker Cleaning and Lemonade Stand math scenarios.',
               icon: Target,
-              borderColor: 'border-[#EFA835]/40',
-              bgColor: 'bg-[#EFA835]/10',
-              btnColor: 'bg-[#EFA835] hover:bg-[#d9962b] text-[#414042] font-extrabold',
-              iconColor: 'text-[#EFA835]'
+               borderColor: 'border-[#EFA835]',
+               bgColor: 'bg-[#EFA835]',
+               btnColor: 'bg-white/15 hover:bg-white/25 text-white border border-white/40',
+               iconColor: 'text-white'
             },
             {
               tab: 'simulator',
               title: '4. Business Pitch Builder',
               desc: 'Design your micro-business, project earnings, and download your pitch card.',
               icon: Briefcase,
-              borderColor: 'border-[#414042]/30',
-              bgColor: 'bg-[#414042]/5',
-              btnColor: 'bg-[#414042] hover:bg-[#2b2a2c] text-white',
-              iconColor: 'text-[#414042]'
+               borderColor: 'border-[#414042]',
+               bgColor: 'bg-[#414042]',
+               btnColor: 'bg-white/15 hover:bg-white/25 text-white border border-white/30',
+               iconColor: 'text-white'
             }
           ].map((item, idx) => {
             const Icon = item.icon;
@@ -763,14 +763,12 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
                     : `${item.bgColor} ${item.borderColor} border`
                 }`}
               >
-                <div className="space-y-2">
-                  <div className={`p-3 w-fit rounded-xl border shadow-xs ${
-                    highContrast ? 'bg-black border-white text-yellow-300' : 'bg-white border-[#414042]/15'
-                  }`}>
+                 <div className="space-y-2">
+                   <div className="w-fit">
                     <Icon className={`w-6 h-6 ${highContrast ? 'text-yellow-300' : item.iconColor}`} />
                   </div>
-                  <h3 className={`font-bold text-lg ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>{item.title}</h3>
-                  <p className={`text-xs leading-relaxed ${highContrast ? 'text-white font-medium' : 'text-[#414042]/75'}`}>{item.desc}</p>
+                   <h3 className={`font-bold text-lg ${highContrast ? 'text-yellow-300' : 'text-white'}`}>{item.title}</h3>
+                   <p className={`text-xs leading-relaxed ${highContrast ? 'text-white font-medium' : 'text-white/90'}`}>{item.desc}</p>
                 </div>
                 <button 
                   onClick={() => setActiveTab(item.tab)}
@@ -799,6 +797,12 @@ function GlossaryView({ masteredTerms, setMasteredTerms, setXp, speakText, stopS
   const [isFlipped, setIsFlipped] = useState(false);
 
   const categories = ['All', 'Financial Literacy', 'Entrepreneurship', 'Entrepreneurial Mindset'];
+  const categoryColor = {
+    All: 'bg-[#414042] border-[#414042] text-white',
+    'Financial Literacy': 'bg-[#EFA835] border-[#EFA835] text-white',
+    Entrepreneurship: 'bg-[#E94928] border-[#E94928] text-white',
+    'Entrepreneurial Mindset': 'bg-[#C51C63] border-[#C51C63] text-white',
+  };
 
   const filteredTerms = useMemo(() => {
     return GLOSSARY_DATA.filter(item => {
@@ -885,9 +889,9 @@ function GlossaryView({ masteredTerms, setMasteredTerms, setXp, speakText, stopS
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                   activeCategory === cat 
-                    ? highContrast 
-                      ? 'bg-yellow-400 text-black border-2 border-white font-extrabold' 
-                      : 'bg-[#414042] text-white border border-[#414042]' 
+                     ? highContrast 
+                       ? 'bg-yellow-400 text-black border-2 border-white font-extrabold' 
+                       : `${categoryColor[cat]} border` 
                     : highContrast 
                       ? 'bg-zinc-900 text-white border-2 border-white hover:border-yellow-400' 
                       : 'bg-white text-[#414042] border border-[#414042]/20 hover:border-[#C51C63]'
@@ -923,8 +927,8 @@ function GlossaryView({ masteredTerms, setMasteredTerms, setXp, speakText, stopS
                       <span className="text-2xl">{item.icon}</span>
                       <div>
                         <h3 className={`font-bold text-lg ${highContrast ? 'text-yellow-300 font-black' : 'text-[#414042]'}`}>{item.term}</h3>
-                        <span className={`text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-mono font-bold ${
-                          highContrast ? 'bg-yellow-400 text-black border border-white' : 'bg-[#E94928]/10 text-[#E94928]'
+                         <span className={`text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full font-mono font-bold border ${
+                           highContrast ? 'bg-yellow-400 text-black border-white' : categoryColor[item.category]
                         }`}>
                           {item.category}
                         </span>
