@@ -661,6 +661,63 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
       </div>
 
+      {/* JOIN THE CLASS — Links to Google Classroom and Figma */}
+      <div className={`rounded-2xl shadow-xs p-6 sm:p-8 ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
+        <div className="flex items-center gap-2 mb-4">
+          <Users className={`w-6 h-6 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`} />
+          <h2 className={`text-xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            Join the Class
+          </h2>
+        </div>
+        <p className={`mb-5 text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>
+          Connect to our class platforms below to access assignments, resources, and collaborative work.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a
+            href="https://classroom.google.com/c/ODc3MTU4Mzk3NzUy?cjc=u6pzu57n"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex items-center gap-4 p-4 rounded-xl transition shadow-xs ${
+              highContrast
+                ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700'
+                : 'bg-[#EFA835]/10 hover:bg-[#EFA835]/20 text-[#414042] border border-[#414042]/20'
+            }`}
+          >
+            <div className={`p-3 rounded-lg ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#EFA835] text-white'}`}>
+              <BookOpen className="w-6 h-6" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Google Classroom</div>
+              <div className={`text-xs truncate ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>
+                classroom.google.com
+              </div>
+            </div>
+            <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
+          </a>
+          <a
+            href="https://www.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex items-center gap-4 p-4 rounded-xl transition shadow-xs ${
+              highContrast
+                ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700'
+                : 'bg-[#C51C63]/10 hover:bg-[#C51C63]/20 text-[#414042] border border-[#414042]/20'
+            }`}
+          >
+            <div className={`p-3 rounded-lg ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white'}`}>
+              <Layers className="w-6 h-6" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Class Figma</div>
+              <div className={`text-xs truncate ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>
+                figma.com
+              </div>
+            </div>
+            <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
+          </a>
+        </div>
+      </div>
+
       {/* QUICK STATS */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className={`p-5 rounded-2xl flex items-center gap-4 shadow-xs ${
