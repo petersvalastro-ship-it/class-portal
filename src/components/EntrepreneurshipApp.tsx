@@ -11,6 +11,31 @@ import {
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
 import neiaLogo from '../assets/neia-logo.png.asset.json';
+import mikailaUlmerPhoto from '../assets/entrepreneurs/mikaila-ulmer.jpg.asset.json';
+import moziahBridgesPhoto from '../assets/entrepreneurs/moziah-bridges.jpg.asset.json';
+import benPasternakPhoto from '../assets/entrepreneurs/ben-pasternak.jpg.asset.json';
+import alinaMorsePhoto from '../assets/entrepreneurs/alina-morse.jpg.asset.json';
+import gabbyGoodwinPhoto from '../assets/entrepreneurs/gabby-goodwin.png.asset.json';
+import coryNievesPhoto from '../assets/entrepreneurs/cory-nieves.jpg.asset.json';
+import asiaNewsonPhoto from '../assets/entrepreneurs/asia-newson.jpg.asset.json';
+import fraserDohertyPhoto from '../assets/entrepreneurs/fraser-doherty.jpg.asset.json';
+import saraBlakelyPhoto from '../assets/entrepreneurs/sara-blakely.jpg.asset.json';
+import yvonChouinardPhoto from '../assets/entrepreneurs/yvon-chouinard.jpg.asset.json';
+import melaniePerkinsPhoto from '../assets/entrepreneurs/melanie-perkins.jpg.asset.json';
+import madamCjWalkerPhoto from '../assets/entrepreneurs/madam-cj-walker.jpg.asset.json';
+import daymondJohnPhoto from '../assets/entrepreneurs/daymond-john.jpg.asset.json';
+import janKoumPhoto from '../assets/entrepreneurs/jan-koum.jpg.asset.json';
+import whitneyWolfeHerdPhoto from '../assets/entrepreneurs/whitney-wolfe-herd.jpg.asset.json';
+import hamdiUlukayaPhoto from '../assets/entrepreneurs/hamdi-ulukaya.jpg.asset.json';
+import jessicaMatthewsPhoto from '../assets/entrepreneurs/jessica-matthews.jpg.asset.json';
+import tristanWalkerPhoto from '../assets/entrepreneurs/tristan-walker.jpg.asset.json';
+import leilaJanahPhoto from '../assets/entrepreneurs/leila-janah.jpg.asset.json';
+import brianCheskyPhoto from '../assets/entrepreneurs/brian-chesky.jpg.asset.json';
+import arlanHamiltonPhoto from '../assets/entrepreneurs/arlan-hamilton.jpg.asset.json';
+import maiaChakaPhoto from '../assets/entrepreneurs/maia-chaka.jpg.asset.json';
+import tobiLutkePhoto from '../assets/entrepreneurs/tobi-lutke.jpg.asset.json';
+import katrinaLakePhoto from '../assets/entrepreneurs/katrina-lake.jpg.asset.json';
+import freddieFiggersPhoto from '../assets/entrepreneurs/freddie-figgers.jpg.asset.json';
 
 function GoogleClassroomLogo({ className = "w-8 h-8" }) {
   return (
@@ -295,6 +320,34 @@ const ENTREPRENEURS_DATA = [
   { id: 24, name: 'Katrina Lake', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Retail Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'KL', accent: 'bg-[#414042]', currentTitle: 'Founder, Stitch Fix', whereTheyStarted: 'Katrina tested personalized clothing deliveries from her apartment while studying how data could improve the shopping experience.', mostKnownFor: 'Founding Stitch Fix and combining human stylists with recommendation technology.', overview: 'She blended personal service, logistics, and data science to create a new retail model centered on convenience and individual taste.' },
   { id: 25, name: 'Freddie Figgers', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Telecommunications'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'FF', accent: 'bg-[#C51C63]', currentTitle: 'Founder & CEO, Figgers Communication', whereTheyStarted: 'Freddie repaired discarded computers as a child and began providing technical services before launching telecommunications products.', mostKnownFor: 'Building an independent telecommunications and technology company.', overview: 'His path from repairing old machines to creating connected products demonstrates self-teaching, persistence, and solving practical customer needs.' }
 ];
+
+const ENTREPRENEUR_PHOTOS = {
+  1: mikailaUlmerPhoto.url,
+  2: moziahBridgesPhoto.url,
+  3: benPasternakPhoto.url,
+  4: alinaMorsePhoto.url,
+  5: gabbyGoodwinPhoto.url,
+  6: coryNievesPhoto.url,
+  7: asiaNewsonPhoto.url,
+  8: fraserDohertyPhoto.url,
+  9: saraBlakelyPhoto.url,
+  10: yvonChouinardPhoto.url,
+  11: melaniePerkinsPhoto.url,
+  12: madamCjWalkerPhoto.url,
+  13: daymondJohnPhoto.url,
+  14: janKoumPhoto.url,
+  15: whitneyWolfeHerdPhoto.url,
+  16: hamdiUlukayaPhoto.url,
+  17: jessicaMatthewsPhoto.url,
+  18: tristanWalkerPhoto.url,
+  19: leilaJanahPhoto.url,
+  20: brianCheskyPhoto.url,
+  21: arlanHamiltonPhoto.url,
+  22: maiaChakaPhoto.url,
+  23: tobiLutkePhoto.url,
+  24: katrinaLakePhoto.url,
+  25: freddieFiggersPhoto.url,
+};
 
 
 
@@ -646,6 +699,14 @@ export default function EntrepreneurshipApp() {
 }
 
 function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex, totalProfiles, onPrevious, onNext, highContrast }) {
+  const [photoFailed, setPhotoFailed] = useState(false);
+
+  useEffect(() => {
+    setPhotoFailed(false);
+  }, [profile.id]);
+
+  const photoUrl = ENTREPRENEUR_PHOTOS[profile.id];
+
   return (
     <aside className="fixed bottom-6 right-6 z-[70] flex flex-col items-end gap-3" aria-label="Entrepreneur showcase">
       {isOpen && (
@@ -658,8 +719,18 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
           }`}
         >
           <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
-            <div className={`w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white text-lg font-black shadow-md ${profile.accent}`} aria-label={`${profile.name} avatar placeholder`}>
-              {profile.initials}
+            <div className={`w-16 h-16 shrink-0 rounded-full overflow-hidden flex items-center justify-center text-white text-lg font-black shadow-md ring-2 ${highContrast ? 'ring-yellow-400' : 'ring-white'} ${profile.accent}`}>
+              {photoUrl && !photoFailed ? (
+                <img
+                  src={photoUrl}
+                  alt={`Portrait of ${profile.name}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={() => setPhotoFailed(true)}
+                />
+              ) : (
+                <span aria-label={`${profile.name} initials`}>{profile.initials}</span>
+              )}
             </div>
             <div className="min-w-0 flex-1">
               <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{profile.name}</h2>
