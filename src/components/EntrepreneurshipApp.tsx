@@ -6,7 +6,7 @@ import {
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
-  ExternalLink, Users, Mail
+  ExternalLink, Users, Mail, Presentation
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -557,9 +557,10 @@ export default function EntrepreneurshipApp() {
                   { id: 'calculators', label: 'Math Lab' },
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
+                  { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (current.id === 'dashboard' ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
