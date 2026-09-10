@@ -6,7 +6,7 @@ import {
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
-  ExternalLink, Users, Mail
+  ExternalLink, Users, Mail, Presentation
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -557,9 +557,10 @@ export default function EntrepreneurshipApp() {
                   { id: 'calculators', label: 'Math Lab' },
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
+                  { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (current.id === 'dashboard' ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
@@ -646,6 +647,27 @@ export default function EntrepreneurshipApp() {
                   })}
                 </div>
               )}
+
+              {/* Class Whiteboard — standalone */}
+              <button
+                onClick={() => { setActiveTab('whiteboard'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'whiteboard'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Presentation className={`w-4 h-4 ${
+                  activeTab === 'whiteboard'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Class Whiteboard
+              </button>
             </div>
           )}
 
@@ -743,6 +765,27 @@ export default function EntrepreneurshipApp() {
                 </>
               )}
             </div>
+
+            {/* Class Whiteboard — standalone */}
+            <button
+              onClick={() => setActiveTab('whiteboard')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'whiteboard'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <Presentation className={`w-4 h-4 ${
+                activeTab === 'whiteboard'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Class Whiteboard
+            </button>
           </div>
         </div>
       </nav>
@@ -789,6 +832,46 @@ export default function EntrepreneurshipApp() {
 
         {activeTab === 'simulator' && (
           <VentureSimulatorView setXp={setXp} highContrast={highContrast} speakText={speakText} />
+        )}
+
+        {activeTab === 'whiteboard' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <Presentation className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                  Class Whiteboard
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Our shared MS Entrepreneurship Figma board — explore, comment, and collaborate live.
+                </p>
+              </div>
+              <a
+                href="https://www.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Figma
+              </a>
+            </div>
+            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
+              <iframe
+                title="MS Entrepreneurship Figma Whiteboard"
+                style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+                className="w-full"
+                width="100%"
+                height="600"
+                src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
+                allowFullScreen
+              />
+            </div>
+          </div>
         )}
       </main>
 
