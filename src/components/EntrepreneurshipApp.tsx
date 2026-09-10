@@ -354,6 +354,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [showcaseOpen, setShowcaseOpen] = useState(false);
   const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
@@ -557,7 +558,9 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                 ].find((t) => t.id === activeTab);
-                return current ? current.label : 'Menu';
+                return current
+                  ? (current.id === 'dashboard' ? current.label : `Resources · ${current.label}`)
+                  : 'Menu';
               })()}
             </div>
           </div>
@@ -565,8 +568,34 @@ export default function EntrepreneurshipApp() {
           {/* MOBILE DROPDOWN PANEL */}
           {mobileNavOpen && (
             <div className="md:hidden flex flex-col gap-1.5 pb-3 animate-in fade-in slide-in-from-top-2 duration-200">
+              {/* Dashboard & Roadmap — standalone */}
+              <button
+                onClick={() => { setActiveTab('dashboard'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'dashboard'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Rocket className={`w-4 h-4 ${
+                  activeTab === 'dashboard'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Dashboard & Roadmap
+              </button>
+
+              {/* Resources & Modules — group header */}
+              <div className={`flex items-center gap-2 px-4 pt-3 pb-1 text-xs font-bold uppercase tracking-wide ${
+                highContrast ? 'text-yellow-300' : 'text-[#414042]/60'
+              }`}>
+                <Layers className="w-3.5 h-3.5" /> Resources & Modules
+              </div>
               {[
-                { id: 'dashboard', label: 'Dashboard & Roadmap', icon: Rocket },
                 { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                 { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
                 { id: 'practice', label: 'Interactive Scenarios', icon: Target },
@@ -578,7 +607,7 @@ export default function EntrepreneurshipApp() {
                   <button
                     key={tab.id}
                     onClick={() => { setActiveTab(tab.id); setMobileNavOpen(false); }}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                    className={`flex items-center gap-3 pl-8 pr-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
                       isActive
                         ? highContrast
                           ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
@@ -601,39 +630,99 @@ export default function EntrepreneurshipApp() {
           )}
 
           {/* DESKTOP NAV TABS */}
-          <div className="hidden md:flex space-x-2 overflow-x-auto py-2.5 scrollbar-none">
-            {[
-              { id: 'dashboard', label: 'Dashboard & Roadmap', icon: Rocket },
-              { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
-              { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
-              { id: 'practice', label: 'Interactive Scenarios', icon: Target },
-              { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                    isActive
-                      ? highContrast
-                        ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                        : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                      : highContrast
-                        ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                        : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${
-                    isActive
-                      ? highContrast ? 'text-black' : 'text-white'
-                      : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                  }`} />
-                  {tab.label}
-                </button>
-              );
-            })}
+          <div className="hidden md:flex items-center space-x-2 overflow-x-auto py-2.5 scrollbar-none">
+            {/* Dashboard & Roadmap — standalone */}
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'dashboard'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <Rocket className={`w-4 h-4 ${
+                activeTab === 'dashboard'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Dashboard & Roadmap
+            </button>
+
+            {/* Resources & Modules — dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setResourcesMenuOpen(!resourcesMenuOpen)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+                aria-expanded={resourcesMenuOpen}
+                aria-haspopup="true"
+              >
+                <Layers className={`w-4 h-4 ${
+                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Resources & Modules
+                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${resourcesMenuOpen ? 'rotate-90' : ''}`} />
+              </button>
+              {resourcesMenuOpen && (
+                <>
+                  {/* Click-away backdrop */}
+                  <button
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className="fixed inset-0 z-40 cursor-default"
+                    onClick={() => setResourcesMenuOpen(false)}
+                  />
+                  <div className={`absolute left-0 mt-2 w-64 rounded-xl shadow-lg overflow-hidden z-50 ${
+                    highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15'
+                  }`}>
+                    {[
+                      { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
+                      { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+                      { id: 'practice', label: 'Interactive Scenarios', icon: Target },
+                      { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
+                    ].map((tab) => {
+                      const Icon = tab.icon;
+                      const isActive = activeTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => { setActiveTab(tab.id); setResourcesMenuOpen(false); }}
+                          className={`flex items-center gap-3 px-4 py-3 w-full text-left text-sm font-semibold transition ${
+                            isActive
+                              ? highContrast
+                                ? 'bg-yellow-400 text-black font-extrabold'
+                                : 'bg-[#C51C63]/10 text-[#C51C63]'
+                              : highContrast
+                                ? 'text-white hover:bg-zinc-800'
+                                : 'text-[#414042] hover:bg-[#414042]/5'
+                          }`}
+                        >
+                          <Icon className={`w-4 h-4 ${
+                            isActive
+                              ? highContrast ? 'text-black' : 'text-[#C51C63]'
+                              : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                          }`} />
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>
