@@ -650,7 +650,7 @@ export default function EntrepreneurshipApp() {
           )}
 
           {/* DESKTOP NAV TABS */}
-          <div className="hidden md:flex items-center space-x-2 overflow-x-auto py-2.5 scrollbar-none">
+          <div className="hidden md:flex items-center space-x-2 py-2.5">
             {/* Dashboard & Roadmap — standalone */}
             <button
               onClick={() => setActiveTab('dashboard')}
