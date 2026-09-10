@@ -459,7 +459,7 @@ export default function EntrepreneurshipApp() {
             <span className={`text-sm md:text-base tracking-wide font-extrabold transition ${
               highContrast ? 'text-white' : 'text-white group-hover:text-[#EFA835]'
             }`}>
-              Entrepreneurship Resource & Knowledge Practice Hub
+              NEIA Entrepreneur Hub
             </span>
           </button>
 
@@ -1114,7 +1114,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
       {/* CURRICULUM ROADMAP GRID */}
       <div className="space-y-4">
         <h2 className={`text-xl font-bold flex items-center gap-2 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-          <Layers className={`w-5 h-5 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} /> Curriculum Roadmap
+          <Layers className={`w-5 h-5 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} /> Resource Roadmap
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
