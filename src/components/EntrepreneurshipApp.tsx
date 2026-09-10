@@ -647,6 +647,27 @@ export default function EntrepreneurshipApp() {
                   })}
                 </div>
               )}
+
+              {/* Class Whiteboard — standalone */}
+              <button
+                onClick={() => { setActiveTab('whiteboard'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'whiteboard'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Presentation className={`w-4 h-4 ${
+                  activeTab === 'whiteboard'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Class Whiteboard
+              </button>
             </div>
           )}
 
