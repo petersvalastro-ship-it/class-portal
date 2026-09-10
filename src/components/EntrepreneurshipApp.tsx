@@ -6,7 +6,8 @@ import {
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
-  ExternalLink, Users, Mail, Presentation
+  ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -58,6 +59,83 @@ function FigmaLogo({ className = "w-8 h-8" }) {
       <circle cx="28.5" cy="28.5" r="9.5" fill="#1ABCFE" />
       <path fill="#0ACF83" d="M19 38H9.5a9.5 9.5 0 1 0 9.5 9.5V38z" />
     </svg>
+  );
+}
+
+// Live date/time clock + Marlborough, MA weather (Open-Meteo, no API key needed)
+function weatherCodeInfo(code) {
+  if (code === 0) return { label: 'Clear sky', Icon: Sun };
+  if (code === 1) return { label: 'Mostly clear', Icon: Sun };
+  if (code === 2) return { label: 'Partly cloudy', Icon: Cloudy };
+  if (code === 3) return { label: 'Overcast', Icon: Cloud };
+  if (code === 45 || code === 48) return { label: 'Foggy', Icon: CloudFog };
+  if ([51, 53, 55, 56, 57].includes(code)) return { label: 'Drizzle', Icon: CloudRain };
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { label: 'Rain', Icon: CloudRain };
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return { label: 'Snow', Icon: CloudSnow };
+  if ([95, 96, 99].includes(code)) return { label: 'Thunderstorms', Icon: CloudLightning };
+  return { label: 'Changing skies', Icon: Cloud };
+}
+
+function LiveDateTimeWeather({ highContrast }) {
+  const [now, setNow] = useState(() => new Date());
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = () => {
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=42.3459&longitude=-71.5523&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph')
+        .then((r) => r.json())
+        .then((d) => { if (!cancelled && d && d.current) setWeather(d.current); })
+        .catch(() => {});
+    };
+    load();
+    const t = setInterval(load, 10 * 60 * 1000); // refresh every 10 minutes
+    return () => { cancelled = true; clearInterval(t); };
+  }, []);
+
+  const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' });
+  const fullDate = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  const info = weather ? weatherCodeInfo(weather.weather_code) : null;
+  const WIcon = info ? info.Icon : Cloud;
+
+  return (
+    <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 ${
+      highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'
+    }`}>
+      <div className="flex items-center gap-3">
+        <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
+        <div>
+          <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            {dayOfWeek}, {fullDate}
+          </p>
+          <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
+            {time}
+          </p>
+        </div>
+      </div>
+      <div className={`hidden sm:block w-px self-stretch ${highContrast ? 'bg-white/40' : 'bg-[#414042]/15'}`} />
+      <div className="flex items-center gap-3">
+        <WIcon className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
+        <div>
+          <p className={`text-sm font-bold flex items-center gap-1.5 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            <MapPin className="w-3.5 h-3.5" /> Marlborough, MA
+          </p>
+          {weather ? (
+            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
+              {Math.round(weather.temperature_2m)}°F · {info.label} · Wind {Math.round(weather.wind_speed_10m)} mph
+            </p>
+          ) : (
+            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/60'}`}>Loading weather…</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1039,6 +1117,9 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
         </div>
       </div>
+
+      {/* LIVE DATE / TIME / WEATHER */}
+      <LiveDateTimeWeather highContrast={highContrast} />
 
       {/* TEACHER INTRODUCTION */}
       <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
