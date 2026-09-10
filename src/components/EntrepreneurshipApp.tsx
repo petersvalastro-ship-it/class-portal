@@ -862,7 +862,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
               href="mailto:pietro.valastro@neiacademy.org"
               className={`w-full max-w-[16rem] px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-[#C51C63] hover:bg-[#C51C63]/90 text-white border border-[#C51C63]'}`}
             >
-              <Mail className="w-4 h-4" /> Email Mr. Valastro
+              <Mail className="w-4 h-4" /> Email
             </a>
           </div>
           {/* Introduction text */}
