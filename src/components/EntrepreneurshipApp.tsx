@@ -354,6 +354,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [showcaseOpen, setShowcaseOpen] = useState(false);
   const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
