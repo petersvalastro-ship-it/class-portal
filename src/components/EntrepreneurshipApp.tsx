@@ -12,6 +12,31 @@ import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
 import neiaLogo from '../assets/neia-logo.png.asset.json';
 
+function GoogleClassroomLogo({ className = "w-8 h-8" }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
+      <path fill="#FFC107" d="M6 8h36v32H6z" />
+      <path fill="#0F9D58" d="M10 12h28v24H10z" />
+      <circle cx="24" cy="21" r="5" fill="#FFFFFF" />
+      <path fill="#FFFFFF" d="M14 33c.5-5.2 4.2-8 10-8s9.5 2.8 10 8H14z" />
+      <path fill="#57BB8A" d="M11 35h26v3H11z" />
+    </svg>
+  );
+}
+
+function FigmaLogo({ className = "w-8 h-8" }) {
+  return (
+    <svg viewBox="0 0 38 57" className={className} aria-hidden="true">
+      <path fill="#F24E1E" d="M19 0H9.5a9.5 9.5 0 0 0 0 19H19V0z" />
+      <path fill="#FF7262" d="M19 0h9.5a9.5 9.5 0 1 1 0 19H19V0z" />
+      <path fill="#A259FF" d="M19 19H9.5a9.5 9.5 0 0 0 0 19H19V19z" />
+      <circle cx="28.5" cy="28.5" r="9.5" fill="#1ABCFE" />
+      <path fill="#0ACF83" d="M19 38H9.5a9.5 9.5 0 1 0 9.5 9.5V38z" />
+    </svg>
+  );
+}
+
+
 const GLOSSARY_DATA = [
   {
     id: 'entrepreneur',
@@ -243,11 +268,42 @@ const SORTING_GAME_ITEMS = [
   { name: 'Marketplace fee charged on each sale', correctCategory: 'Variable', why: 'The platform takes a cut on every single order.' }
 ];
 
+const ENTREPRENEURS_DATA = [
+  { id: 1, name: 'Mikaila Ulmer', categoryTags: ['Young Founder', 'Female Entrepreneur', 'Food & Beverage'], ageGroup: 'Young', gender: 'Female', photoUrl: '', initials: 'MU', accent: 'bg-[#EFA835]', currentTitle: 'Founder & CEO, Me & the Bees Lemonade', whereTheyStarted: 'At age four, Mikaila used her great-grandmother’s flaxseed lemonade recipe and a fascination with bees to enter a children’s business competition.', mostKnownFor: 'Building Me & the Bees Lemonade into a nationally distributed brand while supporting bee conservation.', overview: 'Mikaila turned an early product idea into a mission-driven company. Her story shows how curiosity, family knowledge, and a social purpose can grow together.' },
+  { id: 2, name: 'Moziah Bridges', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Fashion'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'MB', accent: 'bg-[#C51C63]', currentTitle: "Founder, Mo's Bows", whereTheyStarted: 'Moziah began hand-sewing bow ties at age nine after learning from his grandmother and noticing a gap in colorful children’s accessories.', mostKnownFor: "Launching Mo's Bows and securing major retail and sports partnerships.", overview: 'He grew from a home sewing table to a recognized fashion business by combining a distinct personal style with persistence and strong storytelling.' },
+  { id: 3, name: 'Ben Pasternak', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Technology'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'BP', accent: 'bg-[#E94928]', currentTitle: 'Technology Entrepreneur, SIMULATE / NUGGS', whereTheyStarted: 'Ben built a simple mobile game while bored in a high-school science class in Sydney, then watched it rise in app-store rankings.', mostKnownFor: 'Co-founding technology ventures and the plant-based food company SIMULATE.', overview: 'Ben moved from app development into consumer food, demonstrating how entrepreneurial skills can transfer across very different industries.' },
+  { id: 4, name: 'Alina Morse', categoryTags: ['Young Founder', 'Female Entrepreneur', 'Consumer Goods'], ageGroup: 'Young', gender: 'Female', photoUrl: '', initials: 'AM', accent: 'bg-[#414042]', currentTitle: 'Founder & CEO, Zolli Candy', whereTheyStarted: 'At age seven, Alina wondered why candy could not be better for teeth and began testing recipes with her family.', mostKnownFor: 'Creating sugar-free Zollipops and building a widely sold better-for-you candy brand.', overview: 'Her willingness to question an everyday product led to years of testing, retail growth, and a company with an educational mission.' },
+  { id: 5, name: 'Gabby Goodwin', categoryTags: ['Young Founder', 'Female Entrepreneur', 'Beauty'], ageGroup: 'Young', gender: 'Female', photoUrl: '', initials: 'GG', accent: 'bg-[#C51C63]', currentTitle: 'Co-founder, GaBBY Bows', whereTheyStarted: 'Gabby and her mother solved the recurring problem of hair barrettes slipping out by designing a double-face, double-snap bow.', mostKnownFor: 'Patenting and selling GaBBY Bows while teaching other young entrepreneurs.', overview: 'Gabby turned a personal frustration into an inventive product, learning product design, intellectual property, and customer service at a young age.' },
+  { id: 6, name: 'Cory Nieves', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Food & Beverage'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'CN', accent: 'bg-[#EFA835]', currentTitle: 'Founder, Mr. Cory’s Cookies', whereTheyStarted: 'Cory first sold hot cocoa to help his mother buy a car, then shifted to cookies after customers asked for a product they could take home.', mostKnownFor: 'Growing Mr. Cory’s Cookies from a neighborhood stand into a premium cookie company.', overview: 'His early pivot from drinks to packaged treats highlights listening to customers and adapting an idea when a stronger opportunity appears.' },
+  { id: 7, name: 'Asia Newson', categoryTags: ['Young Founder', 'Female Entrepreneur', 'Retail'], ageGroup: 'Young', gender: 'Female', photoUrl: '', initials: 'AN', accent: 'bg-[#E94928]', currentTitle: 'Founder, Super Business Girl', whereTheyStarted: 'Asia learned candle-making from her father and began selling handmade candles door to door in Detroit.', mostKnownFor: 'Building Super Business Girl and encouraging youth entrepreneurship.', overview: 'Asia used direct selling to understand customers, improve her confidence, and develop a brand focused on both products and youth empowerment.' },
+  { id: 8, name: 'Fraser Doherty', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Food & Beverage'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'FD', accent: 'bg-[#414042]', currentTitle: 'Founder, SuperJam', whereTheyStarted: 'Fraser learned to make jam from his grandmother in Scotland and started selling his own recipes as a teenager.', mostKnownFor: 'Creating SuperJam and winning national supermarket distribution.', overview: 'He scaled a family recipe by simplifying ingredients, refining packaging, and convincing large retailers that his product deserved shelf space.' },
+  { id: 9, name: 'Sara Blakely', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Fashion'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'SB', accent: 'bg-[#C51C63]', currentTitle: 'Founder, Spanx', whereTheyStarted: 'Sara invested $5,000 of personal savings earned selling fax machines and developed her first prototype by cutting the feet off pantyhose.', mostKnownFor: 'Inventing Spanx and building a global shapewear company.', overview: 'She researched patents, pitched manufacturers herself, and used creative demonstrations to turn a simple wardrobe problem into a major brand.' },
+  { id: 10, name: 'Yvon Chouinard', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Outdoor Industry'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'YC', accent: 'bg-[#EFA835]', currentTitle: 'Founder, Patagonia', whereTheyStarted: 'Yvon began forging reusable climbing pitons in a backyard workshop and selling them from his car to fellow climbers.', mostKnownFor: 'Building Patagonia around durable products and environmental responsibility.', overview: 'His company connected product quality to a clear set of values, proving that business choices can reflect long-term environmental commitments.' },
+  { id: 11, name: 'Melanie Perkins', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'MP', accent: 'bg-[#E94928]', currentTitle: 'Co-founder & CEO, Canva', whereTheyStarted: 'While teaching design software, Melanie saw students struggle with complex tools and first built an easier school yearbook platform.', mostKnownFor: 'Co-founding Canva and making visual design accessible to millions.', overview: 'After many investor rejections, she kept refining the vision for browser-based design and assembled a team capable of scaling it globally.' },
+  { id: 12, name: 'Madam C. J. Walker', categoryTags: ['Historic Founder', 'Female Entrepreneur', 'Beauty'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'CW', accent: 'bg-[#414042]', currentTitle: 'Founder, Madam C. J. Walker Manufacturing Company', whereTheyStarted: 'After experiencing hair loss, Walker experimented with treatments and sold products directly while training other women as sales agents.', mostKnownFor: 'Building a pioneering Black hair-care company and creating economic opportunities for women.', overview: 'She paired product innovation with a powerful direct-sales network, philanthropy, and education at a time when opportunities were severely limited.' },
+  { id: 13, name: 'Daymond John', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Fashion'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'DJ', accent: 'bg-[#C51C63]', currentTitle: 'Founder, FUBU', whereTheyStarted: 'Daymond sewed hats in his mother’s Queens home and sold them on neighborhood streets before expanding into apparel.', mostKnownFor: 'Building FUBU into a global streetwear brand and investing on Shark Tank.', overview: 'He used cultural insight, grassroots marketing, and resourcefulness to build demand before traditional retailers recognized the opportunity.' },
+  { id: 14, name: 'Jan Koum', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Technology'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'JK', accent: 'bg-[#E94928]', currentTitle: 'Co-founder, WhatsApp', whereTheyStarted: 'After immigrating to the United States and teaching himself computer networking, Jan developed the idea for a simple status and messaging app.', mostKnownFor: 'Co-founding WhatsApp, a globally used private messaging service.', overview: 'His focus on a clear, reliable product with minimal advertising helped WhatsApp grow through user trust and straightforward design.' },
+  { id: 15, name: 'Whitney Wolfe Herd', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'WW', accent: 'bg-[#EFA835]', currentTitle: 'Founder, Bumble', whereTheyStarted: 'Whitney used her experience in social apps to design a dating platform where women make the first move.', mostKnownFor: 'Founding Bumble and changing expectations in online dating.', overview: 'She built the product around a distinctive behavioral rule, then expanded the brand into friendship and professional networking.' },
+  { id: 16, name: 'Hamdi Ulukaya', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Food & Beverage'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'HU', accent: 'bg-[#414042]', currentTitle: 'Founder & CEO, Chobani', whereTheyStarted: 'Hamdi bought a closed yogurt factory in upstate New York with a small-business loan and rehired several former workers.', mostKnownFor: 'Growing Chobani into a major yogurt brand.', overview: 'He revived an overlooked factory by improving the product, investing in employees, and introducing Greek yogurt to a broad U.S. market.' },
+  { id: 17, name: 'Jessica O. Matthews', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Clean Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'JM', accent: 'bg-[#C51C63]', currentTitle: 'Founder & CEO, Uncharted Power', whereTheyStarted: 'Jessica helped invent an energy-generating soccer ball after observing unreliable electricity during a family visit to Nigeria.', mostKnownFor: 'Developing infrastructure technology that explores new ways to generate and distribute power.', overview: 'Her work combines engineering, community needs, and infrastructure thinking to address energy access through inventive systems.' },
+  { id: 18, name: 'Tristan Walker', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Beauty'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'TW', accent: 'bg-[#E94928]', currentTitle: 'Founder, Walker & Company Brands', whereTheyStarted: 'Tristan recognized that many shaving products did not serve people with coarse or curly hair and built a brand around that unmet need.', mostKnownFor: 'Creating Bevel and health-and-beauty products for underserved consumers.', overview: 'He used a sharply defined customer problem to develop specialized products and challenge gaps in the mainstream personal-care market.' },
+  { id: 19, name: 'Leila Janah', categoryTags: ['Social Entrepreneur', 'Female Entrepreneur', 'Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'LJ', accent: 'bg-[#EFA835]', currentTitle: 'Founder, Samasource', whereTheyStarted: 'Leila saw that digital work could be divided into tasks and connected to skilled people in communities with limited job access.', mostKnownFor: 'Building Samasource to provide digital training and dignified work.', overview: 'She demonstrated how a technology-services business could measure success through both strong operations and improved economic opportunity.' },
+  { id: 20, name: 'Brian Chesky', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'Hospitality'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'BC', accent: 'bg-[#414042]', currentTitle: 'Co-founder & CEO, Airbnb', whereTheyStarted: 'Brian and a roommate rented air mattresses in their San Francisco apartment when hotels were full during a conference.', mostKnownFor: 'Co-founding Airbnb and creating a global home-sharing marketplace.', overview: 'The founders tested a tiny solution to an immediate need, then improved trust, photos, payments, and host tools to scale the marketplace.' },
+  { id: 21, name: 'Arlan Hamilton', categoryTags: ['Adult Founder', 'Non-binary Entrepreneur', 'Venture Capital'], ageGroup: 'Adult', gender: 'Non-binary', photoUrl: '', initials: 'AH', accent: 'bg-[#C51C63]', currentTitle: 'Founder, Backstage Capital', whereTheyStarted: 'Arlan learned venture investing independently and began building a fund while experiencing housing insecurity.', mostKnownFor: 'Investing in founders historically overlooked by venture capital.', overview: 'By identifying bias as both a problem and an opportunity, Arlan built a fund focused on talent that conventional networks often missed.' },
+  { id: 22, name: 'Maia Chaka', categoryTags: ['Innovator', 'Female Leader', 'Sports'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'MC', accent: 'bg-[#E94928]', currentTitle: 'Founder, Make Meaningful Change', whereTheyStarted: 'Maia combined her background in education and officiating to create programs that help young people develop confidence and leadership skills.', mostKnownFor: 'Breaking barriers in professional football officiating and mentoring youth.', overview: 'Her entrepreneurial approach uses personal expertise and public visibility to create programs with measurable community impact.' },
+  { id: 23, name: 'Tobi Lütke', categoryTags: ['Adult Founder', 'Male Entrepreneur', 'E-commerce'], ageGroup: 'Adult', gender: 'Male', photoUrl: '', initials: 'TL', accent: 'bg-[#EFA835]', currentTitle: 'Co-founder & CEO, Shopify', whereTheyStarted: 'Tobi tried to sell snowboards online, found the available store software frustrating, and programmed a better system himself.', mostKnownFor: 'Building Shopify, a commerce platform used by businesses worldwide.', overview: 'A tool created to solve his own retail problem became more valuable than the original store, leading the team to pivot into software.' },
+  { id: 24, name: 'Katrina Lake', categoryTags: ['Adult Founder', 'Female Entrepreneur', 'Retail Technology'], ageGroup: 'Adult', gender: 'Female', photoUrl: '', initials: 'KL', accent: 'bg-[#414042]', currentTitle: 'Founder, Stitch Fix', whereTheyStarted: 'Katrina tested personalized clothing deliveries from her apartment while studying how data could improve the shopping experience.', mostKnownFor: 'Founding Stitch Fix and combining human stylists with recommendation technology.', overview: 'She blended personal service, logistics, and data science to create a new retail model centered on convenience and individual taste.' },
+  { id: 25, name: 'Freddie Figgers', categoryTags: ['Young Founder', 'Male Entrepreneur', 'Telecommunications'], ageGroup: 'Young', gender: 'Male', photoUrl: '', initials: 'FF', accent: 'bg-[#C51C63]', currentTitle: 'Founder & CEO, Figgers Communication', whereTheyStarted: 'Freddie repaired discarded computers as a child and began providing technical services before launching telecommunications products.', mostKnownFor: 'Building an independent telecommunications and technology company.', overview: 'His path from repairing old machines to creating connected products demonstrates self-teaching, persistence, and solving practical customer needs.' }
+];
+
+
 
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [showcaseOpen, setShowcaseOpen] = useState(false);
+  const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
   
   // Universal Design for Learning (UDL) Accessibility Settings
   const [dyslexicFont, setDyslexicFont] = useState(false);
@@ -292,6 +348,27 @@ export default function EntrepreneurshipApp() {
       setCurrentSpeakingId(null);
     }
   };
+
+
+
+  const showPreviousEntrepreneur = () => {
+    setCurrentEntrepreneurIndex((current) => (current - 1 + ENTREPRENEURS_DATA.length) % ENTREPRENEURS_DATA.length);
+  };
+
+  const showNextEntrepreneur = () => {
+    setCurrentEntrepreneurIndex((current) => (current + 1) % ENTREPRENEURS_DATA.length);
+  };
+
+  useEffect(() => {
+    if (!showcaseOpen) return undefined;
+    const handleShowcaseKeyboard = (event) => {
+      if (event.key === 'ArrowLeft') showPreviousEntrepreneur();
+      if (event.key === 'ArrowRight') showNextEntrepreneur();
+      if (event.key === 'Escape') setShowcaseOpen(false);
+    };
+    window.addEventListener('keydown', handleShowcaseKeyboard);
+    return () => window.removeEventListener('keydown', handleShowcaseKeyboard);
+  }, [showcaseOpen]);
 
   const getTextSizeClass = () => {
     if (textSize === 'large') return 'text-lg';
@@ -552,7 +629,92 @@ export default function EntrepreneurshipApp() {
           <VentureSimulatorView setXp={setXp} highContrast={highContrast} speakText={speakText} />
         )}
       </main>
+
+      <EntrepreneurShowcase
+        isOpen={showcaseOpen}
+        onToggle={() => setShowcaseOpen((open) => !open)}
+        onClose={() => setShowcaseOpen(false)}
+        profile={ENTREPRENEURS_DATA[currentEntrepreneurIndex]}
+        currentIndex={currentEntrepreneurIndex}
+        totalProfiles={ENTREPRENEURS_DATA.length}
+        onPrevious={showPreviousEntrepreneur}
+        onNext={showNextEntrepreneur}
+        highContrast={highContrast}
+      />
     </div>
+  );
+}
+
+function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex, totalProfiles, onPrevious, onNext, highContrast }) {
+  return (
+    <aside className="fixed bottom-6 right-6 z-[70] flex flex-col items-end gap-3" aria-label="Entrepreneur showcase">
+      {isOpen && (
+        <section
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="entrepreneur-name"
+          className={`w-[min(360px,calc(100vw-2rem))] max-h-[520px] overflow-y-auto rounded-2xl border shadow-2xl animate-in fade-in slide-in-from-bottom-3 duration-200 ${
+            highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-white text-[#414042] border-[#414042]/15'
+          }`}
+        >
+          <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
+            <div className={`w-14 h-14 shrink-0 rounded-full flex items-center justify-center text-white text-lg font-black shadow-md ${profile.accent}`} aria-label={`${profile.name} avatar placeholder`}>
+              {profile.initials}
+            </div>
+            <div className="min-w-0 flex-1">
+              <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{profile.name}</h2>
+              <p className={`text-xs mt-1 leading-snug ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>{profile.currentTitle}</p>
+            </div>
+            <button type="button" onClick={onClose} aria-label="Close entrepreneur showcase" title="Close" className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition ${highContrast ? 'hover:bg-yellow-400 hover:text-black' : 'hover:bg-[#414042]/10'}`}>
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div key={profile.id} className="p-4 space-y-4 animate-in fade-in slide-in-from-right-2 duration-200">
+            <div className="flex flex-wrap gap-1.5">
+              {profile.categoryTags.map((tag) => (
+                <span key={tag} className={`px-2 py-1 rounded-full text-[10px] font-bold border ${highContrast ? 'border-yellow-400 text-yellow-300' : 'border-[#C51C63]/25 bg-[#C51C63]/8 text-[#C51C63]'}`}>{tag}</span>
+              ))}
+            </div>
+            <div className={`p-3 rounded-xl border-l-4 ${highContrast ? 'bg-zinc-900 border-yellow-400' : 'bg-[#EFA835]/10 border-[#EFA835]'}`}>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Where They Started</h3>
+              <p className="text-sm leading-relaxed mt-1">{profile.whereTheyStarted}</p>
+            </div>
+            <div>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>Most Known For</h3>
+              <p className="text-sm font-bold leading-relaxed mt-1">{profile.mostKnownFor}</p>
+            </div>
+            <div>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Life & Career</h3>
+              <p className={`text-sm leading-relaxed mt-1 ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>{profile.overview}</p>
+            </div>
+          </div>
+
+          <div className={`sticky bottom-0 flex items-center justify-between gap-3 p-3 border-t ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
+            <button type="button" onClick={onPrevious} aria-label="Previous entrepreneur" title="Previous entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <span className="text-xs font-black tabular-nums">{currentIndex + 1} of {totalProfiles}</span>
+            <button type="button" onClick={onNext} aria-label="Next entrepreneur" title="Next entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </section>
+      )}
+
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label={isOpen ? 'Close entrepreneur showcase' : 'Open entrepreneur showcase'}
+        aria-expanded={isOpen}
+        title={isOpen ? 'Close entrepreneur showcase' : 'Meet an entrepreneur'}
+        className={`w-16 h-16 rounded-full flex items-center justify-center shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 ${
+          highContrast ? 'bg-yellow-400 text-black border-2 border-white' : 'bg-[#C51C63] text-white border-4 border-white'
+        }`}
+      >
+        {isOpen ? <X className="w-7 h-7" /> : <Sparkles className="w-7 h-7" />}
+      </button>
+    </aside>
   );
 }
 
@@ -683,8 +845,8 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
                 : 'bg-[#EFA835]/10 hover:bg-[#EFA835]/20 text-[#414042] border border-[#414042]/20'
             }`}
           >
-            <div className={`p-3 rounded-lg ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#EFA835] text-white'}`}>
-              <BookOpen className="w-6 h-6" />
+            <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center ${highContrast ? 'bg-white' : 'bg-white shadow-sm'}`}>
+              <GoogleClassroomLogo className="w-9 h-9" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Google Classroom</div>
@@ -704,8 +866,8 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
                 : 'bg-[#C51C63]/10 hover:bg-[#C51C63]/20 text-[#414042] border border-[#414042]/20'
             }`}
           >
-            <div className={`p-3 rounded-lg ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white'}`}>
-              <Layers className="w-6 h-6" />
+            <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center ${highContrast ? 'bg-white' : 'bg-white shadow-sm'}`}>
+              <FigmaLogo className="w-7 h-10" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Class Figma</div>
