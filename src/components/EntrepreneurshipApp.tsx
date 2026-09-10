@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   BookOpen, Calculator, Rocket, Trophy, Volume2, Sparkles, 
-  CheckCircle2, XCircle, ArrowRight, HelpCircle, RefreshCw, 
+  CheckCircle2, XCircle, ArrowLeft, ArrowRight, HelpCircle, RefreshCw, 
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
