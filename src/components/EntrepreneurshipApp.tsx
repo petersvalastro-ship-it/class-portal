@@ -1118,6 +1118,9 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
       </div>
 
+      {/* LIVE DATE / TIME / WEATHER */}
+      <LiveDateTimeWeather highContrast={highContrast} />
+
       {/* TEACHER INTRODUCTION */}
       <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 items-stretch">
