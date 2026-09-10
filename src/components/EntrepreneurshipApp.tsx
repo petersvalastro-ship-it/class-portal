@@ -558,7 +558,9 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                 ].find((t) => t.id === activeTab);
-                return current ? current.label : 'Menu';
+                return current
+                  ? (current.id === 'dashboard' ? current.label : `Resources · ${current.label}`)
+                  : 'Menu';
               })()}
             </div>
           </div>
