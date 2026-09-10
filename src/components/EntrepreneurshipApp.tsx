@@ -6,7 +6,7 @@ import {
   Search, Award, Layers, DollarSign, TrendingUp, PieChart, 
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
-  ExternalLink, Users
+  ExternalLink, Users, Mail
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -852,12 +852,18 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
       <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 items-stretch">
           {/* Photo — aligned to the top of the container, on a white background */}
-          <div className="relative md:col-span-1 flex items-start justify-center bg-white p-6">
+          <div className="relative md:col-span-1 flex flex-col items-center justify-start bg-white p-6 gap-4">
             <img
               src={pietroPhoto.url}
               alt="Mr. Pietro Valastro, Entrepreneurship teacher"
               className="w-48 h-48 md:w-56 md:h-56 object-cover rounded-full border-4 border-[#EFA835]/30 shadow-lg"
             />
+            <a
+              href="mailto:pietro.valastro@neiacademy.org"
+              className={`w-full max-w-[16rem] px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-[#C51C63] hover:bg-[#C51C63]/90 text-white border border-[#C51C63]'}`}
+            >
+              <Mail className="w-4 h-4" /> Email Mr. Valastro
+            </a>
           </div>
           {/* Introduction text */}
           <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
