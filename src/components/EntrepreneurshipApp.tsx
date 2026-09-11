@@ -562,7 +562,7 @@ export default function EntrepreneurshipApp() {
   };
 
   return (
-    <div className={`min-h-screen overflow-x-hidden transition-colors duration-200 ${
+    <div className={`min-h-screen overflow-x-clip transition-colors duration-200 ${
       highContrast 
         ? 'bg-black text-white font-bold' 
         : 'bg-white text-[#414042]'
