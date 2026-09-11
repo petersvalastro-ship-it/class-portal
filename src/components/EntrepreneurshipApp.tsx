@@ -62,6 +62,19 @@ function FigmaLogo({ className = "w-8 h-8" }) {
   );
 }
 
+function CanvaLogo({ className = "w-8 h-8" }) {
+  return (
+    <svg viewBox="0 0 192 192" className={className} aria-hidden="true">
+      <circle cx="96" cy="96" r="96" fill="#7D2AE7" />
+      <path
+        fill="#fff"
+        d="M152.5 119.6c-2.7 6.6-9.3 11.4-17.4 11.4-9.6 0-17.4-6.6-19.2-16.2 1.8 1.2 4.2 2.1 6.6 2.1 5.7 0 9.6-3.9 9.6-9.3 0-5.7-4.2-9.3-9.6-9.3-2.4 0-4.8.9-6.6 2.1.6-3.9 1.8-7.5 3.9-10.8-2.7-4.2-6.9-6.9-12-6.9-8.7 0-14.7 7.5-14.7 17.1 0 11.4 7.5 20.7 17.1 20.7 6.6 0 12.3-3.9 15-9.6 3.3 5.7 9 9.6 15.6 9.6 9.6 0 17.4-7.5 17.4-17.1 0-3-.9-6-2.4-8.4-2.7 1.5-5.7 2.4-8.7 2.4-5.7 0-10.5-3-13.2-7.5 2.1-3.6 3.3-7.8 3.3-12.3 0-12-9.6-21.6-21.6-21.6-12 0-21.6 9.6-21.6 21.6 0 12 9.6 21.6 21.6 21.6 3.6 0 6.9-.9 9.9-2.4 1.5 4.8 5.4 8.4 10.5 8.4 4.8 0 9-3 10.5-7.2-1.2.3-2.4.6-3.6.6-5.7 0-10.2-4.5-10.2-10.2 0-5.7 4.5-10.2 10.2-10.2 5.7 0 10.2 4.5 10.2 10.2 0 1.2-.3 2.4-.6 3.6 4.2-1.5 7.2-5.7 7.2-10.5 0-6.3-4.8-11.4-11.1-11.4z"
+      />
+    </svg>
+  );
+}
+
+
 // Quote of the day — rotates daily (indexed by day of year)
 const DAILY_QUOTES = [
   { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
@@ -1587,6 +1600,27 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
               <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Class Figma</div>
               <div className={`text-xs truncate ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>
                 figma.com
+              </div>
+            </div>
+            <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
+          </a>
+          <a
+            href="https://www.canva.com/brand/join?token=3pfBvqosyj-JikSAxzW0pg&brandingVariant=edu&invitationDestinationType=group"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex items-center gap-4 p-4 rounded-xl transition shadow-xs ${
+              highContrast
+                ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700'
+                : 'bg-[#7D2AE7]/10 hover:bg-[#7D2AE7]/20 text-[#414042] border border-[#414042]/20'
+            }`}
+          >
+            <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center ${highContrast ? 'bg-white' : 'bg-white shadow-sm'}`}>
+              <CanvaLogo className="w-8 h-8" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Class Canva</div>
+              <div className={`text-xs truncate ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>
+                canva.com
               </div>
             </div>
             <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
