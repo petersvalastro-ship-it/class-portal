@@ -1325,7 +1325,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </div>
             <button
               onClick={() => speakText("Welcome! I am your Entrepreneurship teacher, Mr. Pietro Valastro, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets. Over the coming months, you will learn to think like a problem harvester and an opportunity seeker. We will reset our approach to goal setting, cultivate resilience, and fundamentally redefine how we view failure. After all, are we truly failing if we are experimenting, learning, and trying again? True impact happens when learning moves past theory and transforms into action. My goal is to help you take what you learn in this room, combine it with your unique passions, and turn it into tangible results. I am glad you are here, and I am in your corner every step of the way. Ready. Set. Innovate.")}
-              className={`mt-2 px-4 py-2 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-[#EFA835]/10 hover:bg-[#EFA835]/20 text-[#414042] border border-[#414042]/20'}`}
+              className={`mt-2 px-4 py-2 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-white/10 hover:bg-white/20 text-white border border-white/30'}`}
             >
               <Volume2 className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} /> Read Aloud
             </button>
