@@ -1181,20 +1181,14 @@ export default function EntrepreneurshipApp() {
                 Open in Figma
               </a>
             </div>
-            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
-              <iframe
-                title="MS Entrepreneurship Figma Whiteboard"
-                style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
-                className="w-full"
-                width="100%"
-                height="600"
-                src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
-                allowFullScreen
-              />
-            </div>
-            <p className={`text-xs ${highContrast ? 'text-white' : 'text-[#414042]/60'}`}>
-              If the board above looks blank, use "Open in Figma" and sign in — the board's sharing settings may require it.
-            </p>
+            <iframe
+              title="MS Entrepreneurship Figma Whiteboard"
+              style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+              width="800"
+              height="450"
+              src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
+              allowFullScreen
+            />
           </div>
         )}
       </main>
