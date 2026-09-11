@@ -37,6 +37,7 @@ import maiaChakaPhoto from '../assets/entrepreneurs/maia-chaka.jpg.asset.json';
 import tobiLutkePhoto from '../assets/entrepreneurs/tobi-lutke.jpg.asset.json';
 import katrinaLakePhoto from '../assets/entrepreneurs/katrina-lake.jpg.asset.json';
 import freddieFiggersPhoto from '../assets/entrepreneurs/freddie-figgers.jpg.asset.json';
+import comingSoonPhoto from '../assets/coming-soon.jpg.asset.json';
 
 function GoogleClassroomLogo({ className = "w-8 h-8" }) {
   return (
@@ -1182,6 +1183,20 @@ export default function EntrepreneurshipApp() {
                   </span>
                 </button>
               ))}
+            </div>
+
+            <div className="mt-8">
+              <h3 className={`text-xl font-bold mb-3 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                Coming Soon
+              </h3>
+              <div className={`rounded-2xl overflow-hidden border shadow-lg ${highContrast ? 'border-yellow-400' : 'border-[#414042]/15'}`}>
+                <img
+                  src={comingSoonPhoto.url}
+                  alt="Coming soon — students collaborating in the entrepreneurship classroom"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         )}
