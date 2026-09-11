@@ -1008,6 +1008,47 @@ export default function EntrepreneurshipApp() {
           <VentureSimulatorView setXp={setXp} highContrast={highContrast} speakText={speakText} />
         )}
 
+        {activeTab === 'schedule' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <Calendar className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                  Class Schedule
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Our shared MS Entrepreneurship Google Calendar — class sessions, deadlines, and events all in one place.
+                </p>
+              </div>
+              <a
+                href="https://calendar.google.com/calendar/embed?src=c_classroom7d094986%40group.calendar.google.com&ctz=America%2FNew_York"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Google Calendar
+              </a>
+            </div>
+            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
+              <iframe
+                title="MS Entrepreneurship Class Calendar"
+                src="https://calendar.google.com/calendar/embed?src=c_classroom7d094986%40group.calendar.google.com&ctz=America%2FNew_York"
+                style={{ border: 0 }}
+                width="100%"
+                height="600"
+                frameBorder="0"
+                scrolling="no"
+                className="w-full"
+              />
+            </div>
+          </div>
+        )}
+
         {activeTab === 'whiteboard' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
