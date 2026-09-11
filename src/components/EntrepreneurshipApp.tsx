@@ -1221,8 +1221,8 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
             highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-[#414042] text-white border-white/20'
           }`}
         >
-          <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
-            <div className={`w-16 h-16 shrink-0 rounded-full overflow-hidden flex items-center justify-center text-white text-lg font-black shadow-md ring-2 ${highContrast ? 'ring-yellow-400' : 'ring-white'} ${profile.accent}`}>
+          <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-[#414042] border-white/10'}`}>
+            <div className={`w-16 h-16 shrink-0 rounded-full overflow-hidden flex items-center justify-center text-white text-lg font-black shadow-md ring-2 ${highContrast ? 'ring-yellow-400' : 'ring-white/80'} ${profile.accent}`}>
               {photoUrl && !photoFailed ? (
                 <img
                   src={photoUrl}
@@ -1236,10 +1236,10 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
               )}
             </div>
             <div className="min-w-0 flex-1">
-              <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{profile.name}</h2>
-              <p className={`text-xs mt-1 leading-snug ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>{profile.currentTitle}</p>
+              <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-white'}`}>{profile.name}</h2>
+              <p className={`text-xs mt-1 leading-snug ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>{profile.currentTitle}</p>
             </div>
-            <button type="button" onClick={onClose} aria-label="Close entrepreneur showcase" title="Close" className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition ${highContrast ? 'hover:bg-yellow-400 hover:text-black' : 'hover:bg-[#414042]/10'}`}>
+            <button type="button" onClick={onClose} aria-label="Close entrepreneur showcase" title="Close" className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition ${highContrast ? 'hover:bg-yellow-400 hover:text-black' : 'hover:bg-white/15'}`}>
               <X className="w-5 h-5" />
             </button>
           </div>
