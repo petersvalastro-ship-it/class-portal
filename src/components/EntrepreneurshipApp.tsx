@@ -1255,6 +1255,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
         </div>
       </div>
+      </div>
 
       {/* Scrollable content layer — rises over the pinned hero */}
       <div className="relative z-10 -mt-6 sm:-mt-10 space-y-8 px-0">
