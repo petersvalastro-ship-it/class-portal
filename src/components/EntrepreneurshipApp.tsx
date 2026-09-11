@@ -1308,6 +1308,35 @@ export default function EntrepreneurshipApp() {
         )}
       </main>
 
+      {/* FOOTER */}
+      <footer className={`mt-12 border-t ${highContrast ? 'border-yellow-400 bg-zinc-900 text-white' : 'border-[#414042]/15 bg-[#414042] text-white'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <img src={neiaLogo.url} alt="NEIA" className="w-7 h-7 object-contain" />
+              <span className="font-bold text-sm">NEIA Entrepreneur Hub</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <button
+                onClick={() => { setActiveTab('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="hover:underline underline-offset-4 transition"
+              >
+                Terms of Use
+              </button>
+              <button
+                onClick={() => { setActiveTab('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="hover:underline underline-offset-4 transition"
+              >
+                Privacy Policy
+              </button>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-xs text-white/60">
+            © {new Date().getFullYear()} New England Innovation Academy · Entrepreneurship Hub. For educational use only.
+          </p>
+        </div>
+      </footer>
+
       <EntrepreneurShowcase
         isOpen={showcaseOpen}
         onToggle={() => setShowcaseOpen((open) => !open)}
