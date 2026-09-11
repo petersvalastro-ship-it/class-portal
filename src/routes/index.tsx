@@ -4,7 +4,7 @@ import EntrepreneurshipApp from "@/components/EntrepreneurshipApp";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Young Entrepreneur Academy | Learn Business Basics" },
+      { title: "NEIA Entrepreneur Hub" },
       {
         name: "description",
         content:
