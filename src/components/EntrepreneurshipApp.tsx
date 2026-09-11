@@ -1247,20 +1247,20 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
           <div key={profile.id} className="p-4 space-y-4 animate-in fade-in slide-in-from-right-2 duration-200">
             <div className="flex flex-wrap gap-1.5">
               {profile.categoryTags.map((tag) => (
-                <span key={tag} className={`px-2 py-1 rounded-full text-[10px] font-bold border ${highContrast ? 'border-yellow-400 text-yellow-300' : 'border-[#C51C63]/25 bg-[#C51C63]/8 text-[#C51C63]'}`}>{tag}</span>
+                <span key={tag} className={`px-2 py-1 rounded-full text-[10px] font-bold border ${highContrast ? 'border-yellow-400 text-yellow-300' : 'border-[#EFA835]/40 bg-[#EFA835]/15 text-[#EFA835]'}`}>{tag}</span>
               ))}
             </div>
-            <div className={`p-3 rounded-xl border-l-4 ${highContrast ? 'bg-zinc-900 border-yellow-400' : 'bg-[#EFA835]/10 border-[#EFA835]'}`}>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Where They Started</h3>
-              <p className="text-sm leading-relaxed mt-1">{profile.whereTheyStarted}</p>
+            <div className={`p-3 rounded-xl border-l-4 ${highContrast ? 'bg-zinc-900 border-yellow-400' : 'bg-white/5 border-[#EFA835]'}`}>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`}>Where They Started</h3>
+              <p className="text-sm leading-relaxed mt-1 text-white/90">{profile.whereTheyStarted}</p>
             </div>
             <div>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>Most Known For</h3>
-              <p className="text-sm font-bold leading-relaxed mt-1">{profile.mostKnownFor}</p>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Most Known For</h3>
+              <p className="text-sm font-bold leading-relaxed mt-1 text-white">{profile.mostKnownFor}</p>
             </div>
             <div>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Life & Career</h3>
-              <p className={`text-sm leading-relaxed mt-1 ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>{profile.overview}</p>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>Life & Career</h3>
+              <p className={`text-sm leading-relaxed mt-1 ${highContrast ? 'text-zinc-100' : 'text-white/80'}`}>{profile.overview}</p>
             </div>
           </div>
 
