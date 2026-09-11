@@ -656,8 +656,21 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Gamification Badge */}
+          {/* Feedback + Gamification Badge */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                highContrast
+                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                  : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#C51C63]/90 hover:border-[#C51C63]'
+              }`}
+              aria-label="Open Feedback form"
+              title="Feedback"
+            >
+              <MessageSquareText className="w-4 h-4" />
+              <span className="hidden sm:inline">Feedback</span>
+            </button>
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
               highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
             }`}>
