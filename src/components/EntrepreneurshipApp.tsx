@@ -1051,6 +1051,59 @@ export default function EntrepreneurshipApp() {
           <VentureSimulatorView setXp={setXp} highContrast={highContrast} speakText={speakText} />
         )}
 
+        {activeTab === 'entrepreneurs' && (
+          <div className="space-y-6">
+            <div>
+              <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                <Users className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                Entrepreneur Profiles
+              </h2>
+              <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                Meet 25 diverse founders — from young inventors to global CEOs. Click any profile to open their full story.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {ENTREPRENEURS_DATA.map((person, index) => (
+                <button
+                  key={person.id}
+                  type="button"
+                  onClick={() => { setCurrentEntrepreneurIndex(index); setShowcaseOpen(true); }}
+                  className={`group flex flex-col items-center text-center p-4 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
+                    highContrast
+                      ? 'bg-zinc-900 border-2 border-white hover:border-yellow-400'
+                      : 'bg-white border-[#414042]/15 hover:border-[#C51C63] shadow-sm'
+                  }`}
+                  aria-label={`Open profile of ${person.name}`}
+                >
+                  <div className={`w-20 h-20 rounded-full overflow-hidden flex items-center justify-center text-white text-xl font-black shadow-md ring-4 ${highContrast ? 'ring-yellow-400' : 'ring-[#414042]/5 group-hover:ring-[#C51C63]/20'} ${person.accent}`}>
+                    {ENTREPRENEUR_PHOTOS[person.id] ? (
+                      <img
+                        src={ENTREPRENEUR_PHOTOS[person.id]}
+                        alt={`Portrait of ${person.name}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span aria-label={`${person.name} initials`}>{person.initials}</span>
+                    )}
+                  </div>
+                  <h3 className={`mt-3 font-black text-sm leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+                    {person.name}
+                  </h3>
+                  <p className={`mt-1 text-xs leading-snug ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>
+                    {person.currentTitle}
+                  </p>
+                  <span className={`mt-2 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63]/10 text-[#C51C63]'
+                  }`}>
+                    {person.categoryTags[0]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {activeTab === 'schedule' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
