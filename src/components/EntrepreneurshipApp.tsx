@@ -1200,9 +1200,10 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
   return (
     <div className="animate-fadeIn">
       {/* STICKY HERO BANNER — pinned while content scrolls up over it */}
-      <div className={`sticky top-0 z-0 w-screen left-1/2 -translate-x-1/2 overflow-hidden shadow-xs ${
-        highContrast ? 'bg-zinc-900' : 'bg-[#414042]'
-      }`}>
+      <div className="sticky top-0 z-0">
+        <div className={`relative w-screen left-1/2 -translate-x-1/2 overflow-hidden shadow-xs ${
+          highContrast ? 'bg-zinc-900' : 'bg-[#414042]'
+        }`}>
         {/* Hero background image (NEIA campus) */}
         <div
           aria-hidden="true"
