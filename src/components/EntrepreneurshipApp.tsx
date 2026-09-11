@@ -1469,6 +1469,51 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           })}
         </div>
       </div>
+
+      {/* QUICK STATS */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className={`p-5 rounded-2xl flex items-center gap-4 shadow-xs ${
+          highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border border-[#414042]/15'
+        }`}>
+          <div className={`p-3 rounded-xl border ${
+            highContrast ? 'bg-yellow-400 text-black border-white' : 'bg-[#EFA835]/15 text-[#EFA835] border-[#EFA835]/30'
+          }`}>
+            <Trophy className="w-7 h-7" />
+          </div>
+          <div>
+            <div className={`text-2xl font-black ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{xp}</div>
+            <div className={`text-xs font-medium ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Total Experience Points</div>
+          </div>
+        </div>
+
+        <div className={`p-5 rounded-2xl flex items-center gap-4 shadow-xs ${
+          highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border border-[#414042]/15'
+        }`}>
+          <div className={`p-3 rounded-xl border ${
+            highContrast ? 'bg-yellow-400 text-black border-white' : 'bg-[#C51C63]/10 text-[#C51C63] border-[#C51C63]/20'
+          }`}>
+            <BookOpen className="w-7 h-7" />
+          </div>
+          <div>
+            <div className={`text-2xl font-black ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{masteredCount} / {GLOSSARY_DATA.length}</div>
+            <div className={`text-xs font-medium ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Glossary Terms Mastered</div>
+          </div>
+        </div>
+
+        <div className={`p-5 rounded-2xl flex items-center gap-4 shadow-xs ${
+          highContrast ? 'bg-zinc-900 border-2 border-white text-white' : 'bg-white border border-[#414042]/15'
+        }`}>
+          <div className={`p-3 rounded-xl border ${
+            highContrast ? 'bg-yellow-400 text-black border-white' : 'bg-[#E94928]/10 text-[#E94928] border-[#E94928]/20'
+          }`}>
+            <Target className="w-7 h-7" />
+          </div>
+          <div>
+            <div className={`text-2xl font-black ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{scenariosCount} / {PRACTICE_SCENARIOS.length}</div>
+            <div className={`text-xs font-medium ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>Scenarios Solved</div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   );
