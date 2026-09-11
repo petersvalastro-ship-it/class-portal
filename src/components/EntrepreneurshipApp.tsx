@@ -1215,44 +1215,12 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           aria-hidden="true"
           className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/95 via-white/60 to-white/15'}`}
         />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-28">
-        <div className="relative max-w-2xl space-y-4">
-          <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border drop-shadow-sm ${
-            highContrast 
-              ? 'bg-yellow-400 text-black border-white' 
-              : 'bg-[#E94928]/10 border-[#E94928]/30 text-[#E94928]'
-          }`}>
-            <Sparkles className={`w-3.5 h-3.5 ${highContrast ? 'text-black' : 'text-[#EFA835]'}`} /> Middle School Financial Literacy & Entrepreneurship
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
+          <div className="relative">
+            <h1 className={`text-4xl sm:text-6xl md:text-7xl font-black tracking-tight drop-shadow-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
+            </h1>
           </div>
-          <h1 className={`text-3xl sm:text-5xl font-black tracking-tight drop-shadow-sm ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
-          </h1>
-          <p className={`leading-relaxed font-medium drop-shadow-sm ${highContrast ? 'text-zinc-100' : 'text-[#414042]'}`}>
-            Welcome to your interactive practice hub! Discover how money works, master the math behind smart business decisions, and learn to think like an entrepreneur. From calculating net worth and analyzing real-world costs to pitching your own big ideas, you’ll build the mindset and skills to turn your vision into reality
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <button 
-              onClick={() => setActiveTab('practice')}
-              className={`font-bold px-5 py-3 rounded-xl flex items-center gap-2 shadow-md transition transform active:scale-95 ${
-                highContrast 
-                  ? 'bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold border-2 border-white' 
-                  : 'bg-[#C51C63] hover:bg-[#a81452] text-white shadow-[#C51C63]/20'
-              }`}
-            >
-              Start Practice Challenges <ArrowRight className={`w-4 h-4 ${highContrast ? 'text-black' : 'text-[#EFA835]'}`} />
-            </button>
-            <button 
-              onClick={() => speakText("Welcome to your interactive entrepreneurship practice hub. Use this platform to explore financial terms, solve real business math scenarios, and build your own business pitch.")}
-              className={`px-4 py-3 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${
-                highContrast 
-                  ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' 
-                  : 'bg-white hover:bg-[#414042]/5 text-[#414042] border border-[#414042]/20'
-              }`}
-            >
-              <Volume2 className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} /> Read Overview
-            </button>
-          </div>
-        </div>
         </div>
       </div>
       </div>
