@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
   BookOpen, Calculator, Rocket, Trophy, Volume2, Sparkles, 
   CheckCircle2, XCircle, ArrowLeft, ArrowRight, HelpCircle, RefreshCw, 
@@ -112,10 +112,11 @@ function weatherCodeInfo(code) {
 }
 
 function LiveDateTimeWeather({ highContrast }) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState(null);
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
+    setNow(new Date());
     const t = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
@@ -133,13 +134,13 @@ function LiveDateTimeWeather({ highContrast }) {
     return () => { cancelled = true; clearInterval(t); };
   }, []);
 
-  const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' });
-  const fullDate = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-  const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+  const dayOfWeek = now ? now.toLocaleDateString('en-US', { weekday: 'long' }) : '';
+  const fullDate = now ? now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Today';
+  const time = now ? now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' }) : '--:--:--';
   const info = weather ? weatherCodeInfo(weather.weather_code) : null;
   const WIcon = info ? info.Icon : Cloud;
 
-  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  const dayOfYear = now ? Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000) : 0;
   const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
 
   return (
@@ -151,7 +152,7 @@ function LiveDateTimeWeather({ highContrast }) {
           <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
           <div>
             <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-              {dayOfWeek}, {fullDate}
+              {dayOfWeek ? `${dayOfWeek}, ${fullDate}` : fullDate}
             </p>
             <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
               {time}
@@ -496,6 +497,7 @@ export default function EntrepreneurshipApp() {
   const [textSize, setTextSize] = useState('normal');
   const [speechSynthesisActive, setSpeechSynthesisActive] = useState(false);
   const [currentSpeakingId, setCurrentSpeakingId] = useState(null);
+  const mainContentRef = useRef(null);
 
   // Gamification & Progress State
   const [xp, setXp] = useState(0);
@@ -554,6 +556,14 @@ export default function EntrepreneurshipApp() {
     window.addEventListener('keydown', handleShowcaseKeyboard);
     return () => window.removeEventListener('keydown', handleShowcaseKeyboard);
   }, [showcaseOpen]);
+
+  useEffect(() => {
+    if (activeTab === 'dashboard') return;
+    const frame = window.requestAnimationFrame(() => {
+      mainContentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeTab]);
 
   const getTextSizeClass = () => {
     if (textSize === 'large') return 'text-lg';
@@ -1008,7 +1018,7 @@ export default function EntrepreneurshipApp() {
       </nav>
 
       {/* MAIN CONTENT AREA */}
-      <main className={`max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 ${getTextSizeClass()}`}>
+      <main ref={mainContentRef} className={`max-w-7xl mx-auto scroll-mt-20 p-4 sm:p-6 lg:p-8 ${getTextSizeClass()}`}>
         {activeTab === 'dashboard' && (
           <DashboardView 
             setActiveTab={setActiveTab} 
