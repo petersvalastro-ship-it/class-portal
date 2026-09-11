@@ -1494,6 +1494,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           })}
         </div>
       </div>
+      </div>
     </div>
   );
 }
