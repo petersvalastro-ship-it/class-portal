@@ -1217,8 +1217,8 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
           role="dialog"
           aria-modal="false"
           aria-labelledby="entrepreneur-name"
-          className={`w-[min(360px,calc(100vw-2rem))] max-h-[520px] overflow-y-auto rounded-2xl border shadow-2xl animate-in fade-in slide-in-from-bottom-3 duration-200 ${
-            highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-white text-[#414042] border-[#414042]/15'
+          className={`w-[min(360px,calc(100vw-2rem))] max-h-[520px] overflow-y-auto rounded-2xl border shadow-2xl ring-1 ring-black/5 animate-in fade-in slide-in-from-bottom-3 duration-200 ${
+            highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-[#414042] text-white border-white/20'
           }`}
         >
           <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
