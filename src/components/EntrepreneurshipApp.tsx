@@ -1604,6 +1604,27 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </div>
             <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
           </a>
+          <a
+            href="https://www.canva.com/brand/join?token=3pfBvqosyj-JikSAxzW0pg&brandingVariant=edu&invitationDestinationType=group"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`group flex items-center gap-4 p-4 rounded-xl transition shadow-xs ${
+              highContrast
+                ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700'
+                : 'bg-[#7D2AE7]/10 hover:bg-[#7D2AE7]/20 text-[#414042] border border-[#414042]/20'
+            }`}
+          >
+            <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center ${highContrast ? 'bg-white' : 'bg-white shadow-sm'}`}>
+              <CanvaLogo className="w-8 h-8" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm sm:text-base">MS Entrepreneurship Class Canva</div>
+              <div className={`text-xs truncate ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>
+                canva.com
+              </div>
+            </div>
+            <ExternalLink className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60 group-hover:text-[#414042]'}`} />
+          </a>
         </div>
       </div>
       {/* CURRICULUM ROADMAP GRID */}
