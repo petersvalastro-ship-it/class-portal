@@ -504,6 +504,8 @@ export default function EntrepreneurshipApp() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [showcaseOpen, setShowcaseOpen] = useState(false);
   const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   
   // Universal Design for Learning (UDL) Accessibility Settings
   const [dyslexicFont, setDyslexicFont] = useState(false);
