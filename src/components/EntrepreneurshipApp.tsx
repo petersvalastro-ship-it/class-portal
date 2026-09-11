@@ -1197,6 +1197,20 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
 }
 
 function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakText, highContrast }) {
+  const [confetti, setConfetti] = useState<number[]>([]);
+  const confettiTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const triggerConfetti = () => {
+    const pieces = Array.from({ length: 60 }, (_, i) => i);
+    setConfetti(pieces);
+    if (confettiTimer.current) clearTimeout(confettiTimer.current);
+    confettiTimer.current = setTimeout(() => setConfetti([]), 4500);
+  };
+
+  useEffect(() => {
+    return () => { if (confettiTimer.current) clearTimeout(confettiTimer.current); };
+  }, []);
+
   return (
     <div className="animate-fadeIn">
       {/* STICKY HERO BANNER — pinned while content scrolls up over it */}
@@ -1215,9 +1229,46 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           aria-hidden="true"
           className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/95 via-white/60 to-white/15'}`}
         />
+        {/* White glittering confetti — falls from top on headline click */}
+        {confetti.length > 0 && (
+          <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[60] overflow-hidden">
+            {confetti.map((i) => {
+              const left = Math.random() * 100;
+              const delay = Math.random() * 1.2;
+              const duration = 3 + Math.random() * 2;
+              const size = 6 + Math.random() * 8;
+              const drift = (Math.random() - 0.5) * 120;
+              const isStar = Math.random() > 0.6;
+              return (
+                <span
+                  key={i}
+                  className="confetti-piece absolute top-0 block"
+                  style={{
+                    left: `${left}%`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    animationDelay: `${delay}s`,
+                    animationDuration: `${duration}s`,
+                    // @ts-ignore custom property for drift
+                    ['--drift']: `${drift}px`,
+                    background: isStar ? 'transparent' : 'rgba(255,255,255,0.95)',
+                    boxShadow: isStar ? 'none' : '0 0 6px rgba(255,255,255,0.8)',
+                    borderRadius: isStar ? '0' : '50%',
+                  }}
+                >
+                  {isStar && (
+                    <Sparkles className="text-white" style={{ width: `${size}px`, height: `${size}px`, filter: 'drop-shadow(0 0 4px rgba(255,255,255,0.9))' }} />
+                  )}
+                </span>
+              );
+            })}
+          </div>
+        )}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="relative">
-            <h1 className={`hero-glow cursor-default text-4xl sm:text-6xl md:text-7xl font-black tracking-tight drop-shadow-lg leading-tight transition-all duration-500 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            <h1
+              onClick={triggerConfetti}
+              className={`hero-glow cursor-pointer text-4xl sm:text-6xl md:text-7xl font-black tracking-tight drop-shadow-lg leading-tight transition-all duration-500 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
               Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
             </h1>
           </div>
