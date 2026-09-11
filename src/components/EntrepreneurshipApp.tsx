@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -656,8 +656,21 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Gamification Badge */}
+          {/* Feedback + Gamification Badge */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                highContrast
+                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                  : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#C51C63]/90 hover:border-[#C51C63]'
+              }`}
+              aria-label="Open Feedback form"
+              title="Feedback"
+            >
+              <MessageSquareText className="w-4 h-4" />
+              <span className="hidden sm:inline">Feedback</span>
+            </button>
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
               highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
             }`}>
@@ -700,10 +713,11 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                   { id: 'entrepreneurs', label: 'Entrepreneurs' },
+                  { id: 'feedback', label: 'Feedback' },
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','schedule','entrepreneurs','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','entrepreneurs','whiteboard','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
@@ -794,6 +808,27 @@ export default function EntrepreneurshipApp() {
                     : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
                 }`} />
                 Entrepreneurs
+              </button>
+
+              {/* Feedback — standalone */}
+              <button
+                onClick={() => { setActiveTab('feedback'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'feedback'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <MessageSquareText className={`w-4 h-4 ${
+                  activeTab === 'feedback'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Feedback
               </button>
 
               {/* Resources & Modules — collapsible group */}
@@ -940,6 +975,27 @@ export default function EntrepreneurshipApp() {
                   : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
               }`} />
               Entrepreneurs
+            </button>
+
+            {/* Feedback — standalone */}
+            <button
+              onClick={() => setActiveTab('feedback')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'feedback'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <MessageSquareText className={`w-4 h-4 ${
+                activeTab === 'feedback'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Feedback
             </button>
 
             {/* Resources & Modules — dropdown */}
@@ -1190,6 +1246,49 @@ export default function EntrepreneurshipApp() {
                 src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
                 allowFullScreen
               />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'feedback' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <MessageSquareText className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                  Feedback
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Share your thoughts, questions, or ideas — your feedback helps shape this class.
+                </p>
+              </div>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfO5PEET5KrqsldB0ZoBqSE8U20yJalbSRe2DpJCi6SpD4Xbw/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Google Forms
+              </a>
+            </div>
+            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
+              <iframe
+                title="MS Entrepreneurship Feedback Form"
+                src="https://docs.google.com/forms/d/e/1FAIpQLSfO5PEET5KrqsldB0ZoBqSE8U20yJalbSRe2DpJCi6SpD4Xbw/viewform?embedded=true"
+                width="100%"
+                height="1156"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+                className="w-full"
+              >
+                Loading…
+              </iframe>
             </div>
           </div>
         )}
