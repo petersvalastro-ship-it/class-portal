@@ -142,3 +142,19 @@
     color: var(--color-foreground);
   }
 }
+
+/* Hero headline glow + breathe on hover */
+@keyframes hero-breathe {
+  0%, 100% {
+    text-shadow: 0 0 8px rgba(197, 28, 99, 0.35), 0 0 20px rgba(197, 28, 99, 0.25);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(197, 28, 99, 0.7), 0 0 40px rgba(197, 28, 99, 0.5), 0 0 60px rgba(197, 28, 99, 0.3);
+    transform: scale(1.015);
+  }
+}
+
+.hero-glow:hover {
+  animation: hero-breathe 2.4s ease-in-out infinite;
+}
