@@ -562,7 +562,7 @@ export default function EntrepreneurshipApp() {
   };
 
   return (
-    <div className={`min-h-screen overflow-x-hidden transition-colors duration-200 ${
+    <div className={`min-h-screen overflow-x-clip transition-colors duration-200 ${
       highContrast 
         ? 'bg-black text-white font-bold' 
         : 'bg-white text-[#414042]'
@@ -1198,11 +1198,12 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
 
 function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakText, highContrast }) {
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* HERO BANNER */}
-      <div className={`relative w-screen left-1/2 -translate-x-1/2 overflow-hidden shadow-xs ${
-        highContrast ? 'bg-zinc-900' : 'bg-[#414042]'
-      }`}>
+    <div className="animate-fadeIn">
+      {/* STICKY HERO BANNER — pinned while content scrolls up over it */}
+      <div className="sticky top-0 z-0">
+        <div className={`relative w-screen left-1/2 -translate-x-1/2 overflow-hidden shadow-xs ${
+          highContrast ? 'bg-zinc-900' : 'bg-[#414042]'
+        }`}>
         {/* Hero background image (NEIA campus) */}
         <div
           aria-hidden="true"
@@ -1214,7 +1215,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           aria-hidden="true"
           className={`absolute inset-0 ${highContrast ? 'bg-zinc-900/85' : 'bg-gradient-to-r from-white/95 via-white/60 to-white/15'}`}
         />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-28">
         <div className="relative max-w-2xl space-y-4">
           <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border drop-shadow-sm ${
             highContrast 
@@ -1254,7 +1255,10 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
         </div>
       </div>
+      </div>
 
+      {/* Scrollable content layer — rises over the pinned hero */}
+      <div className="relative z-10 -mt-6 sm:-mt-10 space-y-8 px-0">
       {/* LIVE DATE / TIME / WEATHER */}
       <LiveDateTimeWeather highContrast={highContrast} />
 
@@ -1491,6 +1495,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             );
           })}
         </div>
+      </div>
       </div>
     </div>
   );
