@@ -1285,7 +1285,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
       <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-[#444446] border border-[#414042]/15'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 items-stretch">
           {/* Photo — aligned to the top of the container, on a white background */}
-          <div className="relative md:col-span-1 flex flex-col items-center justify-start bg-white p-6 gap-4">
+          <div className="relative md:col-span-1 flex flex-col items-center justify-start bg-[#444446] p-6 gap-4">
             <img
               src={pietroPhoto.url}
               alt="Mr. Pietro Valastro, Entrepreneurship teacher"
