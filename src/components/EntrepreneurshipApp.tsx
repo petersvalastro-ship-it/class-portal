@@ -1249,6 +1249,49 @@ export default function EntrepreneurshipApp() {
             </div>
           </div>
         )}
+
+        {activeTab === 'feedback' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <MessageSquareText className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                  Feedback
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Share your thoughts, questions, or ideas — your feedback helps shape this class.
+                </p>
+              </div>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfO5PEET5KrqsldB0ZoBqSE8U20yJalbSRe2DpJCi6SpD4Xbw/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Google Forms
+              </a>
+            </div>
+            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
+              <iframe
+                title="MS Entrepreneurship Feedback Form"
+                src="https://docs.google.com/forms/d/e/1FAIpQLSfO5PEET5KrqsldB0ZoBqSE8U20yJalbSRe2DpJCi6SpD4Xbw/viewform?embedded=true"
+                width="100%"
+                height="1156"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+                className="w-full"
+              >
+                Loading…
+              </iframe>
+            </div>
+          </div>
+        )}
       </main>
 
       <EntrepreneurShowcase
