@@ -1264,12 +1264,12 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
             </div>
           </div>
 
-          <div className={`sticky bottom-0 flex items-center justify-between gap-3 p-3 border-t ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
-            <button type="button" onClick={onPrevious} aria-label="Previous entrepreneur" title="Previous entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+          <div className={`sticky bottom-0 flex items-center justify-between gap-3 p-3 border-t ${highContrast ? 'bg-black border-white' : 'bg-[#414042] border-white/10'}`}>
+            <button type="button" onClick={onPrevious} aria-label="Previous entrepreneur" title="Previous entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#C51C63] text-white hover:bg-[#E94928]'}`}>
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <span className="text-xs font-black tabular-nums">{currentIndex + 1} of {totalProfiles}</span>
-            <button type="button" onClick={onNext} aria-label="Next entrepreneur" title="Next entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+            <span className="text-xs font-black tabular-nums text-white">{currentIndex + 1} of {totalProfiles}</span>
+            <button type="button" onClick={onNext} aria-label="Next entrepreneur" title="Next entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#C51C63] text-white hover:bg-[#E94928]'}`}>
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
