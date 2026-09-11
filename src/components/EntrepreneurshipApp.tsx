@@ -498,7 +498,7 @@ export default function EntrepreneurshipApp() {
   const [currentSpeakingId, setCurrentSpeakingId] = useState(null);
 
   // Gamification & Progress State
-  const [xp, setXp] = useState(120);
+  const [xp, setXp] = useState(0);
   const [completedScenarios, setCompletedScenarios] = useState({});
   const [masteredTerms, setMasteredTerms] = useState([]);
 
