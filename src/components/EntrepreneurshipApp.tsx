@@ -62,21 +62,16 @@ function FigmaLogo({ className = "w-8 h-8" }) {
   );
 }
 
+import canvaLogoAsset from "@/assets/canva-logo.jpeg.asset.json";
+
 function CanvaLogo({ className = "w-8 h-8" }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="canva-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#00C4CC" />
-          <stop offset="100%" stopColor="#7D2AE7" />
-        </linearGradient>
-      </defs>
-      <circle cx="12" cy="12" r="12" fill="url(#canva-grad)" />
-      <path
-        fill="#fff"
-        d="M12.3 7.2c-2.8 0-4.9 2-4.9 4.9 0 2.9 2 4.9 5 4.9 1.6 0 2.7-.5 3.6-1.5.3-.3.3-.6.3-.7 0-.5-.4-.9-.9-.9-.3 0-.5.1-.7.3-.5.5-1.2.9-2.3.9-1.4 0-2.5-.9-2.7-2.2h5.9c.6 0 .9-.4.9-.9 0-2.6-1.7-4.8-4.8-4.8zm0 1.7c1.3 0 2.2 1 2.4 2.2H9.9c.2-1.3 1.2-2.2 2.4-2.2zm-2-3.4c.3.3.7.5 1.1.5s.8-.2 1.1-.5c.3-.3.4-.7.4-1.1 0-.4-.2-.8-.5-1.1-.3-.3-.7-.4-1.1-.4-.4 0-.8.2-1.1.5-.3.3-.4.7-.4 1.1 0 .4.2.8.5 1z"
-      />
-    </svg>
+    <img
+      src={canvaLogoAsset.url}
+      alt="Canva"
+      className={className}
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 
