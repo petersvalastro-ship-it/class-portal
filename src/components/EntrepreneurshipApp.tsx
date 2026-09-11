@@ -1282,7 +1282,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
       <LiveDateTimeWeather highContrast={highContrast} />
 
       {/* TEACHER INTRODUCTION */}
-      <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
+      <div className={`rounded-2xl overflow-hidden shadow-xs ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-[#444446] border border-[#414042]/15'}`}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 items-stretch">
           {/* Photo — aligned to the top of the container, on a white background */}
           <div className="relative md:col-span-1 flex flex-col items-center justify-start bg-white p-6 gap-4">
@@ -1299,14 +1299,14 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </a>
           </div>
           {/* Introduction text */}
-          <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+          <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-white'}`}>
             <div className="flex items-center gap-2">
               <span className={`text-2xl`}>👋</span>
-              <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-white'}`}>
                 Welcome!
               </h2>
             </div>
-            <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>
+            <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-white/90'}`}>
               <p>
                 I am your Entrepreneurship teacher, <strong className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}>Mr. Pietro Valastro</strong>, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets.
               </p>
@@ -1325,7 +1325,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </div>
             <button
               onClick={() => speakText("Welcome! I am your Entrepreneurship teacher, Mr. Pietro Valastro, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets. Over the coming months, you will learn to think like a problem harvester and an opportunity seeker. We will reset our approach to goal setting, cultivate resilience, and fundamentally redefine how we view failure. After all, are we truly failing if we are experimenting, learning, and trying again? True impact happens when learning moves past theory and transforms into action. My goal is to help you take what you learn in this room, combine it with your unique passions, and turn it into tangible results. I am glad you are here, and I am in your corner every step of the way. Ready. Set. Innovate.")}
-              className={`mt-2 px-4 py-2 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-[#EFA835]/10 hover:bg-[#EFA835]/20 text-[#414042] border border-[#414042]/20'}`}
+              className={`mt-2 px-4 py-2 rounded-xl flex items-center gap-2 transition font-semibold shadow-xs ${highContrast ? 'bg-zinc-800 text-white border-2 border-white hover:bg-zinc-700' : 'bg-white/10 hover:bg-white/20 text-white border border-white/30'}`}
             >
               <Volume2 className={`w-4 h-4 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} /> Read Aloud
             </button>
