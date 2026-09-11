@@ -9,7 +9,7 @@ import {
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
   CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar
 } from 'lucide-react';
-import neiaHero from '../assets/neia-hero.png.asset.json';
+import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
 import neiaLogo from '../assets/neia-logo.png.asset.json';
 import mikailaUlmerPhoto from '../assets/entrepreneurs/mikaila-ulmer.jpg.asset.json';
