@@ -1184,7 +1184,7 @@ export default function EntrepreneurshipApp() {
             <div className="flex justify-center">
               <iframe
                 title="MS Entrepreneurship Figma Whiteboard"
-                style={{ border: '1px solid rgba(0, 0, 0, 0.1)"' }}
+                style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
                 className="w-full max-w-5xl rounded-xl shadow-lg"
                 height="700"
                 src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
