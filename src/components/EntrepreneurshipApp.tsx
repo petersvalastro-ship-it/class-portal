@@ -37,6 +37,7 @@ import maiaChakaPhoto from '../assets/entrepreneurs/maia-chaka.jpg.asset.json';
 import tobiLutkePhoto from '../assets/entrepreneurs/tobi-lutke.jpg.asset.json';
 import katrinaLakePhoto from '../assets/entrepreneurs/katrina-lake.jpg.asset.json';
 import freddieFiggersPhoto from '../assets/entrepreneurs/freddie-figgers.jpg.asset.json';
+import comingSoonPhoto from '../assets/coming-soon.jpg.asset.json';
 
 function GoogleClassroomLogo({ className = "w-8 h-8" }) {
   return (
