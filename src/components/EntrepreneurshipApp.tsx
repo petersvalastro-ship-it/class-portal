@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -62,6 +62,41 @@ function FigmaLogo({ className = "w-8 h-8" }) {
   );
 }
 
+// Quote of the day — rotates daily (indexed by day of year)
+const DAILY_QUOTES = [
+  { text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
+  { text: "Opportunities don't happen. You create them.", author: "Chris Grosser" },
+  { text: "Success is not final; failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+  { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+  { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+  { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+  { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas Edison" },
+  { text: "The biggest risk is not taking any risk.", author: "Mark Zuckerberg" },
+  { text: "Whether you think you can or you think you can't, you're right.", author: "Henry Ford" },
+  { text: "Every problem is a gift — without problems we would not grow.", author: "Tony Robbins" },
+  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+  { text: "Chase the vision, not the money; the money will end up following you.", author: "Tony Hsieh" },
+  { text: "Your most unhappy customers are your greatest source of learning.", author: "Bill Gates" },
+  { text: "It's fine to celebrate success, but it is more important to heed the lessons of failure.", author: "Bill Gates" },
+  { text: "If you really look closely, most overnight successes took a long time.", author: "Steve Jobs" },
+  { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+  { text: "A goal without a plan is just a wish.", author: "Antoine de Saint-Exupéry" },
+  { text: "Fall seven times and stand up eight.", author: "Japanese Proverb" },
+  { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+  { text: "Ideas are easy. Implementation is hard.", author: "Guy Kawasaki" },
+  { text: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky" },
+  { text: "Risk more than others think is safe. Dream more than others think is practical.", author: "Howard Schultz" },
+  { text: "If you're not embarrassed by the first version of your product, you've launched too late.", author: "Reid Hoffman" },
+  { text: "Make every detail perfect and limit the number of details to perfect.", author: "Jack Dorsey" },
+  { text: "The entrepreneur always searches for change, responds to it, and exploits it as an opportunity.", author: "Peter Drucker" },
+  { text: "Success usually comes to those who are too busy to be looking for it.", author: "Henry David Thoreau" },
+  { text: "Do one thing every day that scares you.", author: "Eleanor Roosevelt" },
+  { text: "The harder I work, the luckier I get.", author: "Samuel Goldwyn" },
+  { text: "What would you do if you weren't afraid?", author: "Sheryl Sandberg" },
+  { text: "Done is better than perfect.", author: "Sheryl Sandberg" },
+  { text: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
+];
+
 // Live date/time clock + Marlborough, MA weather (Open-Meteo, no API key needed)
 function weatherCodeInfo(code) {
   if (code === 0) return { label: 'Clear sky', Icon: Sun };
@@ -104,35 +139,53 @@ function LiveDateTimeWeather({ highContrast }) {
   const info = weather ? weatherCodeInfo(weather.weather_code) : null;
   const WIcon = info ? info.Icon : Cloud;
 
+  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+
   return (
-    <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 ${
-      highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'
-    }`}>
-      <div className="flex items-center gap-3">
-        <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
-        <div>
-          <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            {dayOfWeek}, {fullDate}
-          </p>
-          <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
-            {time}
-          </p>
+    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 shrink-0 ${
+        highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'
+      }`}>
+        <div className="flex items-center gap-3">
+          <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
+          <div>
+            <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              {dayOfWeek}, {fullDate}
+            </p>
+            <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
+              {time}
+            </p>
+          </div>
+        </div>
+        <div className={`hidden sm:block w-px self-stretch ${highContrast ? 'bg-white/40' : 'bg-[#414042]/15'}`} />
+        <div className="flex items-center gap-3">
+          <WIcon className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
+          <div>
+            <p className={`text-sm font-bold flex items-center gap-1.5 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              <MapPin className="w-3.5 h-3.5" /> Marlborough, MA
+            </p>
+            {weather ? (
+              <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
+                {Math.round(weather.temperature_2m)}°F · {info.label} · Wind {Math.round(weather.wind_speed_10m)} mph
+              </p>
+            ) : (
+              <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/60'}`}>Loading weather…</p>
+            )}
+          </div>
         </div>
       </div>
-      <div className={`hidden sm:block w-px self-stretch ${highContrast ? 'bg-white/40' : 'bg-[#414042]/15'}`} />
-      <div className="flex items-center gap-3">
-        <WIcon className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
-        <div>
-          <p className={`text-sm font-bold flex items-center gap-1.5 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            <MapPin className="w-3.5 h-3.5" /> Marlborough, MA
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex items-center gap-4 flex-1 min-w-0 ${
+        highContrast ? 'bg-zinc-900 border-2 border-yellow-300' : 'bg-[#C51C63]'
+      }`}>
+        <Quote className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
+        <div className="min-w-0">
+          <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+            Quote of the Day
           </p>
-          {weather ? (
-            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
-              {Math.round(weather.temperature_2m)}°F · {info.label} · Wind {Math.round(weather.wind_speed_10m)} mph
-            </p>
-          ) : (
-            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/60'}`}>Loading weather…</p>
-          )}
+          <p className={`text-base font-semibold leading-snug ${highContrast ? 'text-white' : 'text-white'}`}>
+            “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
+          </p>
         </div>
       </div>
     </div>
