@@ -656,7 +656,7 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Feedback + Gamification Badge */}
+          {/* Exit Ticket + Gamification Badge */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -665,11 +665,11 @@ export default function EntrepreneurshipApp() {
                   ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
                   : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#C51C63]/90 hover:border-[#C51C63]'
               }`}
-              aria-label="Open Feedback form"
-              title="Feedback"
+              aria-label="Open Exit Ticket"
+              title="Exit Ticket"
             >
               <MessageSquareText className="w-4 h-4" />
-              <span className="hidden sm:inline">Feedback</span>
+              <span className="hidden sm:inline">Exit Ticket</span>
             </button>
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
               highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
@@ -713,7 +713,7 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                   { id: 'entrepreneurs', label: 'Entrepreneurs' },
-                  { id: 'feedback', label: 'Feedback' },
+                  { id: 'feedback', label: 'Exit Ticket' },
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
@@ -810,7 +810,7 @@ export default function EntrepreneurshipApp() {
                 Entrepreneurs
               </button>
 
-              {/* Feedback — standalone */}
+              {/* Exit Ticket — standalone */}
               <button
                 onClick={() => { setActiveTab('feedback'); setMobileNavOpen(false); }}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
@@ -828,7 +828,7 @@ export default function EntrepreneurshipApp() {
                     ? highContrast ? 'text-black' : 'text-white'
                     : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
                 }`} />
-                Feedback
+                Exit Ticket
               </button>
 
               {/* Resources & Modules — collapsible group */}
@@ -977,7 +977,7 @@ export default function EntrepreneurshipApp() {
               Entrepreneurs
             </button>
 
-            {/* Feedback — standalone */}
+            {/* Exit Ticket — standalone */}
             <button
               onClick={() => setActiveTab('feedback')}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
@@ -995,7 +995,7 @@ export default function EntrepreneurshipApp() {
                   ? highContrast ? 'text-black' : 'text-white'
                   : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
               }`} />
-              Feedback
+              Exit Ticket
             </button>
 
             {/* Resources & Modules — dropdown */}
@@ -1256,10 +1256,10 @@ export default function EntrepreneurshipApp() {
               <div>
                 <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
                   <MessageSquareText className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
-                  Feedback
+                  Exit Ticket
                 </h2>
                 <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
-                  Share your thoughts, questions, or ideas — your feedback helps shape this class.
+                  Complete the exit ticket before you leave — your responses help shape this class.
                 </p>
               </div>
               <a
@@ -1278,7 +1278,7 @@ export default function EntrepreneurshipApp() {
             </div>
             <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
               <iframe
-                title="MS Entrepreneurship Feedback Form"
+                title="MS Entrepreneurship Exit Ticket"
                 src="https://docs.google.com/forms/d/e/1FAIpQLSfO5PEET5KrqsldB0ZoBqSE8U20yJalbSRe2DpJCi6SpD4Xbw/viewform?embedded=true"
                 width="100%"
                 height="1156"
