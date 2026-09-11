@@ -689,10 +689,11 @@ export default function EntrepreneurshipApp() {
                   { id: 'calculators', label: 'Math Lab' },
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
+                  { id: 'entrepreneurs', label: 'Entrepreneurs' },
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','schedule','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','entrepreneurs','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
@@ -800,6 +801,27 @@ export default function EntrepreneurshipApp() {
                   })}
                 </div>
               )}
+
+              {/* Entrepreneurs — standalone */}
+              <button
+                onClick={() => { setActiveTab('entrepreneurs'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'entrepreneurs'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Users className={`w-4 h-4 ${
+                  activeTab === 'entrepreneurs'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Entrepreneurs
+              </button>
 
               {/* Class Whiteboard — standalone */}
               <button
@@ -940,6 +962,27 @@ export default function EntrepreneurshipApp() {
               )}
             </div>
 
+            {/* Entrepreneurs — standalone */}
+            <button
+              onClick={() => setActiveTab('entrepreneurs')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'entrepreneurs'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <Users className={`w-4 h-4 ${
+                activeTab === 'entrepreneurs'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Entrepreneurs
+            </button>
+
             {/* Class Whiteboard — standalone */}
             <button
               onClick={() => setActiveTab('whiteboard')}
@@ -1006,6 +1049,59 @@ export default function EntrepreneurshipApp() {
 
         {activeTab === 'simulator' && (
           <VentureSimulatorView setXp={setXp} highContrast={highContrast} speakText={speakText} />
+        )}
+
+        {activeTab === 'entrepreneurs' && (
+          <div className="space-y-6">
+            <div>
+              <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                <Users className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                Entrepreneur Profiles
+              </h2>
+              <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                Meet 25 diverse founders — from young inventors to global CEOs. Click any profile to open their full story.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {ENTREPRENEURS_DATA.map((person, index) => (
+                <button
+                  key={person.id}
+                  type="button"
+                  onClick={() => { setCurrentEntrepreneurIndex(index); setShowcaseOpen(true); }}
+                  className={`group flex flex-col items-center text-center p-4 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
+                    highContrast
+                      ? 'bg-zinc-900 border-2 border-white hover:border-yellow-400'
+                      : 'bg-white border-[#414042]/15 hover:border-[#C51C63] shadow-sm'
+                  }`}
+                  aria-label={`Open profile of ${person.name}`}
+                >
+                  <div className={`w-20 h-20 rounded-full overflow-hidden flex items-center justify-center text-white text-xl font-black shadow-md ring-4 ${highContrast ? 'ring-yellow-400' : 'ring-[#414042]/5 group-hover:ring-[#C51C63]/20'} ${person.accent}`}>
+                    {ENTREPRENEUR_PHOTOS[person.id] ? (
+                      <img
+                        src={ENTREPRENEUR_PHOTOS[person.id]}
+                        alt={`Portrait of ${person.name}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span aria-label={`${person.name} initials`}>{person.initials}</span>
+                    )}
+                  </div>
+                  <h3 className={`mt-3 font-black text-sm leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+                    {person.name}
+                  </h3>
+                  <p className={`mt-1 text-xs leading-snug ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>
+                    {person.currentTitle}
+                  </p>
+                  <span className={`mt-2 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63]/10 text-[#C51C63]'
+                  }`}>
+                    {person.categoryTags[0]}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {activeTab === 'schedule' && (
