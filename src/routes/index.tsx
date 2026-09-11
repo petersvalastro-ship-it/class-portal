@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({
         content:
           "Interactive glossary, profit calculators, practice scenarios, and a venture simulator to teach entrepreneurship fundamentals.",
       },
-      { property: "og:title", content: "Young Entrepreneur Academy" },
+      { property: "og:title", content: "NEIA Entrepreneur Hub" },
       {
         property: "og:description",
         content:
