@@ -744,6 +744,48 @@ export default function EntrepreneurshipApp() {
                 Class Schedule
               </button>
 
+              {/* Class Whiteboard — standalone */}
+              <button
+                onClick={() => { setActiveTab('whiteboard'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'whiteboard'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Presentation className={`w-4 h-4 ${
+                  activeTab === 'whiteboard'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Class Whiteboard
+              </button>
+
+              {/* Entrepreneurs — standalone */}
+              <button
+                onClick={() => { setActiveTab('entrepreneurs'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'entrepreneurs'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <Users className={`w-4 h-4 ${
+                  activeTab === 'entrepreneurs'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                Entrepreneurs
+              </button>
+
               {/* Resources & Modules — collapsible group */}
               <button
                 onClick={() => setResourcesMenuOpen(!resourcesMenuOpen)}
@@ -801,48 +843,6 @@ export default function EntrepreneurshipApp() {
                   })}
                 </div>
               )}
-
-              {/* Entrepreneurs — standalone */}
-              <button
-                onClick={() => { setActiveTab('entrepreneurs'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'entrepreneurs'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Users className={`w-4 h-4 ${
-                  activeTab === 'entrepreneurs'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Entrepreneurs
-              </button>
-
-              {/* Class Whiteboard — standalone */}
-              <button
-                onClick={() => { setActiveTab('whiteboard'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'whiteboard'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Presentation className={`w-4 h-4 ${
-                  activeTab === 'whiteboard'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Class Whiteboard
-              </button>
             </div>
           )}
 
@@ -888,6 +888,48 @@ export default function EntrepreneurshipApp() {
                   : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
               }`} />
               Class Schedule
+            </button>
+
+            {/* Class Whiteboard — standalone */}
+            <button
+              onClick={() => setActiveTab('whiteboard')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'whiteboard'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <Presentation className={`w-4 h-4 ${
+                activeTab === 'whiteboard'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Class Whiteboard
+            </button>
+
+            {/* Entrepreneurs — standalone */}
+            <button
+              onClick={() => setActiveTab('entrepreneurs')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'entrepreneurs'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <Users className={`w-4 h-4 ${
+                activeTab === 'entrepreneurs'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              Entrepreneurs
             </button>
 
             {/* Resources & Modules — dropdown */}
@@ -961,48 +1003,6 @@ export default function EntrepreneurshipApp() {
                 </>
               )}
             </div>
-
-            {/* Entrepreneurs — standalone */}
-            <button
-              onClick={() => setActiveTab('entrepreneurs')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'entrepreneurs'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <Users className={`w-4 h-4 ${
-                activeTab === 'entrepreneurs'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Entrepreneurs
-            </button>
-
-            {/* Class Whiteboard — standalone */}
-            <button
-              onClick={() => setActiveTab('whiteboard')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'whiteboard'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <Presentation className={`w-4 h-4 ${
-                activeTab === 'whiteboard'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Class Whiteboard
-            </button>
           </div>
         </div>
       </nav>
@@ -1217,12 +1217,12 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
           role="dialog"
           aria-modal="false"
           aria-labelledby="entrepreneur-name"
-          className={`w-[min(360px,calc(100vw-2rem))] max-h-[520px] overflow-y-auto rounded-2xl border shadow-2xl animate-in fade-in slide-in-from-bottom-3 duration-200 ${
-            highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-white text-[#414042] border-[#414042]/15'
+          className={`w-[min(360px,calc(100vw-2rem))] max-h-[520px] overflow-y-auto rounded-2xl border shadow-2xl ring-1 ring-black/5 animate-in fade-in slide-in-from-bottom-3 duration-200 ${
+            highContrast ? 'bg-black text-white border-2 border-yellow-400' : 'bg-[#414042] text-white border-white/20'
           }`}
         >
-          <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
-            <div className={`w-16 h-16 shrink-0 rounded-full overflow-hidden flex items-center justify-center text-white text-lg font-black shadow-md ring-2 ${highContrast ? 'ring-yellow-400' : 'ring-white'} ${profile.accent}`}>
+          <div className={`sticky top-0 z-10 flex items-start gap-3 p-4 border-b ${highContrast ? 'bg-black border-white' : 'bg-[#414042] border-white/10'}`}>
+            <div className={`w-16 h-16 shrink-0 rounded-full overflow-hidden flex items-center justify-center text-white text-lg font-black shadow-md ring-2 ${highContrast ? 'ring-yellow-400' : 'ring-white/80'} ${profile.accent}`}>
               {photoUrl && !photoFailed ? (
                 <img
                   src={photoUrl}
@@ -1236,10 +1236,10 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
               )}
             </div>
             <div className="min-w-0 flex-1">
-              <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>{profile.name}</h2>
-              <p className={`text-xs mt-1 leading-snug ${highContrast ? 'text-yellow-300' : 'text-[#414042]/70'}`}>{profile.currentTitle}</p>
+              <h2 id="entrepreneur-name" className={`font-black text-lg leading-tight ${highContrast ? 'text-white' : 'text-white'}`}>{profile.name}</h2>
+              <p className={`text-xs mt-1 leading-snug ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>{profile.currentTitle}</p>
             </div>
-            <button type="button" onClick={onClose} aria-label="Close entrepreneur showcase" title="Close" className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition ${highContrast ? 'hover:bg-yellow-400 hover:text-black' : 'hover:bg-[#414042]/10'}`}>
+            <button type="button" onClick={onClose} aria-label="Close entrepreneur showcase" title="Close" className={`w-9 h-9 shrink-0 rounded-full flex items-center justify-center transition ${highContrast ? 'hover:bg-yellow-400 hover:text-black' : 'hover:bg-white/15'}`}>
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -1247,29 +1247,29 @@ function EntrepreneurShowcase({ isOpen, onToggle, onClose, profile, currentIndex
           <div key={profile.id} className="p-4 space-y-4 animate-in fade-in slide-in-from-right-2 duration-200">
             <div className="flex flex-wrap gap-1.5">
               {profile.categoryTags.map((tag) => (
-                <span key={tag} className={`px-2 py-1 rounded-full text-[10px] font-bold border ${highContrast ? 'border-yellow-400 text-yellow-300' : 'border-[#C51C63]/25 bg-[#C51C63]/8 text-[#C51C63]'}`}>{tag}</span>
+                <span key={tag} className={`px-2 py-1 rounded-full text-[10px] font-bold border ${highContrast ? 'border-yellow-400 text-yellow-300' : 'border-[#EFA835]/40 bg-[#EFA835]/15 text-[#EFA835]'}`}>{tag}</span>
               ))}
             </div>
-            <div className={`p-3 rounded-xl border-l-4 ${highContrast ? 'bg-zinc-900 border-yellow-400' : 'bg-[#EFA835]/10 border-[#EFA835]'}`}>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Where They Started</h3>
-              <p className="text-sm leading-relaxed mt-1">{profile.whereTheyStarted}</p>
+            <div className={`p-3 rounded-xl border-l-4 ${highContrast ? 'bg-zinc-900 border-yellow-400' : 'bg-white/5 border-[#EFA835]'}`}>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`}>Where They Started</h3>
+              <p className="text-sm leading-relaxed mt-1 text-white/90">{profile.whereTheyStarted}</p>
             </div>
             <div>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>Most Known For</h3>
-              <p className="text-sm font-bold leading-relaxed mt-1">{profile.mostKnownFor}</p>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Most Known For</h3>
+              <p className="text-sm font-bold leading-relaxed mt-1 text-white">{profile.mostKnownFor}</p>
             </div>
             <div>
-              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>Life & Career</h3>
-              <p className={`text-sm leading-relaxed mt-1 ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>{profile.overview}</p>
+              <h3 className={`text-xs font-black uppercase ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>Life & Career</h3>
+              <p className={`text-sm leading-relaxed mt-1 ${highContrast ? 'text-zinc-100' : 'text-white/80'}`}>{profile.overview}</p>
             </div>
           </div>
 
-          <div className={`sticky bottom-0 flex items-center justify-between gap-3 p-3 border-t ${highContrast ? 'bg-black border-white' : 'bg-white border-[#414042]/10'}`}>
-            <button type="button" onClick={onPrevious} aria-label="Previous entrepreneur" title="Previous entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+          <div className={`sticky bottom-0 flex items-center justify-between gap-3 p-3 border-t ${highContrast ? 'bg-black border-white' : 'bg-[#414042] border-white/10'}`}>
+            <button type="button" onClick={onPrevious} aria-label="Previous entrepreneur" title="Previous entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#C51C63] text-white hover:bg-[#E94928]'}`}>
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <span className="text-xs font-black tabular-nums">{currentIndex + 1} of {totalProfiles}</span>
-            <button type="button" onClick={onNext} aria-label="Next entrepreneur" title="Next entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#414042] text-white hover:bg-[#C51C63]'}`}>
+            <span className="text-xs font-black tabular-nums text-white">{currentIndex + 1} of {totalProfiles}</span>
+            <button type="button" onClick={onNext} aria-label="Next entrepreneur" title="Next entrepreneur" className={`w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95 ${highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-[#C51C63] text-white hover:bg-[#E94928]'}`}>
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
