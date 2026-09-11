@@ -1217,7 +1217,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="relative">
-            <h1 className={`text-4xl sm:text-6xl md:text-7xl font-black tracking-tight drop-shadow-lg leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+            <h1 className={`hero-glow cursor-default text-4xl sm:text-6xl md:text-7xl font-black tracking-tight drop-shadow-lg leading-tight transition-all duration-500 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
               Activate Your <span className={highContrast ? 'text-yellow-300 underline' : 'text-[#C51C63]'}>Entrepreneurial Mindset</span>
             </h1>
           </div>
