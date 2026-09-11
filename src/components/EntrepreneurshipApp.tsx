@@ -1320,13 +1320,13 @@ export default function EntrepreneurshipApp() {
             </div>
             <div className="flex items-center gap-6 text-sm">
               <button
-                onClick={() => { setActiveTab('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                onClick={() => setShowTermsModal(true)}
                 className="hover:underline underline-offset-4 transition"
               >
                 Terms of Use
               </button>
               <button
-                onClick={() => { setActiveTab('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                onClick={() => setShowPrivacyModal(true)}
                 className="hover:underline underline-offset-4 transition"
               >
                 Privacy Policy
