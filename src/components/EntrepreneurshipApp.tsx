@@ -1299,14 +1299,14 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             </a>
           </div>
           {/* Introduction text */}
-          <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+          <div className={`md:col-span-2 p-6 sm:p-8 space-y-4 ${highContrast ? 'text-white' : 'text-white'}`}>
             <div className="flex items-center gap-2">
               <span className={`text-2xl`}>👋</span>
-              <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              <h2 className={`text-2xl font-black tracking-tight ${highContrast ? 'text-white' : 'text-white'}`}>
                 Welcome!
               </h2>
             </div>
-            <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-[#414042]/85'}`}>
+            <div className={`space-y-3 leading-relaxed text-sm sm:text-base ${highContrast ? 'text-zinc-100' : 'text-white/90'}`}>
               <p>
                 I am your Entrepreneurship teacher, <strong className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}>Mr. Pietro Valastro</strong>, and I am thrilled to embark on this journey with you. This year, we aren't just studying business. We are actively building, sharpening, and applying our entrepreneurial mindsets.
               </p>
