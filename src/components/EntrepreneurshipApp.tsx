@@ -1184,6 +1184,20 @@ export default function EntrepreneurshipApp() {
                 </button>
               ))}
             </div>
+
+            <div className="mt-8">
+              <h3 className={`text-xl font-bold mb-3 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                Coming Soon
+              </h3>
+              <div className={`rounded-2xl overflow-hidden border shadow-lg ${highContrast ? 'border-yellow-400' : 'border-[#414042]/15'}`}>
+                <img
+                  src={comingSoonPhoto.url}
+                  alt="Coming soon — students collaborating in the entrepreneurship classroom"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         )}
 
