@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero.png.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
