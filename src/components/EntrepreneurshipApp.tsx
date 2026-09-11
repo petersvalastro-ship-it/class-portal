@@ -684,6 +684,7 @@ export default function EntrepreneurshipApp() {
               {(() => {
                 const current = [
                   { id: 'dashboard', label: 'Dashboard' },
+                  { id: 'schedule', label: 'Schedule' },
                   { id: 'glossary', label: 'Glossary' },
                   { id: 'calculators', label: 'Math Lab' },
                   { id: 'practice', label: 'Scenarios' },
@@ -691,7 +692,7 @@ export default function EntrepreneurshipApp() {
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','whiteboard'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
