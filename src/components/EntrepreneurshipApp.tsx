@@ -1182,6 +1182,9 @@ export default function EntrepreneurshipApp() {
                 allowFullScreen
               />
             </div>
+            <p className={`text-xs ${highContrast ? 'text-white' : 'text-[#414042]/60'}`}>
+              If the board above looks blank, use "Open in Figma" and sign in — the board's sharing settings may require it.
+            </p>
           </div>
         )}
       </main>
