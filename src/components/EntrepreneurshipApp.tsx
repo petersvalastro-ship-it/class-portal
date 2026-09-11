@@ -139,35 +139,53 @@ function LiveDateTimeWeather({ highContrast }) {
   const info = weather ? weatherCodeInfo(weather.weather_code) : null;
   const WIcon = info ? info.Icon : Cloud;
 
+  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+
   return (
-    <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 ${
-      highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'
-    }`}>
-      <div className="flex items-center gap-3">
-        <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
-        <div>
-          <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            {dayOfWeek}, {fullDate}
-          </p>
-          <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
-            {time}
-          </p>
+    <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 shrink-0 ${
+        highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'
+      }`}>
+        <div className="flex items-center gap-3">
+          <Clock className={`w-6 h-6 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`} />
+          <div>
+            <p className={`text-lg font-black leading-tight ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              {dayOfWeek}, {fullDate}
+            </p>
+            <p className={`text-sm font-semibold tabular-nums ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} aria-live="off">
+              {time}
+            </p>
+          </div>
+        </div>
+        <div className={`hidden sm:block w-px self-stretch ${highContrast ? 'bg-white/40' : 'bg-[#414042]/15'}`} />
+        <div className="flex items-center gap-3">
+          <WIcon className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
+          <div>
+            <p className={`text-sm font-bold flex items-center gap-1.5 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
+              <MapPin className="w-3.5 h-3.5" /> Marlborough, MA
+            </p>
+            {weather ? (
+              <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
+                {Math.round(weather.temperature_2m)}°F · {info.label} · Wind {Math.round(weather.wind_speed_10m)} mph
+              </p>
+            ) : (
+              <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/60'}`}>Loading weather…</p>
+            )}
+          </div>
         </div>
       </div>
-      <div className={`hidden sm:block w-px self-stretch ${highContrast ? 'bg-white/40' : 'bg-[#414042]/15'}`} />
-      <div className="flex items-center gap-3">
-        <WIcon className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
-        <div>
-          <p className={`text-sm font-bold flex items-center gap-1.5 ${highContrast ? 'text-white' : 'text-[#414042]'}`}>
-            <MapPin className="w-3.5 h-3.5" /> Marlborough, MA
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex items-center gap-4 flex-1 min-w-0 ${
+        highContrast ? 'bg-zinc-900 border-2 border-yellow-300' : 'bg-[#C51C63]'
+      }`}>
+        <Quote className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
+        <div className="min-w-0">
+          <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+            Quote of the Day
           </p>
-          {weather ? (
-            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/70'}`}>
-              {Math.round(weather.temperature_2m)}°F · {info.label} · Wind {Math.round(weather.wind_speed_10m)} mph
-            </p>
-          ) : (
-            <p className={`text-sm font-medium ${highContrast ? 'text-zinc-200' : 'text-[#414042]/60'}`}>Loading weather…</p>
-          )}
+          <p className={`text-base font-semibold leading-snug ${highContrast ? 'text-white' : 'text-white'}`}>
+            “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
+          </p>
         </div>
       </div>
     </div>
