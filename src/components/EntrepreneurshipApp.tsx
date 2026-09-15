@@ -841,6 +841,27 @@ export default function EntrepreneurshipApp() {
                 Entrepreneurs
               </button>
 
+              {/* Entry Ticket — standalone */}
+              <button
+                onClick={() => { setActiveTab('entryticket'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'entryticket'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#414042]'
+                }`}
+              >
+                <ClipboardList className={`w-4 h-4 ${
+                  activeTab === 'entryticket'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#414042]'
+                }`} />
+                Entry Ticket
+              </button>
+
               {/* Exit Ticket — standalone */}
               <button
                 onClick={() => { setActiveTab('feedback'); setMobileNavOpen(false); }}
