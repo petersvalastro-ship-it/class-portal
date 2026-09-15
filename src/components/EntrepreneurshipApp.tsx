@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -673,8 +673,21 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Exit Ticket + Gamification Badge */}
+          {/* Entry Ticket + Exit Ticket + Gamification Badge */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => { setActiveTab('entryticket'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                highContrast
+                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                  : 'bg-[#414042] border-[#414042] text-white hover:bg-[#414042]/90 hover:border-[#414042]'
+              }`}
+              aria-label="Open Entry Ticket"
+              title="Entry Ticket"
+            >
+              <ClipboardList className="w-4 h-4" />
+              <span className="hidden sm:inline">Entry Ticket</span>
+            </button>
             <button
               onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
@@ -730,11 +743,12 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                   { id: 'entrepreneurs', label: 'Entrepreneurs' },
+                  { id: 'entryticket', label: 'Entry Ticket' },
                   { id: 'feedback', label: 'Exit Ticket' },
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','schedule','entrepreneurs','whiteboard','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','entrepreneurs','whiteboard','entryticket','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
@@ -825,6 +839,27 @@ export default function EntrepreneurshipApp() {
                     : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
                 }`} />
                 Entrepreneurs
+              </button>
+
+              {/* Entry Ticket — standalone */}
+              <button
+                onClick={() => { setActiveTab('entryticket'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'entryticket'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#414042]'
+                }`}
+              >
+                <ClipboardList className={`w-4 h-4 ${
+                  activeTab === 'entryticket'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#414042]'
+                }`} />
+                Entry Ticket
               </button>
 
               {/* Exit Ticket — standalone */}
@@ -992,6 +1027,27 @@ export default function EntrepreneurshipApp() {
                   : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
               }`} />
               Entrepreneurs
+            </button>
+
+            {/* Entry Ticket — standalone */}
+            <button
+              onClick={() => setActiveTab('entryticket')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'entryticket'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#414042]'
+              }`}
+            >
+              <ClipboardList className={`w-4 h-4 ${
+                activeTab === 'entryticket'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#414042]'
+              }`} />
+              Entry Ticket
             </button>
 
             {/* Exit Ticket — standalone */}
@@ -1277,6 +1333,49 @@ export default function EntrepreneurshipApp() {
                 src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
                 allowFullScreen
               />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'entryticket' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <ClipboardList className={highContrast ? 'text-yellow-300' : 'text-[#414042]'} />
+                  Entry Ticket
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Complete this entry ticket to kick off today's class — your responses help set the stage.
+                </p>
+              </div>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLScTYZB2ok_ljADSXSKC8YkydIjnceC5k6X6k39DAOCuQN8TBQ/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20 hover:bg-[#414042]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Google Forms
+              </a>
+            </div>
+            <div className={`rounded-2xl overflow-hidden shadow-lg border ${highContrast ? 'border-yellow-400 bg-zinc-900' : 'border-[#414042]/15 bg-white'}`}>
+              <iframe
+                title="MS Entrepreneurship Entry Ticket"
+                src="https://docs.google.com/forms/d/e/1FAIpQLScTYZB2ok_ljADSXSKC8YkydIjnceC5k6X6k39DAOCuQN8TBQ/viewform?embedded=true"
+                width="100%"
+                height="3613"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+                className="w-full"
+              >
+                Loading…
+              </iframe>
             </div>
           </div>
         )}
