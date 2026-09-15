@@ -743,11 +743,12 @@ export default function EntrepreneurshipApp() {
                   { id: 'practice', label: 'Scenarios' },
                   { id: 'simulator', label: 'Pitch Builder' },
                   { id: 'entrepreneurs', label: 'Entrepreneurs' },
+                  { id: 'entryticket', label: 'Entry Ticket' },
                   { id: 'feedback', label: 'Exit Ticket' },
                   { id: 'whiteboard', label: 'Whiteboard' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','schedule','entrepreneurs','whiteboard','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','entrepreneurs','whiteboard','entryticket','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
