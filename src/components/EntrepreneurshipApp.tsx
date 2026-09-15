@@ -673,8 +673,21 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Exit Ticket + Gamification Badge */}
+          {/* Entry Ticket + Exit Ticket + Gamification Badge */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => { setActiveTab('entryticket'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                highContrast
+                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                  : 'bg-[#414042] border-[#414042] text-white hover:bg-[#414042]/90 hover:border-[#414042]'
+              }`}
+              aria-label="Open Entry Ticket"
+              title="Entry Ticket"
+            >
+              <ClipboardList className="w-4 h-4" />
+              <span className="hidden sm:inline">Entry Ticket</span>
+            </button>
             <button
               onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
