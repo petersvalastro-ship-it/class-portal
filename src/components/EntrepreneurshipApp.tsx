@@ -7,7 +7,8 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList,
+  GraduationCap, LogIn, LogOut
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -38,6 +39,8 @@ import tobiLutkePhoto from '../assets/entrepreneurs/tobi-lutke.jpg.asset.json';
 import katrinaLakePhoto from '../assets/entrepreneurs/katrina-lake.jpg.asset.json';
 import freddieFiggersPhoto from '../assets/entrepreneurs/freddie-figgers.jpg.asset.json';
 import comingSoonPhoto from '../assets/coming-soon.jpg.asset.json';
+import LaunchpadTextbook from './LaunchpadTextbook';
+import { useStudentAuth } from '@/hooks/useStudentAuth';
 
 function GoogleClassroomLogo({ className = "w-8 h-8" }) {
   return (
@@ -507,6 +510,9 @@ export default function EntrepreneurshipApp() {
   const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
+  // Student sign-in + saved LaunchPad progress
+  const auth = useStudentAuth();
   
   // Universal Design for Learning (UDL) Accessibility Settings
   const [dyslexicFont, setDyslexicFont] = useState(false);
@@ -675,6 +681,33 @@ export default function EntrepreneurshipApp() {
 
           {/* Entry Ticket + Exit Ticket + Gamification Badge */}
           <div className="flex items-center gap-3">
+            {auth.user ? (
+              <button
+                onClick={auth.signOut}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                  highContrast
+                    ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                    : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                }`}
+                title={`Signed in as ${auth.displayName} — sign out`}
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </button>
+            ) : (
+              <button
+                onClick={auth.signIn}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                  highContrast
+                    ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                    : 'bg-white text-[#414042] border-white hover:bg-white/90'
+                }`}
+                title="Sign in with Google to save your progress"
+              >
+                <LogIn className="w-4 h-4" />
+                <span className="hidden sm:inline">Sign In</span>
+              </button>
+            )}
             <button
               onClick={() => { setActiveTab('entryticket'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
@@ -746,9 +779,10 @@ export default function EntrepreneurshipApp() {
                   { id: 'entryticket', label: 'Entry Ticket' },
                   { id: 'feedback', label: 'Exit Ticket' },
                   { id: 'whiteboard', label: 'Whiteboard' },
+                  { id: 'textbook', label: 'LaunchPad Textbook' },
                 ].find((t) => t.id === activeTab);
                 return current
-                  ? (['dashboard','schedule','entrepreneurs','whiteboard','entryticket','feedback'].includes(current.id) ? current.label : `Resources · ${current.label}`)
+                  ? (['dashboard','schedule','entrepreneurs','whiteboard','entryticket','feedback','textbook'].includes(current.id) ? current.label : `Resources · ${current.label}`)
                   : 'Menu';
               })()}
             </div>
@@ -818,6 +852,27 @@ export default function EntrepreneurshipApp() {
                     : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
                 }`} />
                 Class Whiteboard
+              </button>
+
+              {/* LaunchPad Textbook — standalone */}
+              <button
+                onClick={() => { setActiveTab('textbook'); setMobileNavOpen(false); }}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                  activeTab === 'textbook'
+                    ? highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                    : highContrast
+                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                }`}
+              >
+                <GraduationCap className={`w-4 h-4 ${
+                  activeTab === 'textbook'
+                    ? highContrast ? 'text-black' : 'text-white'
+                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+                }`} />
+                LaunchPad Textbook
               </button>
 
               {/* Entrepreneurs — standalone */}
@@ -1006,6 +1061,27 @@ export default function EntrepreneurshipApp() {
                   : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
               }`} />
               Class Whiteboard
+            </button>
+
+            {/* LaunchPad Textbook — standalone */}
+            <button
+              onClick={() => setActiveTab('textbook')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+                activeTab === 'textbook'
+                  ? highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : highContrast
+                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
+                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+              }`}
+            >
+              <GraduationCap className={`w-4 h-4 ${
+                activeTab === 'textbook'
+                  ? highContrast ? 'text-black' : 'text-white'
+                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
+              }`} />
+              LaunchPad Textbook
             </button>
 
             {/* Entrepreneurs — standalone */}
@@ -1378,6 +1454,15 @@ export default function EntrepreneurshipApp() {
               </iframe>
             </div>
           </div>
+        )}
+
+        {activeTab === 'textbook' && (
+          <LaunchpadTextbook
+            highContrast={highContrast}
+            speakText={speakText}
+            auth={auth}
+            onEarnXp={(amount) => setXp((current) => current + amount)}
+          />
         )}
 
         {activeTab === 'feedback' && (
