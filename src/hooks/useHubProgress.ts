@@ -113,8 +113,9 @@ export function useHubProgress(userId: string | null | undefined) {
           user_id: userId,
           xp: state.xp,
           mastered_terms: state.masteredTerms,
-          completed_scenarios: state.completedScenarios,
-          goals: state.goals,
+          completed_scenarios: state.completedScenarios as unknown as Json,
+          goals: state.goals as unknown as Json,
+
           updated_at: new Date().toISOString(),
         },
         { onConflict: 'user_id' },
