@@ -8,11 +8,13 @@ import {
   LAUNCHPAD_CHAPTERS, TOOLKIT_REFERENCE, FINANCE_REFERENCE, SCAMPER_MOVES,
   ALL_LAUNCHPAD_SECTION_IDS,
 } from '@/lib/launchpad-content';
+import { PAGES_BY_CHAPTER } from '@/lib/textbook-pages';
 
 export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp }) {
   const { user, displayName, progress, saveSection, signIn, syncing } = auth;
   const [view, setView] = useState('ch1'); // chapter id | 'vocab' | 'tools' | 'reference'
   const [openSection, setOpenSection] = useState('ch1-1');
+  const [openPage, setOpenPage] = useState(null);
   const [noteDrafts, setNoteDrafts] = useState({});
 
   const completedCount = useMemo(
