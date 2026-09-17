@@ -505,6 +505,8 @@ export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
   const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
+  const [classToolsMenuOpen, setClassToolsMenuOpen] = useState(false);
+  const [learningMenuOpen, setLearningMenuOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [showcaseOpen, setShowcaseOpen] = useState(false);
   const [currentEntrepreneurIndex, setCurrentEntrepreneurIndex] = useState(0);
@@ -679,7 +681,7 @@ export default function EntrepreneurshipApp() {
             )}
           </div>
 
-          {/* Entry Ticket + Exit Ticket + Gamification Badge */}
+          {/* Account and progress */}
           <div className="flex items-center gap-3">
             {auth.user ? (
               <button
@@ -708,32 +710,6 @@ export default function EntrepreneurshipApp() {
                 <span className="hidden sm:inline">Sign In</span>
               </button>
             )}
-            <button
-              onClick={() => { setActiveTab('entryticket'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
-                highContrast
-                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
-                  : 'bg-[#414042] border-[#414042] text-white hover:bg-[#414042]/90 hover:border-[#414042]'
-              }`}
-              aria-label="Open Entry Ticket"
-              title="Entry Ticket"
-            >
-              <ClipboardList className="w-4 h-4" />
-              <span className="hidden sm:inline">Entry Ticket</span>
-            </button>
-            <button
-              onClick={() => { setActiveTab('feedback'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
-                highContrast
-                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
-                  : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#C51C63]/90 hover:border-[#C51C63]'
-              }`}
-              aria-label="Open Exit Ticket"
-              title="Exit Ticket"
-            >
-              <MessageSquareText className="w-4 h-4" />
-              <span className="hidden sm:inline">Exit Ticket</span>
-            </button>
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
               highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
             }`}>
@@ -744,19 +720,19 @@ export default function EntrepreneurshipApp() {
         </div>
       </header>
 
-      {/* NAVIGATION TABS */}
+      {/* PRIMARY NAVIGATION */}
       <nav className={`px-4 transition-colors duration-200 ${
         highContrast ? 'bg-black border-b-2 border-yellow-400' : 'border-b border-[#414042]/10 bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
-          {/* MOBILE HAMBURGER MENU */}
+          {/* MOBILE NAVIGATION */}
           <div className="md:hidden flex items-center justify-between py-2.5">
             <button
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
-              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition ${
                 highContrast
                   ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                  : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
+                  : 'bg-[#C51C63] text-white font-bold shadow-sm'
               }`}
               aria-label="Toggle navigation menu"
               aria-expanded={mobileNavOpen}
@@ -764,460 +740,209 @@ export default function EntrepreneurshipApp() {
               {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               <span>{mobileNavOpen ? 'Close' : 'Menu'}</span>
             </button>
-            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs ${
-              highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-[#EFA835]/15 text-[#414042]'
-            }`}>
-              {(() => {
-                const current = [
-                  { id: 'dashboard', label: 'Dashboard' },
-                  { id: 'schedule', label: 'Schedule' },
-                  { id: 'glossary', label: 'Glossary' },
-                  { id: 'calculators', label: 'Math Lab' },
-                  { id: 'practice', label: 'Scenarios' },
-                  { id: 'simulator', label: 'Pitch Builder' },
-                  { id: 'entrepreneurs', label: 'Entrepreneurs' },
-                  { id: 'entryticket', label: 'Entry Ticket' },
-                  { id: 'feedback', label: 'Exit Ticket' },
-                  { id: 'whiteboard', label: 'Whiteboard' },
-                  { id: 'textbook', label: 'LaunchPad Textbook' },
-                ].find((t) => t.id === activeTab);
-                return current
-                  ? (['dashboard','schedule','entrepreneurs','whiteboard','entryticket','feedback','textbook'].includes(current.id) ? current.label : `Resources · ${current.label}`)
-                  : 'Menu';
-              })()}
-            </div>
+            <span className={`max-w-[62%] truncate text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+              {[
+                { id: 'dashboard', label: 'Dashboard' },
+                { id: 'schedule', label: 'Class Tools · Schedule' },
+                { id: 'whiteboard', label: 'Class Tools · Whiteboard' },
+                { id: 'entryticket', label: 'Class Tools · Entry Ticket' },
+                { id: 'feedback', label: 'Class Tools · Exit Ticket' },
+                { id: 'textbook', label: 'Learning · Textbook' },
+                { id: 'entrepreneurs', label: 'Learning · Entrepreneurs' },
+                { id: 'glossary', label: 'Resources · Glossary' },
+                { id: 'calculators', label: 'Resources · Math Lab' },
+                { id: 'practice', label: 'Resources · Scenarios' },
+                { id: 'simulator', label: 'Resources · Pitch Builder' },
+              ].find((item) => item.id === activeTab)?.label || 'Menu'}
+            </span>
           </div>
 
-          {/* MOBILE DROPDOWN PANEL */}
           {mobileNavOpen && (
             <div className="md:hidden flex flex-col gap-1.5 pb-3 animate-in fade-in slide-in-from-top-2 duration-200">
-              {/* Dashboard & Roadmap — standalone */}
               <button
                 onClick={() => { setActiveTab('dashboard'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition w-full text-left ${
                   activeTab === 'dashboard'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                    ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold'
+                    : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
                 }`}
               >
-                <Rocket className={`w-4 h-4 ${
-                  activeTab === 'dashboard'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Dashboard & Roadmap
+                <Rocket className="w-4 h-4" /> Dashboard
               </button>
-
-              {/* Class Schedule — standalone */}
-              <button
-                onClick={() => { setActiveTab('schedule'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'schedule'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Calendar className={`w-4 h-4 ${
-                  activeTab === 'schedule'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Class Schedule
-              </button>
-
-              {/* Class Whiteboard — standalone */}
-              <button
-                onClick={() => { setActiveTab('whiteboard'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'whiteboard'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Presentation className={`w-4 h-4 ${
-                  activeTab === 'whiteboard'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Class Whiteboard
-              </button>
-
-              {/* LaunchPad Textbook — standalone */}
-              <button
-                onClick={() => { setActiveTab('textbook'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'textbook'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <GraduationCap className={`w-4 h-4 ${
-                  activeTab === 'textbook'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                LaunchPad Textbook
-              </button>
-
-              {/* Entrepreneurs — standalone */}
-              <button
-                onClick={() => { setActiveTab('entrepreneurs'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'entrepreneurs'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <Users className={`w-4 h-4 ${
-                  activeTab === 'entrepreneurs'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Entrepreneurs
-              </button>
-
-              {/* Entry Ticket — standalone */}
-              <button
-                onClick={() => { setActiveTab('entryticket'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'entryticket'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#414042]'
-                }`}
-              >
-                <ClipboardList className={`w-4 h-4 ${
-                  activeTab === 'entryticket'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#414042]'
-                }`} />
-                Entry Ticket
-              </button>
-
-              {/* Exit Ticket — standalone */}
-              <button
-                onClick={() => { setActiveTab('feedback'); setMobileNavOpen(false); }}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  activeTab === 'feedback'
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-              >
-                <MessageSquareText className={`w-4 h-4 ${
-                  activeTab === 'feedback'
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Exit Ticket
-              </button>
-
-              {/* Resources & Modules — collapsible group */}
-              <button
-                onClick={() => setResourcesMenuOpen(!resourcesMenuOpen)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-                aria-expanded={resourcesMenuOpen}
-              >
-                <Layers className={`w-4 h-4 ${
-                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Resources & Modules
-                <ChevronRight className={`w-3.5 h-3.5 ml-auto transition-transform ${resourcesMenuOpen ? 'rotate-90' : ''}`} />
-              </button>
-              {resourcesMenuOpen && (
-                <div className="flex flex-col gap-1.5 pl-3 animate-in fade-in slide-in-from-top-2 duration-200">
-                  {[
+              {[
+                {
+                  label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
+                  setOpen: setClassToolsMenuOpen,
+                  ids: ['schedule','whiteboard','entryticket','feedback'],
+                  items: [
+                    { id: 'schedule', label: 'Class Schedule', icon: Calendar },
+                    { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                    { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
+                    { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
+                  ],
+                },
+                {
+                  label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
+                  setOpen: setLearningMenuOpen,
+                  ids: ['textbook','entrepreneurs'],
+                  items: [
+                    { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
+                    { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
+                  ],
+                },
+                {
+                  label: 'Resources', icon: Layers, open: resourcesMenuOpen,
+                  setOpen: setResourcesMenuOpen,
+                  ids: ['glossary','calculators','practice','simulator'],
+                  items: [
                     { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                     { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
                     { id: 'practice', label: 'Interactive Scenarios', icon: Target },
                     { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
-                  ].map((tab) => {
-                    const Icon = tab.icon;
-                    const isActive = activeTab === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => { setActiveTab(tab.id); setMobileNavOpen(false); setResourcesMenuOpen(false); }}
-                        className={`flex items-center gap-3 pl-5 pr-4 py-3 rounded-xl text-sm font-semibold transition w-full text-left ${
-                          isActive
-                            ? highContrast
-                              ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                              : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                            : highContrast
-                              ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                              : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                        }`}
-                      >
-                        <Icon className={`w-4 h-4 ${
-                          isActive
-                            ? highContrast ? 'text-black' : 'text-white'
-                            : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                        }`} />
-                        {tab.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+                  ],
+                },
+              ].map((group) => {
+                const GroupIcon = group.icon;
+                const groupActive = group.ids.includes(activeTab);
+                return (
+                  <div key={group.label}>
+                    <button
+                      onClick={() => group.setOpen(!group.open)}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition w-full text-left ${
+                        groupActive || group.open
+                          ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63]/10 text-[#C51C63] font-bold'
+                          : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                      }`}
+                      aria-expanded={group.open}
+                    >
+                      <GroupIcon className="w-4 h-4" />
+                      {group.label}
+                      <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${group.open ? 'rotate-90' : ''}`} />
+                    </button>
+                    {group.open && (
+                      <div className={`ml-5 mt-1 pl-3 border-l ${highContrast ? 'border-yellow-400' : 'border-[#414042]/15'}`}>
+                        {group.items.map((item) => {
+                          const ItemIcon = item.icon;
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => { setActiveTab(item.id); setMobileNavOpen(false); group.setOpen(false); }}
+                              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition w-full text-left ${
+                                activeTab === item.id
+                                  ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'text-[#C51C63] font-bold bg-[#C51C63]/10'
+                                  : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                              }`}
+                            >
+                              <ItemIcon className="w-4 h-4" /> {item.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {/* DESKTOP NAV TABS */}
-          <div className="hidden md:flex items-center space-x-2 py-2.5">
-            {/* Dashboard & Roadmap — standalone */}
+          {/* DESKTOP NAVIGATION */}
+          <div className="hidden md:flex items-center gap-1 py-2">
             <button
-              onClick={() => setActiveTab('dashboard')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
+              onClick={() => { setActiveTab('dashboard'); setClassToolsMenuOpen(false); setLearningMenuOpen(false); setResourcesMenuOpen(false); }}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap ${
                 activeTab === 'dashboard'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
+                  ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold shadow-sm'
+                  : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
               }`}
             >
-              <Rocket className={`w-4 h-4 ${
-                activeTab === 'dashboard'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Dashboard & Roadmap
+              <Rocket className="w-4 h-4" /> Dashboard
             </button>
-
-            {/* Class Schedule — standalone */}
-            <button
-              onClick={() => setActiveTab('schedule')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'schedule'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <Calendar className={`w-4 h-4 ${
-                activeTab === 'schedule'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Class Schedule
-            </button>
-
-            {/* Class Whiteboard — standalone */}
-            <button
-              onClick={() => setActiveTab('whiteboard')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'whiteboard'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <Presentation className={`w-4 h-4 ${
-                activeTab === 'whiteboard'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Class Whiteboard
-            </button>
-
-            {/* LaunchPad Textbook — standalone */}
-            <button
-              onClick={() => setActiveTab('textbook')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'textbook'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <GraduationCap className={`w-4 h-4 ${
-                activeTab === 'textbook'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              LaunchPad Textbook
-            </button>
-
-            {/* Entrepreneurs — standalone */}
-            <button
-              onClick={() => setActiveTab('entrepreneurs')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'entrepreneurs'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <Users className={`w-4 h-4 ${
-                activeTab === 'entrepreneurs'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Entrepreneurs
-            </button>
-
-            {/* Entry Ticket — standalone */}
-            <button
-              onClick={() => setActiveTab('entryticket')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'entryticket'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#414042] text-white font-bold shadow-md shadow-[#414042]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#414042]'
-              }`}
-            >
-              <ClipboardList className={`w-4 h-4 ${
-                activeTab === 'entryticket'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#414042]'
-              }`} />
-              Entry Ticket
-            </button>
-
-            {/* Exit Ticket — standalone */}
-            <button
-              onClick={() => setActiveTab('feedback')}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                activeTab === 'feedback'
-                  ? highContrast
-                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                  : highContrast
-                    ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                    : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-              }`}
-            >
-              <MessageSquareText className={`w-4 h-4 ${
-                activeTab === 'feedback'
-                  ? highContrast ? 'text-black' : 'text-white'
-                  : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-              }`} />
-              Exit Ticket
-            </button>
-
-            {/* Resources & Modules — dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setResourcesMenuOpen(!resourcesMenuOpen)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition whitespace-nowrap ${
-                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
-                    ? highContrast
-                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
-                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20'
-                    : highContrast
-                      ? 'text-white hover:bg-zinc-800 border-2 border-transparent hover:border-yellow-400 font-bold'
-                      : 'text-[#414042] hover:bg-[#414042]/5 hover:text-[#C51C63]'
-                }`}
-                aria-expanded={resourcesMenuOpen}
-                aria-haspopup="true"
-              >
-                <Layers className={`w-4 h-4 ${
-                  ['glossary','calculators','practice','simulator'].includes(activeTab) || resourcesMenuOpen
-                    ? highContrast ? 'text-black' : 'text-white'
-                    : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                }`} />
-                Resources & Modules
-                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${resourcesMenuOpen ? 'rotate-90' : ''}`} />
-              </button>
-              {resourcesMenuOpen && (
-                <>
-                  {/* Click-away backdrop */}
+            {[
+              {
+                label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
+                setOpen: setClassToolsMenuOpen,
+                closeOthers: () => { setLearningMenuOpen(false); setResourcesMenuOpen(false); },
+                ids: ['schedule','whiteboard','entryticket','feedback'],
+                items: [
+                  { id: 'schedule', label: 'Class Schedule', icon: Calendar },
+                  { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                  { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
+                  { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
+                ],
+              },
+              {
+                label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
+                setOpen: setLearningMenuOpen,
+                closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
+                ids: ['textbook','entrepreneurs'],
+                items: [
+                  { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
+                  { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
+                ],
+              },
+              {
+                label: 'Resources', icon: Layers, open: resourcesMenuOpen,
+                setOpen: setResourcesMenuOpen,
+                closeOthers: () => { setClassToolsMenuOpen(false); setLearningMenuOpen(false); },
+                ids: ['glossary','calculators','practice','simulator'],
+                items: [
+                  { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
+                  { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+                  { id: 'practice', label: 'Interactive Scenarios', icon: Target },
+                  { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
+                ],
+              },
+            ].map((group) => {
+              const GroupIcon = group.icon;
+              const groupActive = group.ids.includes(activeTab);
+              return (
+                <div className="relative" key={group.label}>
                   <button
-                    tabIndex={-1}
-                    aria-hidden="true"
-                    className="fixed inset-0 z-40 cursor-default"
-                    onClick={() => setResourcesMenuOpen(false)}
-                  />
-                  <div className={`absolute left-0 mt-2 w-64 rounded-xl shadow-lg overflow-hidden z-50 ${
-                    highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15'
-                  }`}>
-                    {[
-                      { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
-                      { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
-                      { id: 'practice', label: 'Interactive Scenarios', icon: Target },
-                      { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
-                    ].map((tab) => {
-                      const Icon = tab.icon;
-                      const isActive = activeTab === tab.id;
-                      return (
-                        <button
-                          key={tab.id}
-                          onClick={() => { setActiveTab(tab.id); setResourcesMenuOpen(false); }}
-                          className={`flex items-center gap-3 px-4 py-3 w-full text-left text-sm font-semibold transition ${
-                            isActive
-                              ? highContrast
-                                ? 'bg-yellow-400 text-black font-extrabold'
-                                : 'bg-[#C51C63]/10 text-[#C51C63]'
-                              : highContrast
-                                ? 'text-white hover:bg-zinc-800'
-                                : 'text-[#414042] hover:bg-[#414042]/5'
-                          }`}
-                        >
-                          <Icon className={`w-4 h-4 ${
-                            isActive
-                              ? highContrast ? 'text-black' : 'text-[#C51C63]'
-                              : highContrast ? 'text-yellow-300' : 'text-[#E94928]'
-                          }`} />
-                          {tab.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </>
-              )}
-            </div>
+                    onClick={() => { group.closeOthers(); group.setOpen(!group.open); }}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap ${
+                      groupActive || group.open
+                        ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63]/10 text-[#C51C63] font-bold'
+                        : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                    }`}
+                    aria-expanded={group.open}
+                    aria-haspopup="true"
+                  >
+                    <GroupIcon className="w-4 h-4" /> {group.label}
+                    <ChevronRight className={`w-3.5 h-3.5 transition-transform ${group.open ? 'rotate-90' : ''}`} />
+                  </button>
+                  {group.open && (
+                    <>
+                      <button
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="fixed inset-0 z-40 cursor-default"
+                        onClick={() => group.setOpen(false)}
+                      />
+                      <div className={`absolute left-0 mt-2 w-64 rounded-lg shadow-lg overflow-hidden z-50 ${
+                        highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15'
+                      }`}>
+                        {group.items.map((item) => {
+                          const ItemIcon = item.icon;
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => { setActiveTab(item.id); group.setOpen(false); }}
+                              className={`flex items-center gap-3 px-4 py-3 w-full text-left text-sm font-semibold transition ${
+                                activeTab === item.id
+                                  ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63]/10 text-[#C51C63]'
+                                  : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                              }`}
+                            >
+                              <ItemIcon className="w-4 h-4" /> {item.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </nav>
