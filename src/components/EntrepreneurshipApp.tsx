@@ -822,6 +822,20 @@ export default function EntrepreneurshipApp() {
                   <UserCircle className="w-4 h-4" /> My Profile
                 </button>
               )}
+              {isTeacher && (
+                <button
+                  onClick={() => { setActiveTab('teacher'); setMobileNavOpen(false); }}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition w-full text-left ${
+                    activeTab === 'teacher'
+                      ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold'
+                      : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                  }`}
+                >
+                  <Users className="w-4 h-4" /> Teacher Dashboard
+                </button>
+              )}
+
+
 
               {[
                 {
