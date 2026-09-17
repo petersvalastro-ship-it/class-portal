@@ -54,7 +54,10 @@ function writeLocal(state: HubState) {
  * Keeps XP, mastered glossary terms, solved scenarios and learning goals in
  * sync: always on the device, and in the student's account when signed in.
  */
-export function useHubProgress(userId: string | null | undefined) {
+export function useHubProgress(
+  userId: string | null | undefined,
+  identity?: { displayName?: string | null; email?: string | null },
+) {
   const [state, setState] = useState<HubState>(EMPTY);
   const [hydrated, setHydrated] = useState(false);
   const [cloudSaving, setCloudSaving] = useState(false);
@@ -117,7 +120,8 @@ export function useHubProgress(userId: string | null | undefined) {
           mastered_terms: state.masteredTerms,
           completed_scenarios: state.completedScenarios as unknown as Json,
           goals: state.goals as unknown as Json,
-
+          ...(identity?.displayName ? { display_name: identity.displayName } : {}),
+          ...(identity?.email ? { email: identity.email } : {}),
           updated_at: new Date().toISOString(),
         },
         { onConflict: 'user_id' },
