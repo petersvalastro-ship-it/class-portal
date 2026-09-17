@@ -8,7 +8,7 @@ import {
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
   CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList,
-  GraduationCap, LogIn, LogOut
+  GraduationCap, LogIn, LogOut, UserCircle
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -41,6 +41,10 @@ import freddieFiggersPhoto from '../assets/entrepreneurs/freddie-figgers.jpg.ass
 import comingSoonPhoto from '../assets/coming-soon.jpg.asset.json';
 import LaunchpadTextbook from './LaunchpadTextbook';
 import { useStudentAuth } from '@/hooks/useStudentAuth';
+import { useHubProgress } from '@/hooks/useHubProgress';
+import StudentProfileView from './StudentProfileView';
+import { ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
+
 
 function GoogleClassroomLogo({ className = "w-8 h-8" }) {
   return (
@@ -524,10 +528,22 @@ export default function EntrepreneurshipApp() {
   const [currentSpeakingId, setCurrentSpeakingId] = useState(null);
   const mainContentRef = useRef(null);
 
-  // Gamification & Progress State
-  const [xp, setXp] = useState(0);
-  const [completedScenarios, setCompletedScenarios] = useState({});
-  const [masteredTerms, setMasteredTerms] = useState([]);
+  // Gamification & Progress State (saved on this device, and to the student's account when signed in)
+  const hub = useHubProgress(auth.user?.id);
+  const { xp, setXp, completedScenarios, setCompletedScenarios, masteredTerms, setMasteredTerms, goals, setGoals } = hub;
+
+  // Friendly reminder to sign in so work is saved to the account
+  const [showSignInReminder, setShowSignInReminder] = useState(false);
+  const [reminderDismissed, setReminderDismissed] = useState(false);
+  const activityCount = xp + masteredTerms.length + Object.keys(completedScenarios).length;
+  useEffect(() => {
+    if (auth.authLoading || auth.user || reminderDismissed) return;
+    if (activityCount > 0) setShowSignInReminder(true);
+  }, [activityCount, auth.authLoading, auth.user, reminderDismissed]);
+  useEffect(() => {
+    if (auth.user) setShowSignInReminder(false);
+  }, [auth.user]);
+
 
   // Speech Helper
   const speakText = (text, id = null) => {
@@ -684,6 +700,19 @@ export default function EntrepreneurshipApp() {
           {/* Account and progress */}
           <div className="flex items-center gap-3">
             {auth.user ? (
+              <>
+              <button
+                onClick={() => setActiveTab('profile')}
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
+                  highContrast
+                    ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
+                    : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                }`}
+                title="My Profile"
+              >
+                <UserCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">My Profile</span>
+              </button>
               <button
                 onClick={auth.signOut}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
@@ -696,7 +725,9 @@ export default function EntrepreneurshipApp() {
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Sign Out</span>
               </button>
+              </>
             ) : (
+
               <button
                 onClick={auth.signIn}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
@@ -743,6 +774,8 @@ export default function EntrepreneurshipApp() {
             <span className={`max-w-[62%] truncate text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
               {[
                 { id: 'dashboard', label: 'Dashboard' },
+                { id: 'profile', label: 'My Profile' },
+
                 { id: 'schedule', label: 'Class Tools · Schedule' },
                 { id: 'whiteboard', label: 'Class Tools · Whiteboard' },
                 { id: 'entryticket', label: 'Class Tools · Entry Ticket' },
@@ -769,6 +802,19 @@ export default function EntrepreneurshipApp() {
               >
                 <Rocket className="w-4 h-4" /> Dashboard
               </button>
+              {auth.user && (
+                <button
+                  onClick={() => { setActiveTab('profile'); setMobileNavOpen(false); }}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition w-full text-left ${
+                    activeTab === 'profile'
+                      ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold'
+                      : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                  }`}
+                >
+                  <UserCircle className="w-4 h-4" /> My Profile
+                </button>
+              )}
+
               {[
                 {
                   label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
@@ -857,6 +903,19 @@ export default function EntrepreneurshipApp() {
             >
               <Rocket className="w-4 h-4" /> Dashboard
             </button>
+            {auth.user && (
+              <button
+                onClick={() => { setActiveTab('profile'); setClassToolsMenuOpen(false); setLearningMenuOpen(false); setResourcesMenuOpen(false); }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap ${
+                  activeTab === 'profile'
+                    ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold shadow-sm'
+                    : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                }`}
+              >
+                <UserCircle className="w-4 h-4" /> My Profile
+              </button>
+            )}
+
             {[
               {
                 label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
@@ -1181,7 +1240,27 @@ export default function EntrepreneurshipApp() {
           </div>
         )}
 
+        {activeTab === 'profile' && auth.user && (
+          <StudentProfileView
+            displayName={auth.displayName}
+            email={auth.user.email}
+            xp={xp}
+            masteredCount={masteredTerms.length}
+            totalTerms={GLOSSARY_DATA.length}
+            scenariosCount={Object.keys(completedScenarios).length}
+            totalScenarios={PRACTICE_SCENARIOS.length}
+            sectionsDone={Object.values(auth.progress || {}).filter((entry) => entry?.completed).length}
+            totalSections={ALL_LAUNCHPAD_SECTION_IDS.length}
+            goals={goals}
+            setGoals={setGoals}
+            cloudSaving={hub.cloudSaving}
+            highContrast={highContrast}
+            setActiveTab={setActiveTab}
+          />
+        )}
+
         {activeTab === 'textbook' && (
+
           <LaunchpadTextbook
             highContrast={highContrast}
             speakText={speakText}
@@ -1301,7 +1380,12 @@ export default function EntrepreneurshipApp() {
                 <p>The Hub is designed to support middle school entrepreneurship education. All content—including calculators, scenarios, glossary terms, entrepreneur profiles, and the venture pitch builder—is provided for learning and practice purposes. Information presented here should not be taken as professional financial, legal, or business advice.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">3. User Conduct</h3>
+                <h3 className="font-bold text-base mb-2">3. Student Accounts and Saved Progress</h3>
+                <p>Signing in is optional. If you sign in, you must use your own NEIA school Google account—never someone else's. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, and learning goals to your account so they follow you between devices. Your teacher can see this coursework progress. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
+              </section>
+              <section>
+
+                <h3 className="font-bold text-base mb-2">4. User Conduct</h3>
                 <p>Students are expected to use the Hub respectfully and responsibly. You agree to:</p>
                 <ul className="list-disc pl-6 space-y-1 mt-1">
                   <li>Use the Hub only for class-related learning activities.</li>
@@ -1311,27 +1395,27 @@ export default function EntrepreneurshipApp() {
                 </ul>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">4. Intellectual Property</h3>
+                <h3 className="font-bold text-base mb-2">5. Intellectual Property</h3>
                 <p>All Hub content—including text, design, code, entrepreneur profiles, and images—is owned by NEIA or used with permission and attribution. Entrepreneur photos are sourced from public records and are used for educational, non-commercial purposes under fair use. You may not copy, redistribute, or republish Hub content without permission from your teacher.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">5. External Links</h3>
+                <h3 className="font-bold text-base mb-2">6. External Links</h3>
                 <p>The Hub contains links to external services including Google Classroom, Figma, Canva, and Google Calendar. NEIA does not control these external services and is not responsible for their content, privacy practices, or availability. Use of external services is subject to their own terms and policies.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">6. No Warranties</h3>
+                <h3 className="font-bold text-base mb-2">7. No Warranties</h3>
                 <p>The Hub is provided "as is" without warranties of any kind. While every effort is made to ensure accuracy, NEIA does not guarantee that the information is error-free, complete, or current. Calculators and tools are simplified for educational purposes and may not reflect real-world complexity.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">7. Limitation of Liability</h3>
+                <h3 className="font-bold text-base mb-2">8. Limitation of Liability</h3>
                 <p>NEIA and its staff are not liable for any damages arising from the use of the Hub. The Hub is a supplementary educational tool and does not replace classroom instruction or professional guidance.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">8. Changes to These Terms</h3>
+                <h3 className="font-bold text-base mb-2">9. Changes to These Terms</h3>
                 <p>These Terms of Use may be updated at any time. Continued use of the Hub after changes constitutes acceptance of the revised terms.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">9. Contact</h3>
+                <h3 className="font-bold text-base mb-2">10. Contact</h3>
                 <p>Questions about these Terms of Use? Contact Mr. Pietro Valastro at <a href="mailto:pietro.valastro@neiacademy.org" className={`underline ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>pietro.valastro@neiacademy.org</a>.</p>
               </section>
             </div>
@@ -1370,15 +1454,15 @@ export default function EntrepreneurshipApp() {
               <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 2026</p>
               <section>
                 <h3 className="font-bold text-base mb-2">1. Information We Collect</h3>
-                <p>The NEIA Entrepreneur Hub does not require account creation or personal registration. The Hub does not collect personal information directly from students through this website. Progress data—such as XP points, mastered glossary terms, and completed scenarios—is stored locally in your browser and is not transmitted to or stored on any server.</p>
+                <p>You can use most of the NEIA Entrepreneur Hub without signing in. If you choose to sign in with your school Google account, we receive only your name, email address, and account ID from Google so we can save your work to your account. We never receive or store your Google password. Once signed in, the Hub stores your learning progress—XP points, mastered glossary terms, completed scenarios, completed textbook sections, section notes, and learning goals—in a secure database record tied to your account. If you do not sign in, that same progress is kept only in your browser on that device.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">2. Exit Ticket Submissions</h3>
                 <p>When you complete an Exit Ticket, your responses are submitted through Google Forms, which is governed by Google's privacy policy and NEIA's Google Workspace for Education settings. Your teacher reviews these submissions. Please do not include sensitive personal information beyond what is asked in the form.</p>
               </section>
               <section>
-                <h3 className="font-bold text-base mb-2">3. Cookies and Local Storage</h3>
-                <p>The Hub uses your browser's local storage to remember your progress (XP, mastered terms, completed scenarios). This data stays on your device and is cleared if you clear your browser data. No tracking cookies are used.</p>
+                <h3 className="font-bold text-base mb-2">3. Cookies, Local Storage, and Sign-In Sessions</h3>
+                <p>The Hub uses your browser's local storage to remember your progress (XP, mastered terms, completed scenarios, notes, and goals) and, when you sign in, to keep you signed in securely. Local data stays on your device and is cleared if you clear your browser data. No advertising or tracking cookies are used.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">4. Weather Data</h3>
@@ -1401,15 +1485,15 @@ export default function EntrepreneurshipApp() {
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">7. Data Security</h3>
-                <p>Since the Hub stores progress locally in your browser and does not maintain a user database, there is minimal risk of data breach through the Hub itself. External services you access through the Hub have their own security measures.</p>
+                <p>Saved progress for signed-in students is stored on a managed cloud database with security rules that allow each student to read and write only their own record. Sign-in is handled by Google, so the Hub never sees or stores passwords. No system is perfectly secure, and external services you access through the Hub have their own security measures.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">8. Children's Privacy</h3>
-                <p>The Hub is designed for middle school students. NEIA takes student privacy seriously and complies with applicable student privacy laws, including FERPA. No personal student information is collected, stored, or shared through the Hub itself. External educational tools used alongside the Hub (Google Workspace for Education) are managed under NEIA's institutional agreements.</p>
+                <p>The Hub is designed for middle school students. NEIA takes student privacy seriously and works to comply with applicable student privacy laws, including FERPA. The only student information stored by the Hub is the sign-in details described above and your own coursework progress; it is used solely for teaching and learning in this class, is visible to your teacher, and is never sold, advertised against, or shared with outside parties. Sign-in uses NEIA's Google Workspace for Education accounts, which are managed under NEIA's institutional agreements.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">9. Your Choices</h3>
-                <p>You can clear all locally stored progress at any time by clearing your browser's site data for this website. You may choose not to submit Exit Tickets, in which case no information is shared with your teacher through that channel.</p>
+                <p>Signing in is optional—you may use the Hub without an account. You can sign out at any time, and you can clear locally stored progress by clearing your browser's site data for this website. To have your saved account record and progress deleted, email your teacher at the address below. You may also choose not to submit Entry or Exit Tickets, in which case no information is shared through that channel.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">10. Changes to This Policy</h3>
@@ -1424,7 +1508,51 @@ export default function EntrepreneurshipApp() {
         </div>
       )}
 
+      {/* FRIENDLY SIGN-IN REMINDER */}
+      {showSignInReminder && !auth.user && (
+        <div
+          className="fixed inset-0 z-[90] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="signin-reminder-title"
+        >
+          <div className={`absolute inset-0 ${highContrast ? 'bg-black/80' : 'bg-black/50'}`} onClick={() => { setShowSignInReminder(false); setReminderDismissed(true); }} />
+          <div className={`relative w-full max-w-md rounded-2xl shadow-2xl p-6 ${
+            highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-white' : 'bg-white border border-[#414042]/15 text-[#414042]'
+          }`}>
+            <div className="flex items-start gap-3">
+              <Sparkles className={`w-8 h-8 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`} />
+              <div>
+                <h2 id="signin-reminder-title" className="text-lg font-black">Nice work — want to keep it?</h2>
+                <p className={`mt-2 text-sm leading-relaxed ${highContrast ? 'text-yellow-200' : 'text-[#414042]/80'}`}>
+                  Sign in with your school Google account and your XP, glossary terms, scenarios, notes, and learning goals will follow you to any device. Without signing in, your work only stays in this browser.
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-col sm:flex-row gap-2">
+              <button
+                onClick={() => { setShowSignInReminder(false); auth.signIn(); }}
+                className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition ${
+                  highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <LogIn className="w-4 h-4" /> Sign in to save
+              </button>
+              <button
+                onClick={() => { setShowSignInReminder(false); setReminderDismissed(true); }}
+                className={`flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold border transition ${
+                  highContrast ? 'border-yellow-400 text-yellow-300 hover:bg-zinc-800' : 'border-[#414042]/20 text-[#414042] hover:bg-[#414042]/5'
+                }`}
+              >
+                Maybe later
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <EntrepreneurShowcase
+
         isOpen={showcaseOpen}
         onToggle={() => setShowcaseOpen((open) => !open)}
         onClose={() => setShowcaseOpen(false)}
