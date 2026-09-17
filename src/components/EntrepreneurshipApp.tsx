@@ -43,6 +43,8 @@ import LaunchpadTextbook from './LaunchpadTextbook';
 import { useStudentAuth } from '@/hooks/useStudentAuth';
 import { useHubProgress } from '@/hooks/useHubProgress';
 import StudentProfileView from './StudentProfileView';
+import TeacherDashboard from './TeacherDashboard';
+import { useIsTeacher } from '@/hooks/useIsTeacher';
 import { ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 
 
@@ -529,7 +531,11 @@ export default function EntrepreneurshipApp() {
   const mainContentRef = useRef(null);
 
   // Gamification & Progress State (saved on this device, and to the student's account when signed in)
-  const hub = useHubProgress(auth.user?.id);
+  const hub = useHubProgress(auth.user?.id, {
+    displayName: auth.displayName,
+    email: auth.user?.email ?? null,
+  });
+  const isTeacher = useIsTeacher(auth.user?.id);
   const { xp, setXp, completedScenarios, setCompletedScenarios, masteredTerms, setMasteredTerms, goals, setGoals } = hub;
 
   // Friendly reminder to sign in so work is saved to the account
@@ -775,6 +781,8 @@ export default function EntrepreneurshipApp() {
               {[
                 { id: 'dashboard', label: 'Dashboard' },
                 { id: 'profile', label: 'My Profile' },
+                { id: 'teacher', label: 'Teacher Dashboard' },
+
 
                 { id: 'schedule', label: 'Class Tools · Schedule' },
                 { id: 'whiteboard', label: 'Class Tools · Whiteboard' },
@@ -814,6 +822,20 @@ export default function EntrepreneurshipApp() {
                   <UserCircle className="w-4 h-4" /> My Profile
                 </button>
               )}
+              {isTeacher && (
+                <button
+                  onClick={() => { setActiveTab('teacher'); setMobileNavOpen(false); }}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition w-full text-left ${
+                    activeTab === 'teacher'
+                      ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold'
+                      : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                  }`}
+                >
+                  <Users className="w-4 h-4" /> Teacher Dashboard
+                </button>
+              )}
+
+
 
               {[
                 {
@@ -913,6 +935,18 @@ export default function EntrepreneurshipApp() {
                 }`}
               >
                 <UserCircle className="w-4 h-4" /> My Profile
+              </button>
+            )}
+            {isTeacher && (
+              <button
+                onClick={() => { setActiveTab('teacher'); setClassToolsMenuOpen(false); setLearningMenuOpen(false); setResourcesMenuOpen(false); }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition whitespace-nowrap ${
+                  activeTab === 'teacher'
+                    ? highContrast ? 'bg-yellow-400 text-black font-extrabold' : 'bg-[#C51C63] text-white font-bold shadow-sm'
+                    : highContrast ? 'text-white hover:bg-zinc-800' : 'text-[#414042] hover:bg-[#414042]/5'
+                }`}
+              >
+                <Users className="w-4 h-4" /> Teacher Dashboard
               </button>
             )}
 
@@ -1256,8 +1290,14 @@ export default function EntrepreneurshipApp() {
             cloudSaving={hub.cloudSaving}
             highContrast={highContrast}
             setActiveTab={setActiveTab}
+            userId={auth.user.id}
+            completedSectionIds={Object.entries(auth.progress || {})
+              .filter(([, entry]) => entry?.completed)
+              .map(([id]) => id)}
           />
         )}
+
+        {activeTab === 'teacher' && isTeacher && <TeacherDashboard highContrast={highContrast} />}
 
         {activeTab === 'textbook' && (
 

@@ -8,11 +8,13 @@ import {
   LAUNCHPAD_CHAPTERS, TOOLKIT_REFERENCE, FINANCE_REFERENCE, SCAMPER_MOVES,
   ALL_LAUNCHPAD_SECTION_IDS,
 } from '@/lib/launchpad-content';
+import { PAGES_BY_CHAPTER } from '@/lib/textbook-pages';
 
 export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp }) {
   const { user, displayName, progress, saveSection, signIn, syncing } = auth;
   const [view, setView] = useState('ch1'); // chapter id | 'vocab' | 'tools' | 'reference'
   const [openSection, setOpenSection] = useState('ch1-1');
+  const [openPage, setOpenPage] = useState(null);
   const [noteDrafts, setNoteDrafts] = useState({});
 
   const completedCount = useMemo(
@@ -167,6 +169,94 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                   ))}
                 </div>
               </div>
+
+              {/* Full textbook reading pages */}
+              {(PAGES_BY_CHAPTER[chapter.id] || []).map((page) => {
+                const isOpen = openPage === page.id;
+                return (
+                  <div key={page.id} className={`rounded-2xl overflow-hidden ${card}`}>
+                    <button
+                      onClick={() => setOpenPage(isOpen ? null : page.id)}
+                      className="w-full flex items-center justify-between gap-3 p-4 text-left"
+                    >
+                      <span>
+                        <span className="text-xs font-bold" style={{ color: highContrast ? '#FDE047' : chapter.color }}>
+                          TEXTBOOK PAGE · {page.minutes} min read
+                        </span>
+                        <span className="block font-bold">{page.title}</span>
+                        <span className={`block text-xs ${muted}`}>Big question: {page.bigQuestion}</span>
+                      </span>
+                      <ChevronDown className={`w-5 h-5 shrink-0 transition ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {isOpen && (
+                      <div className={`px-4 pb-5 space-y-4 border-t ${highContrast ? 'border-white/40' : 'border-[#414042]/10'}`}>
+                        <div className="pt-4 space-y-3 text-sm leading-relaxed">
+                          {page.paragraphs.map((p, i) => (
+                            <p key={i}>{p}</p>
+                          ))}
+                          <button
+                            onClick={() => speakText(page.paragraphs.join(' '), `lp-page-${page.id}`)}
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${
+                              highContrast ? 'bg-yellow-400 text-black' : 'bg-[#414042]/10 text-[#414042]'
+                            }`}
+                          >
+                            <Volume2 className="w-3.5 h-3.5" /> Read Aloud
+                          </button>
+                        </div>
+
+                        <div
+                          className={`rounded-xl p-4 text-sm ${
+                            highContrast ? 'bg-black border-2 border-yellow-400' : 'bg-[#EFA835]/15 border border-[#EFA835]/40'
+                          }`}
+                        >
+                          <p className="flex items-center gap-2 font-extrabold">
+                            <Sparkles className="w-4 h-4" style={{ color: '#EFA835' }} /> Key Idea
+                          </p>
+                          <p className="mt-1.5">{page.keyIdea}</p>
+                        </div>
+
+                        <div
+                          className={`rounded-xl p-4 text-sm space-y-2 ${
+                            highContrast ? 'bg-black border-2 border-white' : 'bg-[#414042]/5 border border-[#414042]/15'
+                          }`}
+                        >
+                          <p className="font-extrabold">
+                            Case Study: {page.caseStudy.name}
+                            <span className={`block text-xs font-normal ${muted}`}>{page.caseStudy.subtitle}</span>
+                          </p>
+                          {page.caseStudy.body.map((b, i) => (
+                            <p key={i} className="leading-relaxed">{b}</p>
+                          ))}
+                          <div className="pt-1">
+                            <p className="text-xs font-bold uppercase tracking-wide">Discussion Questions</p>
+                            <ol className="mt-1 list-decimal pl-5 space-y-1">
+                              {page.caseStudy.questions.map((q, i) => (
+                                <li key={i}>{q}</li>
+                              ))}
+                            </ol>
+                          </div>
+                          <button
+                            onClick={() =>
+                              speakText(
+                                `${page.caseStudy.name}. ${page.caseStudy.body.join(' ')}`,
+                                `lp-case-${page.id}`,
+                              )
+                            }
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${
+                              highContrast ? 'bg-yellow-400 text-black' : 'bg-[#414042]/10 text-[#414042]'
+                            }`}
+                          >
+                            <Volume2 className="w-3.5 h-3.5" /> Read Case Study
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+
 
               {/* Sections */}
               {chapter.sections.map((section) => {

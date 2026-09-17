@@ -1,6 +1,9 @@
-import { useMemo, useState } from 'react';
-import { Target, Trophy, BookOpen, GraduationCap, Plus, Check, Trash2, UserCircle, Sparkles } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Target, Trophy, BookOpen, GraduationCap, Plus, Check, Trash2, UserCircle, Sparkles, Wand2, Loader2, AlertTriangle } from 'lucide-react';
 import type { GoalMetric, StudentGoal } from '@/hooks/useHubProgress';
+import { generateStudyPlan } from '@/lib/study-plan.functions';
+import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
+import { supabase } from '@/integrations/supabase/client';
 
 type Props = {
   displayName: string;
@@ -17,6 +20,8 @@ type Props = {
   cloudSaving: boolean;
   highContrast: boolean;
   setActiveTab: (tab: string) => void;
+  userId?: string | null;
+  completedSectionIds?: string[];
 };
 
 const METRIC_LABEL: Record<GoalMetric, string> = {
@@ -42,10 +47,70 @@ export default function StudentProfileView({
   cloudSaving,
   highContrast,
   setActiveTab,
+  userId,
+  completedSectionIds = [],
 }: Props) {
   const [title, setTitle] = useState('');
   const [metric, setMetric] = useState<GoalMetric>('terms');
   const [target, setTarget] = useState(5);
+  const [plan, setPlan] = useState<string | null>(null);
+  const [planLoading, setPlanLoading] = useState(false);
+  const [planError, setPlanError] = useState<string | null>(null);
+
+  // Bring back the plan the student generated last time.
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from('student_profile')
+        .select('study_plan')
+        .eq('user_id', userId)
+        .maybeSingle();
+      if (!cancelled && data?.study_plan) setPlan(data.study_plan as string);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  const sectionTitle = (id: string) => {
+    for (const chapter of LAUNCHPAD_CHAPTERS) {
+      const section = chapter.sections.find((s) => s.id === id);
+      if (section) return `${section.label} ${section.title}`;
+    }
+    return id;
+  };
+
+  const makePlan = async () => {
+    setPlanLoading(true);
+    setPlanError(null);
+    try {
+      const done = new Set(completedSectionIds);
+      const result = await generateStudyPlan({
+        data: {
+          displayName,
+          xp,
+          masteredCount,
+          totalTerms,
+          scenariosCount,
+          totalScenarios,
+          sectionsDone,
+          totalSections,
+          completedSectionTitles: completedSectionIds.map(sectionTitle),
+          remainingSectionTitles: ALL_LAUNCHPAD_SECTION_IDS.filter((id) => !done.has(id)).map(sectionTitle),
+          goals: goals.map((g) => ({ title: g.title, metric: g.metric, target: g.target, done: g.done })),
+        },
+      });
+      setPlan(result.plan);
+    } catch (err) {
+      setPlanError(
+        err instanceof Error ? err.message : 'Something went wrong building your plan. Please try again.',
+      );
+    } finally {
+      setPlanLoading(false);
+    }
+  };
 
   const progressFor = (goal: StudentGoal) => {
     switch (goal.metric) {
@@ -118,6 +183,66 @@ export default function StudentProfileView({
           );
         })}
       </div>
+
+      {/* AI study plan */}
+      <div className={`rounded-2xl p-6 ${card}`}>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h3 className={`text-lg font-bold flex items-center gap-2 ${heading}`}>
+              <Wand2 className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} /> My Personalized Study Plan
+            </h3>
+            <p className={`text-sm ${muted}`}>
+              Builds a two-week plan from your saved progress and learning goals.
+            </p>
+          </div>
+          <button
+            onClick={makePlan}
+            disabled={planLoading}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition disabled:opacity-60 ${
+              highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
+            }`}
+          >
+            {planLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+            {planLoading ? 'Building your plan…' : plan ? 'Refresh my plan' : 'Build my study plan'}
+          </button>
+        </div>
+
+        {planError && (
+          <p className={`mt-3 text-sm flex items-start gap-2 ${highContrast ? 'text-yellow-200' : 'text-[#E94928]'}`}>
+            <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" /> {planError}
+          </p>
+        )}
+
+        {planLoading && !plan && (
+          <p className={`mt-3 text-sm ${muted}`}>This can take up to a minute — thanks for waiting.</p>
+        )}
+
+        {plan && (
+          <div className="mt-4 space-y-2 text-sm leading-relaxed">
+            {plan.split('\n').map((line, i) => {
+              const text = line.trim();
+              if (!text) return null;
+              if (text.startsWith('### '))
+                return <h5 key={i} className={`font-bold pt-1 ${heading}`}>{text.slice(4)}</h5>;
+              if (text.startsWith('## '))
+                return (
+                  <h4 key={i} className={`font-extrabold pt-2 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>
+                    {text.slice(3)}
+                  </h4>
+                );
+              if (text.startsWith('- ') || text.startsWith('* '))
+                return (
+                  <p key={i} className="pl-4">
+                    • {text.slice(2).replace(/\*\*/g, '')}
+                  </p>
+                );
+              return <p key={i}>{text.replace(/\*\*/g, '')}</p>;
+            })}
+          </div>
+        )}
+      </div>
+
+
 
       {/* Goal builder */}
       <div className={`rounded-2xl p-6 ${card}`}>
