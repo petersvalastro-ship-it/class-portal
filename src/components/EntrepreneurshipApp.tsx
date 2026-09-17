@@ -1382,9 +1382,9 @@ export default function EntrepreneurshipApp() {
               <section>
                 <h3 className="font-bold text-base mb-2">3. Student Accounts and Saved Progress</h3>
                 <p>Signing in is optional. If you sign in, you must use your own NEIA school Google account—never someone else's. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, and learning goals to your account so they follow you between devices. Your teacher can see this coursework progress. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
-              </div>
+              </section>
+              <section>
 
-              <div>
                 <h3 className="font-bold text-base mb-2">4. User Conduct</h3>
                 <p>Students are expected to use the Hub respectfully and responsibly. You agree to:</p>
                 <ul className="list-disc pl-6 space-y-1 mt-1">
