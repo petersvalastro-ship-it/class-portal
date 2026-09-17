@@ -38,6 +38,33 @@ export type Database = {
         }
         Relationships: []
       }
+      student_profile: {
+        Row: {
+          completed_scenarios: Json
+          goals: Json
+          mastered_terms: Json
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          completed_scenarios?: Json
+          goals?: Json
+          mastered_terms?: Json
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          completed_scenarios?: Json
+          goals?: Json
+          mastered_terms?: Json
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
