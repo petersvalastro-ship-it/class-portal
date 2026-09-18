@@ -181,7 +181,7 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                     >
                       <span>
                         <span className="text-xs font-bold" style={{ color: highContrast ? '#FDE047' : chapter.color }}>
-                          TEXTBOOK PAGE · {page.minutes} min read
+                           LAUNCHPAD TEXTBOOK · {page.minutes} min read
                         </span>
                         <span className="block font-bold">{page.title}</span>
                         <span className={`block text-xs ${muted}`}>Big question: {page.bigQuestion}</span>

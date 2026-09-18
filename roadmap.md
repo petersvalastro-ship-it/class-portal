@@ -5,3 +5,4 @@
 - [x] Add looping controls, keyboard navigation, close behavior, accessibility, and motion.
 - [x] Verify build and live desktop/mobile interactions.
 - [x] Add a verified portrait photo to every entrepreneur profile with an initials fallback.
+- [x] Replace sample Hub readings with chapter-aligned content from the attached LaunchPad textbooks.
