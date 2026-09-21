@@ -108,6 +108,33 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
         </div>
       )}
 
+      <div className="flex gap-2">
+        {([
+          { id: 'progress' as const, label: 'Class progress', icon: Users },
+          { id: 'gradebook' as const, label: 'Gradebook', icon: Table },
+        ]).map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setView(tab.id)}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition ${
+              view === tab.id
+                ? highContrast
+                  ? 'bg-yellow-400 text-black'
+                  : 'bg-[#C51C63] text-white'
+                : highContrast
+                  ? 'border-2 border-yellow-400 text-yellow-200'
+                  : 'border border-[#414042]/20 text-[#414042] hover:bg-[#414042]/5'
+            }`}
+          >
+            <tab.icon className="w-4 h-4" /> {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {view === 'gradebook' ? (
+        <Gradebook rows={filtered} highContrast={highContrast} totalScenarios={totalScenarios} totalTerms={totalTerms} />
+      ) : (
+      <>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
           { icon: Users, label: 'Students signed in', value: totals.students },
@@ -253,6 +280,8 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
             );
           })}
         </div>
+      )}
+      </>
       )}
     </div>
   );
