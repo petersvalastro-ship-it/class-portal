@@ -229,3 +229,32 @@ export const deleteStudent = createServerFn({ method: 'POST' })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+/** Teacher-only: correct a student's display name on the roster. */
+export const renameStudent = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { userId: string; name: string }) => {
+    const userId = String(input?.userId ?? '').trim();
+    const name = String(input?.name ?? '').trim().replace(/\s+/g, ' ');
+    if (!userId) throw new Error('Pick a student first.');
+    if (name.length < 2) throw new Error('Enter a name with at least 2 characters.');
+    if (name.length > 60) throw new Error('Keep the name under 60 characters.');
+    return { userId, name };
+  })
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    await requireTeacher(context as any);
+    if (data.userId === context.userId) {
+      throw new Error('You cannot rename your own teacher account here.');
+    }
+
+    const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
+    const { error } = await supabaseAdmin
+      .from('student_profile')
+      .update({ display_name: data.name, updated_at: new Date().toISOString() })
+      .eq('user_id', data.userId);
+    if (error) throw new Error(error.message);
+    await supabaseAdmin.auth.admin.updateUserById(data.userId, {
+      user_metadata: { display_name: data.name },
+    });
+    return { ok: true };
+  });
