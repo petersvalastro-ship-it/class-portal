@@ -203,3 +203,29 @@ export const clearGradeOverride = createServerFn({ method: 'POST' })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+/**
+ * Teacher-only: permanently remove a student from the roster. Deletes their
+ * saved progress, grades and account. Cannot be used on the teacher's own id.
+ */
+export const deleteStudent = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { userId: string }) => {
+    const userId = String(input?.userId ?? '').trim();
+    if (!userId) throw new Error('Pick a student first.');
+    return { userId };
+  })
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    await requireTeacher(context as any);
+    if (data.userId === context.userId) {
+      throw new Error('You cannot remove your own teacher account.');
+    }
+
+    const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
+    await supabaseAdmin.from('grade_override').delete().eq('student_id', data.userId);
+    await supabaseAdmin.from('launchpad_progress').delete().eq('user_id', data.userId);
+    await supabaseAdmin.from('student_profile').delete().eq('user_id', data.userId);
+    const { error } = await supabaseAdmin.auth.admin.deleteUser(data.userId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
