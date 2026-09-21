@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table } from 'lucide-react';
-import { getClassProgress, resetStudentPassword, type StudentRow } from '@/lib/teacher.functions';
+import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table, Trash2, Pencil } from 'lucide-react';
+import { getClassProgress, resetStudentPassword, deleteStudent, renameStudent, type StudentRow } from '@/lib/teacher.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 import Gradebook from './Gradebook';
 
@@ -24,6 +24,46 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
   const [resetBusy, setResetBusy] = useState(false);
   const [resetError, setResetError] = useState<string | null>(null);
   const [resetDone, setResetDone] = useState<string | null>(null);
+  const [removeFor, setRemoveFor] = useState<string | null>(null);
+  const [removeBusy, setRemoveBusy] = useState(false);
+  const [removeError, setRemoveError] = useState<string | null>(null);
+  const [renameFor, setRenameFor] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState('');
+  const [renameBusy, setRenameBusy] = useState(false);
+  const [renameError, setRenameError] = useState<string | null>(null);
+
+  const submitRename = async (userId: string) => {
+    setRenameBusy(true);
+    setRenameError(null);
+    try {
+      await renameStudent({ data: { userId, name: renameValue } });
+      const clean = renameValue.trim().replace(/\s+/g, ' ');
+      setRows((prev) => prev.map((r) => (r.userId === userId ? { ...r, name: clean } : r)));
+      setRenameFor(null);
+      setRenameValue('');
+    } catch (err) {
+      setRenameError(err instanceof Error ? err.message : 'Could not rename that student.');
+    } finally {
+      setRenameBusy(false);
+    }
+  };
+
+
+  const submitRemove = async (userId: string) => {
+    setRemoveBusy(true);
+    setRemoveError(null);
+    try {
+      await deleteStudent({ data: { userId } });
+      setRows((prev) => prev.filter((r) => r.userId !== userId));
+      setRemoveFor(null);
+      setOpenStudent(null);
+    } catch (err) {
+      setRemoveError(err instanceof Error ? err.message : 'Could not remove that student.');
+    } finally {
+      setRemoveBusy(false);
+    }
+  };
+
 
   const submitReset = async (userId: string) => {
     setResetBusy(true);
@@ -266,6 +306,102 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
                           >
                             <KeyRound className="w-4 h-4" /> Reset password
                           </button>
+                          {removeFor === row.userId ? (
+                            <>
+                              <span className={`text-xs font-bold ${highContrast ? 'text-yellow-200' : 'text-[#414042]'}`}>
+                                Remove {row.name} and all of their saved work?
+                              </span>
+                              <button
+                                onClick={() => submitRemove(row.userId)}
+                                disabled={removeBusy}
+                                className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-60 ${
+                                  highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
+                                }`}
+                              >
+                                <Trash2 className="w-4 h-4" /> {removeBusy ? 'Removing...' : 'Yes, remove'}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setRemoveFor(null);
+                                  setRemoveError(null);
+                                }}
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast ? 'border-yellow-300 text-yellow-200' : 'border-[#414042]/30 text-[#414042]'
+                                }`}
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setRemoveFor(row.userId);
+                                setRemoveError(null);
+                              }}
+                              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold border ${
+                                highContrast
+                                  ? 'border-yellow-300 text-yellow-200'
+                                  : 'border-[#C51C63] text-[#C51C63] hover:bg-[#C51C63]/10'
+                              }`}
+                            >
+                              <Trash2 className="w-4 h-4" /> Remove student
+                            </button>
+                          )}
+                          {renameFor === row.userId ? (
+                            <>
+                              <input
+                                value={renameValue}
+                                onChange={(e) => setRenameValue(e.target.value)}
+                                placeholder="Maya R. (Grade 7)"
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast
+                                    ? 'bg-black text-yellow-200 border-yellow-300'
+                                    : 'bg-white text-[#414042] border-[#414042]/30'
+                                }`}
+                              />
+                              <button
+                                onClick={() => submitRename(row.userId)}
+                                disabled={renameBusy}
+                                className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-60 ${
+                                  highContrast ? 'bg-yellow-400 text-black' : 'bg-[#414042] text-white hover:bg-[#414042]/90'
+                                }`}
+                              >
+                                <Check className="w-4 h-4" /> {renameBusy ? 'Saving...' : 'Save name'}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setRenameFor(null);
+                                  setRenameError(null);
+                                }}
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast ? 'border-yellow-300 text-yellow-200' : 'border-[#414042]/30 text-[#414042]'
+                                }`}
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setRenameFor(row.userId);
+                                setRenameValue(row.name);
+                                setRenameError(null);
+                              }}
+                              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold border ${
+                                highContrast
+                                  ? 'border-yellow-300 text-yellow-200'
+                                  : 'border-[#414042]/30 text-[#414042] hover:bg-[#414042]/10'
+                              }`}
+                            >
+                              <Pencil className="w-4 h-4" /> Rename student
+                            </button>
+                          )}
+                          {renameError && renameFor === row.userId && (
+                            <span className="text-xs font-bold text-red-600">{renameError}</span>
+                          )}
+                          {removeError && removeFor === row.userId && (
+                            <span className="text-xs font-bold text-red-600">{removeError}</span>
+                          )}
                           {resetDone === row.userId && (
                             <span className={`inline-flex items-center gap-1 text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>
                               <Check className="w-4 h-4" /> Password updated
