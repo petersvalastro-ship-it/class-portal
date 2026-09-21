@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check } from 'lucide-react';
+import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table } from 'lucide-react';
 import { getClassProgress, resetStudentPassword, type StudentRow } from '@/lib/teacher.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
+import Gradebook from './Gradebook';
 
-type Props = { highContrast: boolean };
+type Props = { highContrast: boolean; totalScenarios?: number; totalTerms?: number };
 
 const SECTION_TITLES: Record<string, string> = Object.fromEntries(
   LAUNCHPAD_CHAPTERS.flatMap((chapter) =>
@@ -11,7 +12,8 @@ const SECTION_TITLES: Record<string, string> = Object.fromEntries(
   ),
 );
 
-export default function TeacherDashboard({ highContrast }: Props) {
+export default function TeacherDashboard({ highContrast, totalScenarios = 1, totalTerms = 1 }: Props) {
+  const [view, setView] = useState<'progress' | 'gradebook'>('progress');
   const [rows, setRows] = useState<StudentRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
