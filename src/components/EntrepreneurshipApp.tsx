@@ -1299,7 +1299,13 @@ export default function EntrepreneurshipApp() {
           />
         )}
 
-        {activeTab === 'teacher' && isTeacher && <TeacherDashboard highContrast={highContrast} />}
+        {activeTab === 'teacher' && isTeacher && (
+          <TeacherDashboard
+            highContrast={highContrast}
+            totalScenarios={PRACTICE_SCENARIOS.length}
+            totalTerms={GLOSSARY_DATA.length}
+          />
+        )}
 
         {activeTab === 'textbook' && (
 

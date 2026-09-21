@@ -9,9 +9,12 @@ export type StudentRow = {
   masteredCount: number;
   scenariosCount: number;
   sectionsDone: number;
+  completedSections: string[];
   updatedAt: string | null;
   notes: { sectionId: string; note: string }[];
 };
+
+export type GradeOverride = { studentId: string; itemKey: string; score: number };
 
 /**
  * Teacher-only class roster: XP, completed sections and section notes for every
@@ -54,6 +57,7 @@ export const getClassProgress = createServerFn({ method: 'POST' })
           masteredCount: 0,
           scenariosCount: 0,
           sectionsDone: 0,
+          completedSections: [],
           updatedAt: null,
           notes: [],
         };
@@ -77,7 +81,10 @@ export const getClassProgress = createServerFn({ method: 'POST' })
 
     for (const entry of progress ?? []) {
       const row = ensure(entry.user_id as string);
-      if (entry.completed) row.sectionsDone += 1;
+      if (entry.completed) {
+        row.sectionsDone += 1;
+        row.completedSections.push(entry.section_id as string);
+      }
       const note = ((entry.notes as string) || '').trim();
       if (note) row.notes.push({ sectionId: entry.section_id as string, note });
     }
@@ -117,6 +124,79 @@ export const resetStudentPassword = createServerFn({ method: 'POST' })
     const { error } = await supabaseAdmin.auth.admin.updateUserById(data.userId, {
       password: data.newPassword,
     });
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+const requireTeacher = async (context: { supabase: any; userId: string }) => {
+  const { data: roles, error } = await context.supabase
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', context.userId)
+    .eq('role', 'teacher');
+  if (error) throw new Error(error.message);
+  if (!roles || roles.length === 0) throw new Error('The gradebook is available to teachers only.');
+};
+
+/** Teacher-only: every manual grade override the teacher has saved. */
+export const getGradeOverrides = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<GradeOverride[]> => {
+    await requireTeacher(context as any);
+    const { data, error } = await context.supabase
+      .from('grade_override')
+      .select('student_id, item_key, score');
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((row: any) => ({
+      studentId: row.student_id as string,
+      itemKey: row.item_key as string,
+      score: Number(row.score),
+    }));
+  });
+
+/** Teacher-only: save one manual grade override (0-100). */
+export const saveGradeOverride = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { studentId: string; itemKey: string; score: number }) => {
+    const studentId = String(input?.studentId ?? '').trim();
+    const itemKey = String(input?.itemKey ?? '').trim();
+    const score = Number(input?.score);
+    if (!studentId || !itemKey) throw new Error('Pick a student and a grade first.');
+    if (!Number.isFinite(score) || score < 0 || score > 100) {
+      throw new Error('Enter a grade between 0 and 100.');
+    }
+    return { studentId, itemKey, score };
+  })
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    await requireTeacher(context as any);
+    const { error } = await context.supabase.from('grade_override').upsert(
+      {
+        student_id: data.studentId,
+        item_key: data.itemKey,
+        score: data.score,
+        updated_by: context.userId,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'student_id,item_key' },
+    );
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+/** Teacher-only: remove a manual override so the grade goes back to automatic. */
+export const clearGradeOverride = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { studentId: string; itemKey: string }) => ({
+    studentId: String(input?.studentId ?? '').trim(),
+    itemKey: String(input?.itemKey ?? '').trim(),
+  }))
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    await requireTeacher(context as any);
+    const { error } = await context.supabase
+      .from('grade_override')
+      .delete()
+      .eq('student_id', data.studentId)
+      .eq('item_key', data.itemKey);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
