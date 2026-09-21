@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle } from 'lucide-react';
-import { getClassProgress, type StudentRow } from '@/lib/teacher.functions';
+import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check } from 'lucide-react';
+import { getClassProgress, resetStudentPassword, type StudentRow } from '@/lib/teacher.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 
 type Props = { highContrast: boolean };
@@ -17,6 +17,26 @@ export default function TeacherDashboard({ highContrast }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [openStudent, setOpenStudent] = useState<string | null>(null);
+  const [resetFor, setResetFor] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [resetBusy, setResetBusy] = useState(false);
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetDone, setResetDone] = useState<string | null>(null);
+
+  const submitReset = async (userId: string) => {
+    setResetBusy(true);
+    setResetError(null);
+    try {
+      await resetStudentPassword({ data: { userId, newPassword } });
+      setResetDone(userId);
+      setResetFor(null);
+      setNewPassword('');
+    } catch (err) {
+      setResetError(err instanceof Error ? err.message : 'Could not reset that password.');
+    } finally {
+      setResetBusy(false);
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -156,6 +176,75 @@ export default function TeacherDashboard({ highContrast }: Props) {
                     {row.updatedAt && (
                       <p className={`pt-2 text-xs ${muted}`}>Last activity: {new Date(row.updatedAt).toLocaleString()}</p>
                     )}
+
+                    <div className={`pt-3 ${highContrast ? 'border-t-2 border-yellow-400' : 'border-t border-[#414042]/10'}`}>
+                      {resetFor === row.userId ? (
+                        <div className="space-y-2">
+                          <label className="block text-xs font-bold">New password for {row.name}</label>
+                          <input
+                            type="text"
+                            value={newPassword}
+                            onChange={(event) => setNewPassword(event.target.value)}
+                            placeholder="At least 6 characters"
+                            className={`w-full sm:w-72 px-3 py-2 rounded-lg outline-none ${
+                              highContrast
+                                ? 'bg-black border-2 border-yellow-400 text-yellow-100'
+                                : 'bg-white border border-[#414042]/25 text-[#414042]'
+                            }`}
+                          />
+                          <p className={`text-xs ${muted}`}>
+                            Write it down and hand it to the student — then have them change it after signing in.
+                          </p>
+                          {resetError && (
+                            <p className={`text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`}>{resetError}</p>
+                          )}
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => submitReset(row.userId)}
+                              disabled={resetBusy || newPassword.length < 6}
+                              className={`px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-50 ${
+                                highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
+                              }`}
+                            >
+                              {resetBusy ? 'Saving…' : 'Set new password'}
+                            </button>
+                            <button
+                              onClick={() => {
+                                setResetFor(null);
+                                setNewPassword('');
+                                setResetError(null);
+                              }}
+                              className={`px-3 py-2 rounded-lg text-xs font-bold ${
+                                highContrast ? 'border-2 border-yellow-400 text-yellow-200' : 'border border-[#414042]/25 text-[#414042]'
+                              }`}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-wrap items-center gap-3">
+                          <button
+                            onClick={() => {
+                              setResetFor(row.userId);
+                              setResetError(null);
+                              setResetDone(null);
+                              setNewPassword('');
+                            }}
+                            className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold ${
+                              highContrast ? 'bg-yellow-400 text-black' : 'bg-[#414042] text-white hover:bg-[#414042]/90'
+                            }`}
+                          >
+                            <KeyRound className="w-4 h-4" /> Reset password
+                          </button>
+                          {resetDone === row.userId && (
+                            <span className={`inline-flex items-center gap-1 text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>
+                              <Check className="w-4 h-4" /> Password updated
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
