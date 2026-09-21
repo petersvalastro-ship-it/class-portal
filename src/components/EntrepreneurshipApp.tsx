@@ -737,16 +737,16 @@ export default function EntrepreneurshipApp() {
             ) : (
 
               <button
-                onClick={auth.signIn}
+                onClick={() => setShowAccountModal(true)}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
                   highContrast
                     ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
                     : 'bg-white text-[#414042] border-white hover:bg-white/90'
                 }`}
-                title="Sign in with Google to save your progress"
+                title="Create a Student Account or sign in to save your progress"
               >
                 <LogIn className="w-4 h-4" />
-                <span className="hidden sm:inline">Sign In</span>
+                <span className="hidden sm:inline">Student Account</span>
               </button>
             )}
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
