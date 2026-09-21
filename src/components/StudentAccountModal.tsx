@@ -18,7 +18,7 @@ type Props = {
   onSignIn: (input: Credentials) => Promise<{ error?: string }>;
 };
 
-const GRADES = ['6', '7', '8'];
+const GRADES = ['7', '8'];
 
 /**
  * Lets students either sign in with their school Google account or make a
