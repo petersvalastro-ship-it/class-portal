@@ -45,6 +45,7 @@ import { useHubProgress } from '@/hooks/useHubProgress';
 import StudentProfileView from './StudentProfileView';
 import TeacherDashboard from './TeacherDashboard';
 import { useIsTeacher } from '@/hooks/useIsTeacher';
+import { StudentAccountModal } from './StudentAccountModal';
 import { ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 
 
@@ -540,6 +541,7 @@ export default function EntrepreneurshipApp() {
 
   // Friendly reminder to sign in so work is saved to the account
   const [showSignInReminder, setShowSignInReminder] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
   const [reminderDismissed, setReminderDismissed] = useState(false);
   const activityCount = xp + masteredTerms.length + Object.keys(completedScenarios).length;
   useEffect(() => {
@@ -735,16 +737,16 @@ export default function EntrepreneurshipApp() {
             ) : (
 
               <button
-                onClick={auth.signIn}
+                onClick={() => setShowAccountModal(true)}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition ${
                   highContrast
                     ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
                     : 'bg-white text-[#414042] border-white hover:bg-white/90'
                 }`}
-                title="Sign in with Google to save your progress"
+                title="Create a Student Account or sign in to save your progress"
               >
                 <LogIn className="w-4 h-4" />
-                <span className="hidden sm:inline">Sign In</span>
+                <span className="hidden sm:inline">Student Account</span>
               </button>
             )}
             <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
@@ -1421,7 +1423,7 @@ export default function EntrepreneurshipApp() {
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">3. Student Accounts and Saved Progress</h3>
-                <p>Signing in is optional. If you sign in, you must use your own NEIA school Google account—never someone else's. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, and learning goals to your account so they follow you between devices. Your teacher can see this coursework progress. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
+                <p>Signing in is optional, and there are two ways to do it: a Student Account made from your first name, last initial, grade, and a password you choose, or your own NEIA school Google account—never someone else's. Choose a password only you know, and never share it. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, and learning goals to your account so they follow you between devices. Your teacher can see this coursework progress. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
               </section>
               <section>
 
@@ -1494,7 +1496,7 @@ export default function EntrepreneurshipApp() {
               <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 2026</p>
               <section>
                 <h3 className="font-bold text-base mb-2">1. Information We Collect</h3>
-                <p>You can use most of the NEIA Entrepreneur Hub without signing in. If you choose to sign in with your school Google account, we receive only your name, email address, and account ID from Google so we can save your work to your account. We never receive or store your Google password. Once signed in, the Hub stores your learning progress—XP points, mastered glossary terms, completed scenarios, completed textbook sections, section notes, and learning goals—in a secure database record tied to your account. If you do not sign in, that same progress is kept only in your browser on that device.</p>
+                <p>You can use most of the NEIA Entrepreneur Hub without signing in. If you create a Student Account, we store only your first name, last initial, and grade level as your display name—no email address is required—plus a securely encrypted version of the password you choose, which no one can read, including your teacher. If you choose to sign in with your school Google account instead, we receive only your name, email address, and account ID from Google so we can save your work to your account. We never receive or store your Google password. Once signed in, the Hub stores your learning progress—XP points, mastered glossary terms, completed scenarios, completed textbook sections, section notes, and learning goals—in a secure database record tied to your account. If you do not sign in, that same progress is kept only in your browser on that device.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">2. Exit Ticket Submissions</h3>
@@ -1565,13 +1567,13 @@ export default function EntrepreneurshipApp() {
               <div>
                 <h2 id="signin-reminder-title" className="text-lg font-black">Nice work — want to keep it?</h2>
                 <p className={`mt-2 text-sm leading-relaxed ${highContrast ? 'text-yellow-200' : 'text-[#414042]/80'}`}>
-                  Sign in with your school Google account and your XP, glossary terms, scenarios, notes, and learning goals will follow you to any device. Without signing in, your work only stays in this browser.
+                  Make a Student Account with your first name, last initial and grade — or use your school Google account — and your XP, glossary terms, scenarios, notes, and learning goals will follow you to any device. Without signing in, your work only stays in this browser.
                 </p>
               </div>
             </div>
             <div className="mt-5 flex flex-col sm:flex-row gap-2">
               <button
-                onClick={() => { setShowSignInReminder(false); auth.signIn(); }}
+                onClick={() => { setShowSignInReminder(false); setShowAccountModal(true); }}
                 className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition ${
                   highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
                 }`}
@@ -1590,6 +1592,15 @@ export default function EntrepreneurshipApp() {
           </div>
         </div>
       )}
+
+      <StudentAccountModal
+        open={showAccountModal && !auth.user}
+        onClose={() => setShowAccountModal(false)}
+        highContrast={highContrast}
+        onGoogle={auth.signIn}
+        onCreate={auth.createStudentAccount}
+        onSignIn={auth.signInStudent}
+      />
 
       <EntrepreneurShowcase
 

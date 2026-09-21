@@ -121,6 +121,63 @@ export function useStudentAuth() {
     return {};
   }, []);
 
+  /** Turns a student's name + grade into the account id we store it under. */
+  const studentEmail = (firstName: string, lastInitial: string, grade: string, suffix?: string) => {
+    const first = firstName.trim().toLowerCase().replace(/[^a-z]/g, '');
+    const initial = lastInitial.trim().toLowerCase().replace(/[^a-z]/g, '').slice(0, 1);
+    const g = grade.trim().replace(/[^0-9]/g, '');
+    const tail = suffix && suffix.trim() ? `-${suffix.trim().replace(/[^0-9a-z]/gi, '').toLowerCase()}` : '';
+    return `${first}-${initial}-g${g}${tail}@students.neiahub.app`;
+  };
+
+  const studentDisplayName = (firstName: string, lastInitial: string, grade: string, suffix?: string) => {
+    const first = firstName.trim().replace(/\s+/g, ' ');
+    const name = first.charAt(0).toUpperCase() + first.slice(1);
+    const initial = lastInitial.trim().charAt(0).toUpperCase();
+    const numbered = suffix && suffix.trim() ? ` ${suffix.trim()}` : '';
+    return `${name} ${initial}.${numbered} (Grade ${grade.trim()})`;
+  };
+
+  const createStudentAccount = useCallback(
+    async (input: { firstName: string; lastInitial: string; grade: string; password: string; suffix?: string }) => {
+      const email = studentEmail(input.firstName, input.lastInitial, input.grade, input.suffix);
+      const display = studentDisplayName(input.firstName, input.lastInitial, input.grade, input.suffix);
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password: input.password,
+        options: { data: { display_name: display, grade: input.grade.trim(), account_type: 'student' } },
+      });
+      if (error) {
+        const message = /already|registered|exists/i.test(error.message)
+          ? 'taken'
+          : error.message;
+        return { error: message };
+      }
+      if (!data.session) {
+        const retry = await supabase.auth.signInWithPassword({ email, password: input.password });
+        if (retry.error) return { error: retry.error.message };
+      }
+      return {};
+    },
+    [],
+  );
+
+  const signInStudent = useCallback(
+    async (input: { firstName: string; lastInitial: string; grade: string; password: string; suffix?: string }) => {
+      const email = studentEmail(input.firstName, input.lastInitial, input.grade, input.suffix);
+      const { error } = await supabase.auth.signInWithPassword({ email, password: input.password });
+      if (error) {
+        return {
+          error: /invalid/i.test(error.message)
+            ? 'We could not find that student account. Check the spelling, grade, number and password.'
+            : error.message,
+        };
+      }
+      return {};
+    },
+    [],
+  );
+
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
     setSession(null);
@@ -128,10 +185,22 @@ export function useStudentAuth() {
 
   const user = session?.user ?? null;
   const displayName =
+    (user?.user_metadata?.['display_name'] as string | undefined) ||
     (user?.user_metadata?.['full_name'] as string | undefined) ||
     (user?.user_metadata?.['name'] as string | undefined) ||
     user?.email ||
     'Student';
 
-  return { user, displayName, authLoading, progress, saveSection, signIn, signOut, syncing };
+  return {
+    user,
+    displayName,
+    authLoading,
+    progress,
+    saveSection,
+    signIn,
+    signOut,
+    syncing,
+    createStudentAccount,
+    signInStudent,
+  };
 }
