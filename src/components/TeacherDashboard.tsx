@@ -27,6 +27,27 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
   const [removeFor, setRemoveFor] = useState<string | null>(null);
   const [removeBusy, setRemoveBusy] = useState(false);
   const [removeError, setRemoveError] = useState<string | null>(null);
+  const [renameFor, setRenameFor] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState('');
+  const [renameBusy, setRenameBusy] = useState(false);
+  const [renameError, setRenameError] = useState<string | null>(null);
+
+  const submitRename = async (userId: string) => {
+    setRenameBusy(true);
+    setRenameError(null);
+    try {
+      await renameStudent({ data: { userId, name: renameValue } });
+      const clean = renameValue.trim().replace(/\s+/g, ' ');
+      setRows((prev) => prev.map((r) => (r.userId === userId ? { ...r, name: clean } : r)));
+      setRenameFor(null);
+      setRenameValue('');
+    } catch (err) {
+      setRenameError(err instanceof Error ? err.message : 'Could not rename that student.');
+    } finally {
+      setRenameBusy(false);
+    }
+  };
+
 
   const submitRemove = async (userId: string) => {
     setRemoveBusy(true);
