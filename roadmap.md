@@ -8,3 +8,6 @@
 - [x] Replace sample Hub readings with chapter-aligned content from the attached LaunchPad textbooks.
 
 - Teacher can rename a student in the roster (fix typos/inappropriate names)
+- [ ] Update Terms of Use and Privacy Policy.
+- [ ] Expand LaunchPad textbook readings with deeper entrepreneurial mindset alignment.
+- [ ] Add clickable/copyable Quote of the Day with up to 3 prior days available.
