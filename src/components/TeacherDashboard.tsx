@@ -347,6 +347,58 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
                               <Trash2 className="w-4 h-4" /> Remove student
                             </button>
                           )}
+                          {renameFor === row.userId ? (
+                            <>
+                              <input
+                                value={renameValue}
+                                onChange={(e) => setRenameValue(e.target.value)}
+                                placeholder="Maya R. (Grade 7)"
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast
+                                    ? 'bg-black text-yellow-200 border-yellow-300'
+                                    : 'bg-white text-[#414042] border-[#414042]/30'
+                                }`}
+                              />
+                              <button
+                                onClick={() => submitRename(row.userId)}
+                                disabled={renameBusy}
+                                className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-60 ${
+                                  highContrast ? 'bg-yellow-400 text-black' : 'bg-[#414042] text-white hover:bg-[#414042]/90'
+                                }`}
+                              >
+                                <Check className="w-4 h-4" /> {renameBusy ? 'Saving...' : 'Save name'}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setRenameFor(null);
+                                  setRenameError(null);
+                                }}
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast ? 'border-yellow-300 text-yellow-200' : 'border-[#414042]/30 text-[#414042]'
+                                }`}
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setRenameFor(row.userId);
+                                setRenameValue(row.name);
+                                setRenameError(null);
+                              }}
+                              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold border ${
+                                highContrast
+                                  ? 'border-yellow-300 text-yellow-200'
+                                  : 'border-[#414042]/30 text-[#414042] hover:bg-[#414042]/10'
+                              }`}
+                            >
+                              <Pencil className="w-4 h-4" /> Rename student
+                            </button>
+                          )}
+                          {renameError && renameFor === row.userId && (
+                            <span className="text-xs font-bold text-red-600">{renameError}</span>
+                          )}
                           {removeError && removeFor === row.userId && (
                             <span className="text-xs font-bold text-red-600">{removeError}</span>
                           )}
