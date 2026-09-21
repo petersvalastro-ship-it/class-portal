@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      grade_override: {
+        Row: {
+          id: string
+          item_key: string
+          note: string
+          score: number
+          student_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          item_key: string
+          note?: string
+          score: number
+          student_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          item_key?: string
+          note?: string
+          score?: number
+          student_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       launchpad_progress: {
         Row: {
           completed: boolean
