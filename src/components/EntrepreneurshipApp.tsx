@@ -193,24 +193,31 @@ function LiveDateTimeWeather({ highContrast }) {
 
   const copyQuote = async (item = quote) => {
     const text = `“${item.text}” — ${item.author}`;
+    const copyWithTextarea = () => {
+      if (typeof document === 'undefined') return false;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return copied;
+    };
     try {
       if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(text);
       } else if (typeof document !== 'undefined') {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'absolute';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
+        copyWithTextarea();
       }
       setQuoteCopied(true);
       window.setTimeout(() => setQuoteCopied(false), 1600);
     } catch {
-      setQuoteCopied(false);
+      const copied = copyWithTextarea();
+      setQuoteCopied(copied);
+      if (copied) window.setTimeout(() => setQuoteCopied(false), 1600);
     }
   };
 
