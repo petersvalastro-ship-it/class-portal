@@ -1567,7 +1567,7 @@ export default function EntrepreneurshipApp() {
               <div>
                 <h2 id="signin-reminder-title" className="text-lg font-black">Nice work — want to keep it?</h2>
                 <p className={`mt-2 text-sm leading-relaxed ${highContrast ? 'text-yellow-200' : 'text-[#414042]/80'}`}>
-                  Sign in with your school Google account and your XP, glossary terms, scenarios, notes, and learning goals will follow you to any device. Without signing in, your work only stays in this browser.
+                  Make a Student Account with your first name, last initial and grade — or use your school Google account — and your XP, glossary terms, scenarios, notes, and learning goals will follow you to any device. Without signing in, your work only stays in this browser.
                 </p>
               </div>
             </div>
