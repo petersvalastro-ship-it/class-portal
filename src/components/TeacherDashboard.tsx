@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table } from 'lucide-react';
-import { getClassProgress, resetStudentPassword, type StudentRow } from '@/lib/teacher.functions';
+import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table, Trash2 } from 'lucide-react';
+import { getClassProgress, resetStudentPassword, deleteStudent, type StudentRow } from '@/lib/teacher.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 import Gradebook from './Gradebook';
 
