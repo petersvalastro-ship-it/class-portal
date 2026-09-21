@@ -45,6 +45,7 @@ import { useHubProgress } from '@/hooks/useHubProgress';
 import StudentProfileView from './StudentProfileView';
 import TeacherDashboard from './TeacherDashboard';
 import { useIsTeacher } from '@/hooks/useIsTeacher';
+import { StudentAccountModal } from './StudentAccountModal';
 import { ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 
 
