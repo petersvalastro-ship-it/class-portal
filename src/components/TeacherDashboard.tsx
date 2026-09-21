@@ -17,6 +17,26 @@ export default function TeacherDashboard({ highContrast }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [openStudent, setOpenStudent] = useState<string | null>(null);
+  const [resetFor, setResetFor] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [resetBusy, setResetBusy] = useState(false);
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetDone, setResetDone] = useState<string | null>(null);
+
+  const submitReset = async (userId: string) => {
+    setResetBusy(true);
+    setResetError(null);
+    try {
+      await resetStudentPassword({ data: { userId, newPassword } });
+      setResetDone(userId);
+      setResetFor(null);
+      setNewPassword('');
+    } catch (err) {
+      setResetError(err instanceof Error ? err.message : 'Could not reset that password.');
+    } finally {
+      setResetBusy(false);
+    }
+  };
 
   const load = async () => {
     setLoading(true);
