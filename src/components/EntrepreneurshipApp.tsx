@@ -1573,7 +1573,7 @@ export default function EntrepreneurshipApp() {
             </div>
             <div className="mt-5 flex flex-col sm:flex-row gap-2">
               <button
-                onClick={() => { setShowSignInReminder(false); auth.signIn(); }}
+                onClick={() => { setShowSignInReminder(false); setShowAccountModal(true); }}
                 className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold transition ${
                   highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
                 }`}
