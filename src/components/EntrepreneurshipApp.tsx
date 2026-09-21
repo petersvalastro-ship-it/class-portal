@@ -1593,6 +1593,15 @@ export default function EntrepreneurshipApp() {
         </div>
       )}
 
+      <StudentAccountModal
+        open={showAccountModal && !auth.user}
+        onClose={() => setShowAccountModal(false)}
+        highContrast={highContrast}
+        onGoogle={auth.signIn}
+        onCreate={auth.createStudentAccount}
+        onSignIn={auth.signInStudent}
+      />
+
       <EntrepreneurShowcase
 
         isOpen={showcaseOpen}
