@@ -541,6 +541,7 @@ export default function EntrepreneurshipApp() {
 
   // Friendly reminder to sign in so work is saved to the account
   const [showSignInReminder, setShowSignInReminder] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
   const [reminderDismissed, setReminderDismissed] = useState(false);
   const activityCount = xp + masteredTerms.length + Object.keys(completedScenarios).length;
   useEffect(() => {
