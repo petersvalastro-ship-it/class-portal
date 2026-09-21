@@ -89,6 +89,9 @@ export const getClassProgress = createServerFn({ method: 'POST' })
       if (note) row.notes.push({ sectionId: entry.section_id as string, note });
     }
 
+    // The teacher is not a student: never list their own activity in the roster.
+    byUser.delete(context.userId);
+
     return Array.from(byUser.values()).sort((a, b) => a.name.localeCompare(b.name));
   });
 
