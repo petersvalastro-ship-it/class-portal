@@ -285,6 +285,50 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
                           >
                             <KeyRound className="w-4 h-4" /> Reset password
                           </button>
+                          {removeFor === row.userId ? (
+                            <>
+                              <span className={`text-xs font-bold ${highContrast ? 'text-yellow-200' : 'text-[#414042]'}`}>
+                                Remove {row.name} and all of their saved work?
+                              </span>
+                              <button
+                                onClick={() => submitRemove(row.userId)}
+                                disabled={removeBusy}
+                                className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold disabled:opacity-60 ${
+                                  highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white hover:bg-[#C51C63]/90'
+                                }`}
+                              >
+                                <Trash2 className="w-4 h-4" /> {removeBusy ? 'Removing...' : 'Yes, remove'}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setRemoveFor(null);
+                                  setRemoveError(null);
+                                }}
+                                className={`px-3 py-2 rounded-lg text-xs font-bold border ${
+                                  highContrast ? 'border-yellow-300 text-yellow-200' : 'border-[#414042]/30 text-[#414042]'
+                                }`}
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setRemoveFor(row.userId);
+                                setRemoveError(null);
+                              }}
+                              className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold border ${
+                                highContrast
+                                  ? 'border-yellow-300 text-yellow-200'
+                                  : 'border-[#C51C63] text-[#C51C63] hover:bg-[#C51C63]/10'
+                              }`}
+                            >
+                              <Trash2 className="w-4 h-4" /> Remove student
+                            </button>
+                          )}
+                          {removeError && removeFor === row.userId && (
+                            <span className="text-xs font-bold text-red-600">{removeError}</span>
+                          )}
                           {resetDone === row.userId && (
                             <span className={`inline-flex items-center gap-1 text-xs font-bold ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}>
                               <Check className="w-4 h-4" /> Password updated
