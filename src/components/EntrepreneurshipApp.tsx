@@ -8,7 +8,7 @@ import {
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
   CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList,
-  GraduationCap, LogIn, LogOut, UserCircle
+  GraduationCap, LogIn, LogOut, UserCircle, Copy, History
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -122,6 +122,21 @@ const DAILY_QUOTES = [
   { text: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
 ];
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function getDayOfYear(date) {
+  return Math.floor((date - new Date(date.getFullYear(), 0, 0)) / DAY_MS);
+}
+
+function getDailyQuote(date) {
+  const dayOfYear = getDayOfYear(date);
+  return DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+}
+
+function formatQuoteDate(date) {
+  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
 // Live date/time clock + Marlborough, MA weather (Open-Meteo, no API key needed)
 function weatherCodeInfo(code) {
   if (code === 0) return { label: 'Clear sky', Icon: Sun };
@@ -139,6 +154,8 @@ function weatherCodeInfo(code) {
 function LiveDateTimeWeather({ highContrast }) {
   const [now, setNow] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [showQuoteHistory, setShowQuoteHistory] = useState(false);
+  const [quoteCopied, setQuoteCopied] = useState(false);
 
   useEffect(() => {
     setNow(new Date());
@@ -165,8 +182,37 @@ function LiveDateTimeWeather({ highContrast }) {
   const info = weather ? weatherCodeInfo(weather.weather_code) : null;
   const WIcon = info ? info.Icon : Cloud;
 
-  const dayOfYear = now ? Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000) : 0;
-  const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+  const quote = now ? getDailyQuote(now) : DAILY_QUOTES[0];
+  const quoteHistory = now
+    ? [1, 2, 3].map((offset) => {
+        const date = new Date(now);
+        date.setDate(date.getDate() - offset);
+        return { date, quote: getDailyQuote(date) };
+      })
+    : [];
+
+  const copyQuote = async (item = quote) => {
+    const text = `“${item.text}” — ${item.author}`;
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else if (typeof document !== 'undefined') {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setQuoteCopied(true);
+      window.setTimeout(() => setQuoteCopied(false), 1600);
+    } catch {
+      setQuoteCopied(false);
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 items-stretch">
@@ -201,18 +247,69 @@ function LiveDateTimeWeather({ highContrast }) {
           </div>
         </div>
       </div>
-      <div className={`rounded-2xl shadow-xs px-5 py-4 flex items-center gap-4 flex-1 min-w-0 ${
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col gap-3 flex-1 min-w-0 ${
         highContrast ? 'bg-zinc-900 border-2 border-yellow-300' : 'bg-[#C51C63]'
       }`}>
-        <Quote className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
-        <div className="min-w-0">
-          <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
-            Quote of the Day
-          </p>
-          <p className={`text-base font-semibold leading-snug ${highContrast ? 'text-white' : 'text-white'}`}>
-            “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
-          </p>
+        <div className="flex items-start gap-4">
+          <Quote className={`w-7 h-7 shrink-0 mt-1 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
+          <div className="min-w-0 flex-1">
+            <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+              Quote of the Day
+            </p>
+            <button
+              type="button"
+              onClick={() => copyQuote(quote)}
+              className={`mt-1 block text-left text-base font-semibold leading-snug transition rounded-lg -mx-2 px-2 py-1 ${
+                highContrast ? 'text-white hover:bg-yellow-400/15' : 'text-white hover:bg-white/10'
+              }`}
+            >
+              “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
+            </button>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowQuoteHistory((prev) => !prev)}
+              aria-expanded={showQuoteHistory}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition ${
+                highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-white/15 text-white hover:bg-white/25'
+              }`}
+            >
+              <History className="w-3.5 h-3.5" /> Prior quotes
+            </button>
+            <button
+              type="button"
+              onClick={() => copyQuote(quote)}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition ${
+                highContrast ? 'border border-yellow-300 text-yellow-300 hover:bg-yellow-400/15' : 'border border-white/30 text-white hover:bg-white/15'
+              }`}
+            >
+              {quoteCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {quoteCopied ? 'Copied' : 'Copy'}
+            </button>
+          </div>
         </div>
+        {showQuoteHistory && quoteHistory.length > 0 && (
+          <div className={`grid gap-2 border-t pt-3 ${highContrast ? 'border-yellow-300/40' : 'border-white/25'}`}>
+            {quoteHistory.map((item) => (
+              <button
+                key={item.date.toISOString()}
+                type="button"
+                onClick={() => copyQuote(item.quote)}
+                className={`rounded-xl px-3 py-2 text-left text-sm transition ${
+                  highContrast ? 'bg-black/40 hover:bg-yellow-400/15' : 'bg-white/10 hover:bg-white/15'
+                }`}
+              >
+                <span className={`block text-xs font-bold uppercase tracking-wide ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+                  {formatQuoteDate(item.date)}
+                </span>
+                <span className="block font-semibold text-white">
+                  “{item.quote.text}” <span className={highContrast ? 'text-yellow-300' : 'text-white/75'}>— {item.quote.author}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

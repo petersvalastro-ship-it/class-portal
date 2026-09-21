@@ -216,6 +216,23 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                           <p className="mt-1.5">{page.keyIdea}</p>
                         </div>
 
+                        {page.mindsetPractice?.length > 0 && (
+                          <div
+                            className={`rounded-xl p-4 text-sm space-y-2 ${
+                              highContrast ? 'bg-black border-2 border-yellow-400' : 'bg-[#C51C63]/10 border border-[#C51C63]/25'
+                            }`}
+                          >
+                            <p className="flex items-center gap-2 font-extrabold">
+                              <Lightbulb className="w-4 h-4" style={{ color: highContrast ? '#FDE047' : '#C51C63' }} /> Entrepreneurial Mindset Practice
+                            </p>
+                            <ul className="list-disc pl-5 space-y-1">
+                              {page.mindsetPractice.map((item, i) => (
+                                <li key={i}>{item}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
                         <div
                           className={`rounded-xl p-4 text-sm space-y-2 ${
                             highContrast ? 'bg-black border-2 border-white' : 'bg-[#414042]/5 border border-[#414042]/15'
