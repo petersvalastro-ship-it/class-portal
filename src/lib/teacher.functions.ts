@@ -9,9 +9,12 @@ export type StudentRow = {
   masteredCount: number;
   scenariosCount: number;
   sectionsDone: number;
+  completedSections: string[];
   updatedAt: string | null;
   notes: { sectionId: string; note: string }[];
 };
+
+export type GradeOverride = { studentId: string; itemKey: string; score: number };
 
 /**
  * Teacher-only class roster: XP, completed sections and section notes for every
@@ -54,6 +57,7 @@ export const getClassProgress = createServerFn({ method: 'POST' })
           masteredCount: 0,
           scenariosCount: 0,
           sectionsDone: 0,
+          completedSections: [],
           updatedAt: null,
           notes: [],
         };
@@ -77,7 +81,10 @@ export const getClassProgress = createServerFn({ method: 'POST' })
 
     for (const entry of progress ?? []) {
       const row = ensure(entry.user_id as string);
-      if (entry.completed) row.sectionsDone += 1;
+      if (entry.completed) {
+        row.sectionsDone += 1;
+        row.completedSections.push(entry.section_id as string);
+      }
       const note = ((entry.notes as string) || '').trim();
       if (note) row.notes.push({ sectionId: entry.section_id as string, note });
     }
