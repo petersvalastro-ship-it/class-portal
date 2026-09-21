@@ -191,5 +191,16 @@ export function useStudentAuth() {
     user?.email ||
     'Student';
 
-  return { user, displayName, authLoading, progress, saveSection, signIn, signOut, syncing };
+  return {
+    user,
+    displayName,
+    authLoading,
+    progress,
+    saveSection,
+    signIn,
+    signOut,
+    syncing,
+    createStudentAccount,
+    signInStudent,
+  };
 }
