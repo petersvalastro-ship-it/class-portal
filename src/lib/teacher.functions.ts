@@ -84,3 +84,39 @@ export const getClassProgress = createServerFn({ method: 'POST' })
 
     return Array.from(byUser.values()).sort((a, b) => a.name.localeCompare(b.name));
   });
+
+/**
+ * Teacher-only password reset: sets a new password for one student account so a
+ * student who forgot theirs can get back in. Verified against the caller's
+ * 'teacher' role before any privileged call.
+ */
+export const resetStudentPassword = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { userId: string; newPassword: string }) => {
+    const userId = String(input?.userId ?? '').trim();
+    const newPassword = String(input?.newPassword ?? '');
+    if (!userId) throw new Error('Pick a student first.');
+    if (newPassword.length < 6) throw new Error('The new password must be at least 6 characters.');
+    return { userId, newPassword };
+  })
+  .handler(async ({ data, context }): Promise<{ ok: true }> => {
+    const { data: roles, error: rolesError } = await context.supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', context.userId)
+      .eq('role', 'teacher');
+    if (rolesError) throw new Error(rolesError.message);
+    if (!roles || roles.length === 0) {
+      throw new Error('Resetting passwords is available to teachers only.');
+    }
+    if (data.userId === context.userId) {
+      throw new Error('Use your own Google account settings to change your own password.');
+    }
+
+    const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
+    const { error } = await supabaseAdmin.auth.admin.updateUserById(data.userId, {
+      password: data.newPassword,
+    });
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
