@@ -24,6 +24,25 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
   const [resetBusy, setResetBusy] = useState(false);
   const [resetError, setResetError] = useState<string | null>(null);
   const [resetDone, setResetDone] = useState<string | null>(null);
+  const [removeFor, setRemoveFor] = useState<string | null>(null);
+  const [removeBusy, setRemoveBusy] = useState(false);
+  const [removeError, setRemoveError] = useState<string | null>(null);
+
+  const submitRemove = async (userId: string) => {
+    setRemoveBusy(true);
+    setRemoveError(null);
+    try {
+      await deleteStudent({ data: { userId } });
+      setRows((prev) => prev.filter((r) => r.userId !== userId));
+      setRemoveFor(null);
+      setOpenStudent(null);
+    } catch (err) {
+      setRemoveError(err instanceof Error ? err.message : 'Could not remove that student.');
+    } finally {
+      setRemoveBusy(false);
+    }
+  };
+
 
   const submitReset = async (userId: string) => {
     setResetBusy(true);
