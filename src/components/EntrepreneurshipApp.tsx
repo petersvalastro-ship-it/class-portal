@@ -8,7 +8,7 @@ import {
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
   CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList,
-  GraduationCap, LogIn, LogOut, UserCircle
+  GraduationCap, LogIn, LogOut, UserCircle, Copy, History
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
 import pietroPhoto from '../assets/pietro-valastro.jpg.asset.json';
@@ -122,6 +122,21 @@ const DAILY_QUOTES = [
   { text: "Start where you are. Use what you have. Do what you can.", author: "Arthur Ashe" },
 ];
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function getDayOfYear(date) {
+  return Math.floor((date - new Date(date.getFullYear(), 0, 0)) / DAY_MS);
+}
+
+function getDailyQuote(date) {
+  const dayOfYear = getDayOfYear(date);
+  return DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+}
+
+function formatQuoteDate(date) {
+  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
 // Live date/time clock + Marlborough, MA weather (Open-Meteo, no API key needed)
 function weatherCodeInfo(code) {
   if (code === 0) return { label: 'Clear sky', Icon: Sun };
@@ -139,6 +154,8 @@ function weatherCodeInfo(code) {
 function LiveDateTimeWeather({ highContrast }) {
   const [now, setNow] = useState(null);
   const [weather, setWeather] = useState(null);
+  const [showQuoteHistory, setShowQuoteHistory] = useState(false);
+  const [quoteCopied, setQuoteCopied] = useState(false);
 
   useEffect(() => {
     setNow(new Date());
@@ -165,8 +182,44 @@ function LiveDateTimeWeather({ highContrast }) {
   const info = weather ? weatherCodeInfo(weather.weather_code) : null;
   const WIcon = info ? info.Icon : Cloud;
 
-  const dayOfYear = now ? Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000) : 0;
-  const quote = DAILY_QUOTES[dayOfYear % DAILY_QUOTES.length];
+  const quote = now ? getDailyQuote(now) : DAILY_QUOTES[0];
+  const quoteHistory = now
+    ? [1, 2, 3].map((offset) => {
+        const date = new Date(now);
+        date.setDate(date.getDate() - offset);
+        return { date, quote: getDailyQuote(date) };
+      })
+    : [];
+
+  const copyQuote = async (item = quote) => {
+    const text = `“${item.text}” — ${item.author}`;
+    const copyWithTextarea = () => {
+      if (typeof document === 'undefined') return false;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      const copied = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      return copied;
+    };
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else if (typeof document !== 'undefined') {
+        copyWithTextarea();
+      }
+      setQuoteCopied(true);
+      window.setTimeout(() => setQuoteCopied(false), 1600);
+    } catch {
+      const copied = copyWithTextarea();
+      setQuoteCopied(copied);
+      if (copied) window.setTimeout(() => setQuoteCopied(false), 1600);
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 items-stretch">
@@ -201,18 +254,69 @@ function LiveDateTimeWeather({ highContrast }) {
           </div>
         </div>
       </div>
-      <div className={`rounded-2xl shadow-xs px-5 py-4 flex items-center gap-4 flex-1 min-w-0 ${
+      <div className={`rounded-2xl shadow-xs px-5 py-4 flex flex-col gap-3 flex-1 min-w-0 ${
         highContrast ? 'bg-zinc-900 border-2 border-yellow-300' : 'bg-[#C51C63]'
       }`}>
-        <Quote className={`w-7 h-7 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
-        <div className="min-w-0">
-          <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
-            Quote of the Day
-          </p>
-          <p className={`text-base font-semibold leading-snug ${highContrast ? 'text-white' : 'text-white'}`}>
-            “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
-          </p>
+        <div className="flex items-start gap-4">
+          <Quote className={`w-7 h-7 shrink-0 mt-1 ${highContrast ? 'text-yellow-300' : 'text-white/80'}`} />
+          <div className="min-w-0 flex-1">
+            <p className={`text-sm font-bold uppercase tracking-wider ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+              Quote of the Day
+            </p>
+            <button
+              type="button"
+              onClick={() => copyQuote(quote)}
+              className={`mt-1 block text-left text-base font-semibold leading-snug transition rounded-lg -mx-2 px-2 py-1 ${
+                highContrast ? 'text-white hover:bg-yellow-400/15' : 'text-white hover:bg-white/10'
+              }`}
+            >
+              “{quote.text}” <span className={`font-medium ${highContrast ? 'text-yellow-300' : 'text-white/80'}`}>— {quote.author}</span>
+            </button>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowQuoteHistory((prev) => !prev)}
+              aria-expanded={showQuoteHistory}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition ${
+                highContrast ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-white/15 text-white hover:bg-white/25'
+              }`}
+            >
+              <History className="w-3.5 h-3.5" /> Prior quotes
+            </button>
+            <button
+              type="button"
+              onClick={() => copyQuote(quote)}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition ${
+                highContrast ? 'border border-yellow-300 text-yellow-300 hover:bg-yellow-400/15' : 'border border-white/30 text-white hover:bg-white/15'
+              }`}
+            >
+              {quoteCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {quoteCopied ? 'Copied' : 'Copy'}
+            </button>
+          </div>
         </div>
+        {showQuoteHistory && quoteHistory.length > 0 && (
+          <div className={`grid gap-2 border-t pt-3 ${highContrast ? 'border-yellow-300/40' : 'border-white/25'}`}>
+            {quoteHistory.map((item) => (
+              <button
+                key={item.date.toISOString()}
+                type="button"
+                onClick={() => copyQuote(item.quote)}
+                className={`rounded-xl px-3 py-2 text-left text-sm transition ${
+                  highContrast ? 'bg-black/40 hover:bg-yellow-400/15' : 'bg-white/10 hover:bg-white/15'
+                }`}
+              >
+                <span className={`block text-xs font-bold uppercase tracking-wide ${highContrast ? 'text-yellow-300' : 'text-white/70'}`}>
+                  {formatQuoteDate(item.date)}
+                </span>
+                <span className="block font-semibold text-white">
+                  “{item.quote.text}” <span className={highContrast ? 'text-yellow-300' : 'text-white/75'}>— {item.quote.author}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1418,18 +1522,18 @@ export default function EntrepreneurshipApp() {
               </button>
             </div>
             <div className="px-6 py-5 space-y-4 text-sm leading-relaxed">
-              <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 2026</p>
+              <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 21, 2026</p>
               <section>
                 <h3 className="font-bold text-base mb-2">1. Acceptance of Terms</h3>
                 <p>By accessing and using the NEIA Entrepreneur Hub ("the Hub"), you agree to these Terms of Use. If you do not agree with any part of these terms, please do not use the Hub. The Hub is provided as an educational resource for students of New England Innovation Academy (NEIA).</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">2. Educational Purpose</h3>
-                <p>The Hub is designed to support middle school entrepreneurship education. All content—including calculators, scenarios, glossary terms, entrepreneur profiles, and the venture pitch builder—is provided for learning and practice purposes. Information presented here should not be taken as professional financial, legal, or business advice.</p>
+                <p>The Hub is designed to support middle school entrepreneurship education. All content—including the LaunchPad digital textbook, calculators, scenarios, glossary terms, entrepreneur profiles, quote feature, class tools, gradebook, and venture pitch builder—is provided for learning and practice purposes. Information presented here should not be taken as professional financial, legal, or business advice.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">3. Student Accounts and Saved Progress</h3>
-                <p>Signing in is optional, and there are two ways to do it: a Student Account made from your first name, last initial, grade, and a password you choose, or your own NEIA school Google account—never someone else's. Choose a password only you know, and never share it. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, and learning goals to your account so they follow you between devices. Your teacher can see this coursework progress. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
+                <p>Signing in is optional, and there are two ways to do it: a Student Account made from your first name, last initial, grade, and a password you choose, or your own NEIA school Google account—never someone else's. Choose a password only you know, and never share it. Signing in lets the Hub save your XP, glossary progress, completed scenarios, textbook sections, notes, gradebook results, teacher-approved grade overrides, and learning goals to your account so they follow you between devices. Your teacher can view this coursework progress, rename an inappropriate or incorrect display name, reset a forgotten Student Account password, and remove a student account from the class roster when needed. Keep your account secure, sign out on shared computers, and do not enter sensitive personal information in notes or goals. Accounts and saved progress may be reset or removed at the end of the course or at your teacher's discretion.</p>
               </section>
               <section>
 
@@ -1439,7 +1543,8 @@ export default function EntrepreneurshipApp() {
                   <li>Use the Hub only for class-related learning activities.</li>
                   <li>Not attempt to disrupt, damage, or gain unauthorized access to the Hub or its content.</li>
                   <li>Respect the intellectual property of others, including the entrepreneurs and organizations featured.</li>
-                  <li>Submit your own work when completing exit tickets and practice activities.</li>
+                  <li>Submit your own work when completing entry tickets, exit tickets, textbook work, and practice activities.</li>
+                  <li>Use Student Account names that accurately and respectfully identify you to your teacher.</li>
                 </ul>
               </section>
               <section>
@@ -1448,7 +1553,7 @@ export default function EntrepreneurshipApp() {
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">6. External Links</h3>
-                <p>The Hub contains links to external services including Google Classroom, Figma, Canva, and Google Calendar. NEIA does not control these external services and is not responsible for their content, privacy practices, or availability. Use of external services is subject to their own terms and policies.</p>
+                <p>The Hub contains links to external services including Google Classroom, Google Forms, Figma, Canva, Google Calendar, weather data, and optional Google sign-in. NEIA does not control these external services and is not responsible for their content, privacy practices, or availability. Use of external services is subject to their own terms and policies.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">7. No Warranties</h3>
@@ -1499,18 +1604,18 @@ export default function EntrepreneurshipApp() {
               </button>
             </div>
             <div className="px-6 py-5 space-y-4 text-sm leading-relaxed">
-              <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 2026</p>
+              <p className={`text-xs ${highContrast ? 'text-yellow-300' : 'text-[#414042]/60'}`}>Last updated: September 21, 2026</p>
               <section>
                 <h3 className="font-bold text-base mb-2">1. Information We Collect</h3>
-                <p>You can use most of the NEIA Entrepreneur Hub without signing in. If you create a Student Account, we store only your first name, last initial, and grade level as your display name—no email address is required—plus a securely encrypted version of the password you choose, which no one can read, including your teacher. If you choose to sign in with your school Google account instead, we receive only your name, email address, and account ID from Google so we can save your work to your account. We never receive or store your Google password. Once signed in, the Hub stores your learning progress—XP points, mastered glossary terms, completed scenarios, completed textbook sections, section notes, and learning goals—in a secure database record tied to your account. If you do not sign in, that same progress is kept only in your browser on that device.</p>
+                <p>You can use most of the NEIA Entrepreneur Hub without signing in. If you create a Student Account, we store only your first name, last initial, and grade level as your display name—no email address is required—plus a securely encrypted version of the password you choose, which no one can read, including your teacher. Your teacher may reset the password if you forget it, but cannot view your old password. If you choose to sign in with your school Google account instead, we receive only your name, email address, and account ID from Google so we can save your work to your account. We never receive or store your Google password. Once signed in, the Hub stores your learning progress—XP points, mastered glossary terms, completed scenarios, completed textbook sections, section notes, gradebook calculations, teacher grade overrides, and learning goals—in a secure database record tied to your account. If you do not sign in, that same progress is kept only in your browser on that device.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">2. Exit Ticket Submissions</h3>
-                <p>When you complete an Exit Ticket, your responses are submitted through Google Forms, which is governed by Google's privacy policy and NEIA's Google Workspace for Education settings. Your teacher reviews these submissions. Please do not include sensitive personal information beyond what is asked in the form.</p>
+                <p>When you complete an Entry Ticket or Exit Ticket, your responses are submitted through Google Forms, which is governed by Google's privacy policy and NEIA's Google Workspace for Education settings. Your teacher reviews these submissions. Please do not include sensitive personal information beyond what is asked in the form.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">3. Cookies, Local Storage, and Sign-In Sessions</h3>
-                <p>The Hub uses your browser's local storage to remember your progress (XP, mastered terms, completed scenarios, notes, and goals) and, when you sign in, to keep you signed in securely. Local data stays on your device and is cleared if you clear your browser data. No advertising or tracking cookies are used.</p>
+                <p>The Hub uses your browser's local storage to remember your progress (XP, mastered terms, completed scenarios, notes, goals, and quote preferences) and, when you sign in, to keep you signed in securely. Local data stays on your device and is cleared if you clear your browser data. No advertising or tracking cookies are used. Copying a quote uses your browser clipboard only after you click or tap the quote or Copy button.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">4. Weather Data</h3>
@@ -1520,7 +1625,7 @@ export default function EntrepreneurshipApp() {
                 <h3 className="font-bold text-base mb-2">5. Third-Party Services</h3>
                 <p>The Hub links to or embeds several third-party services, each with their own privacy policies:</p>
                 <ul className="list-disc pl-6 space-y-1 mt-1">
-                  <li><strong>Google Classroom, Google Calendar, & Google Forms</strong> — governed by Google's Privacy Policy and NEIA's Google Workspace for Education settings.</li>
+                  <li><strong>Google Classroom, Google Calendar, Google Forms, and optional Google sign-in</strong> — governed by Google's Privacy Policy and NEIA's Google Workspace for Education settings.</li>
                   <li><strong>Figma</strong> — governed by Figma's Privacy Policy.</li>
                   <li><strong>Canva</strong> — governed by Canva's Privacy Policy.</li>
                   <li><strong>Open-Meteo</strong> — weather data provider; see Open-Meteo's privacy practices.</li>
@@ -1533,11 +1638,11 @@ export default function EntrepreneurshipApp() {
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">7. Data Security</h3>
-                <p>Saved progress for signed-in students is stored on a managed cloud database with security rules that allow each student to read and write only their own record. Sign-in is handled by Google, so the Hub never sees or stores passwords. No system is perfectly secure, and external services you access through the Hub have their own security measures.</p>
+                <p>Saved progress for signed-in students is stored on a managed cloud database with security rules that allow each student to read and write only their own record. The teacher dashboard is limited to the teacher account and is used to review class progress, gradebook results, student notes, and account support actions such as renaming a student, resetting a forgotten Student Account password, or removing a student account. Google sign-in is handled by Google, so the Hub never sees or stores Google passwords. Student Account passwords are stored in encrypted form and cannot be read by the teacher. No system is perfectly secure, and external services you access through the Hub have their own security measures.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">8. Children's Privacy</h3>
-                <p>The Hub is designed for middle school students. NEIA takes student privacy seriously and works to comply with applicable student privacy laws, including FERPA. The only student information stored by the Hub is the sign-in details described above and your own coursework progress; it is used solely for teaching and learning in this class, is visible to your teacher, and is never sold, advertised against, or shared with outside parties. Sign-in uses NEIA's Google Workspace for Education accounts, which are managed under NEIA's institutional agreements.</p>
+                <p>The Hub is designed for middle school students. NEIA takes student privacy seriously and works to comply with applicable student privacy laws, including FERPA. The only student information stored by the Hub is the sign-in details described above and your own coursework progress; it is used solely for teaching and learning in this class, is visible to your teacher, and is never sold, advertised against, or shared with outside parties. Students may use a limited Student Account with no email address or may use NEIA's Google Workspace for Education accounts, which are managed under NEIA's institutional agreements.</p>
               </section>
               <section>
                 <h3 className="font-bold text-base mb-2">9. Your Choices</h3>
