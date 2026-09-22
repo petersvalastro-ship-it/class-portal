@@ -14,6 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
+      anomaly_flag: {
+        Row: {
+          created_at: string
+          dismiss_note: string
+          dismissed_at: string | null
+          dismissed_by: string | null
+          evidence: Json
+          id: string
+          node_id: string
+          student_id: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          dismiss_note?: string
+          dismissed_at?: string | null
+          dismissed_by?: string | null
+          evidence?: Json
+          id?: string
+          node_id?: string
+          student_id: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          dismiss_note?: string
+          dismissed_at?: string | null
+          dismissed_by?: string | null
+          evidence?: Json
+          id?: string
+          node_id?: string
+          student_id?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      assessment_attempt: {
+        Row: {
+          active_seconds: number
+          assessment_id: string
+          attempt_number: number
+          created_at: string
+          id: string
+          low_effort: boolean
+          median_seconds: number
+          node_id: string
+          passed: boolean
+          responses: Json
+          score_pct: number
+          student_id: string
+          tier: string
+        }
+        Insert: {
+          active_seconds?: number
+          assessment_id: string
+          attempt_number?: number
+          created_at?: string
+          id?: string
+          low_effort?: boolean
+          median_seconds?: number
+          node_id: string
+          passed?: boolean
+          responses?: Json
+          score_pct?: number
+          student_id: string
+          tier: string
+        }
+        Update: {
+          active_seconds?: number
+          assessment_id?: string
+          attempt_number?: number
+          created_at?: string
+          id?: string
+          low_effort?: boolean
+          median_seconds?: number
+          node_id?: string
+          passed?: boolean
+          responses?: Json
+          score_pct?: number
+          student_id?: string
+          tier?: string
+        }
+        Relationships: []
+      }
+      class_setting: {
+        Row: {
+          daily_xp_cap: number
+          default_threshold: number
+          id: string
+          mastery_gate_enabled: boolean
+          min_section_seconds: number
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          daily_xp_cap?: number
+          default_threshold?: number
+          id?: string
+          mastery_gate_enabled?: boolean
+          min_section_seconds?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          daily_xp_cap?: number
+          default_threshold?: number
+          id?: string
+          mastery_gate_enabled?: boolean
+          min_section_seconds?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      engagement_session: {
+        Row: {
+          active_seconds: number
+          ended_at: string
+          id: string
+          idle_seconds: number
+          interaction_count: number
+          node_id: string
+          started_at: string
+          student_id: string
+        }
+        Insert: {
+          active_seconds?: number
+          ended_at?: string
+          id?: string
+          idle_seconds?: number
+          interaction_count?: number
+          node_id: string
+          started_at?: string
+          student_id: string
+        }
+        Update: {
+          active_seconds?: number
+          ended_at?: string
+          id?: string
+          idle_seconds?: number
+          interaction_count?: number
+          node_id?: string
+          started_at?: string
+          student_id?: string
+        }
+        Relationships: []
+      }
+      gate_override: {
+        Row: {
+          node_id: string
+          reason: string
+          state: string
+          student_id: string
+          threshold_override: number | null
+          unlocked_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          node_id: string
+          reason?: string
+          state?: string
+          student_id: string
+          threshold_override?: number | null
+          unlocked_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          node_id?: string
+          reason?: string
+          state?: string
+          student_id?: string
+          threshold_override?: number | null
+          unlocked_by?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       grade_override: {
         Row: {
           id: string
@@ -74,8 +251,10 @@ export type Database = {
           display_name: string | null
           email: string | null
           goals: Json
+          grade_level: string | null
           mastered_terms: Json
           study_plan: string | null
+          threshold_override: number | null
           updated_at: string
           user_id: string
           xp: number
@@ -85,8 +264,10 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           goals?: Json
+          grade_level?: string | null
           mastered_terms?: Json
           study_plan?: string | null
+          threshold_override?: number | null
           updated_at?: string
           user_id: string
           xp?: number
@@ -96,8 +277,10 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           goals?: Json
+          grade_level?: string | null
           mastered_terms?: Json
           study_plan?: string | null
+          threshold_override?: number | null
           updated_at?: string
           user_id?: string
           xp?: number
@@ -122,6 +305,81 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      xp_admin_action: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          node_id: string
+          reason: string
+          require_retake: boolean
+          scope: string
+          student_id: string
+          teacher_id: string
+          xp_removed: number
+        }
+        Insert: {
+          action?: string
+          created_at?: string
+          id?: string
+          node_id?: string
+          reason?: string
+          require_retake?: boolean
+          scope?: string
+          student_id: string
+          teacher_id: string
+          xp_removed?: number
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          node_id?: string
+          reason?: string
+          require_retake?: boolean
+          scope?: string
+          student_id?: string
+          teacher_id?: string
+          xp_removed?: number
+        }
+        Relationships: []
+      }
+      xp_ledger: {
+        Row: {
+          blocked_reason: string
+          capped: boolean
+          created_at: string
+          event_type: string
+          id: string
+          multiplier_applied: number
+          node_id: string
+          student_id: string
+          xp_delta: number
+        }
+        Insert: {
+          blocked_reason?: string
+          capped?: boolean
+          created_at?: string
+          event_type: string
+          id?: string
+          multiplier_applied?: number
+          node_id?: string
+          student_id: string
+          xp_delta?: number
+        }
+        Update: {
+          blocked_reason?: string
+          capped?: boolean
+          created_at?: string
+          event_type?: string
+          id?: string
+          multiplier_applied?: number
+          node_id?: string
+          student_id?: string
+          xp_delta?: number
         }
         Relationships: []
       }
