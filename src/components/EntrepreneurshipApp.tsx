@@ -615,6 +615,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp() {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [textbookTarget, setTextbookTarget] = useState<string | null>(null);
   const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [classToolsMenuOpen, setClassToolsMenuOpen] = useState(false);
   const [learningMenuOpen, setLearningMenuOpen] = useState(false);
@@ -1400,6 +1401,11 @@ export default function EntrepreneurshipApp() {
             completedSectionIds={Object.entries(auth.progress || {})
               .filter(([, entry]) => entry?.completed)
               .map(([id]) => id)}
+            sectionProgress={auth.progress || {}}
+            onOpenSection={(sectionId) => {
+              setTextbookTarget(sectionId);
+              setActiveTab('textbook');
+            }}
           />
         )}
 
@@ -1418,6 +1424,7 @@ export default function EntrepreneurshipApp() {
             speakText={speakText}
             auth={auth}
             onEarnXp={(amount) => setXp((current) => current + amount)}
+            targetSectionId={textbookTarget}
           />
         )}
 
