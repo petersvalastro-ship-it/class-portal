@@ -32,7 +32,7 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
       document.getElementById(`launchpad-${targetSectionId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [progress, saveSection, targetSectionId]);
+  }, [targetSectionId]);
 
   const completedCount = useMemo(
     () => ALL_LAUNCHPAD_SECTION_IDS.filter((id) => progress[id]?.completed).length,
