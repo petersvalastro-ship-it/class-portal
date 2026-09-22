@@ -151,8 +151,10 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
       <div className="flex gap-2">
         {([
           { id: 'progress' as const, label: 'Class progress', icon: Users },
+          { id: 'mastery' as const, label: 'Mastery & XP', icon: ShieldCheck },
           { id: 'gradebook' as const, label: 'Gradebook', icon: Table },
         ]).map((tab) => (
+
           <button
             key={tab.id}
             onClick={() => setView(tab.id)}
