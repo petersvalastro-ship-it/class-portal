@@ -6,7 +6,6 @@ import type { useMastery } from '@/hooks/useMastery';
 import { LAUNCHPAD_CHAPTERS } from '@/lib/launchpad-content';
 import { MODULES_BY_CHAPTER, chapterAssessment, moduleAssessment, type Assessment } from '@/lib/assessments';
 import {
-  ALL_STATUS_ICON_KEYS,
   assessmentAvailable,
   assessmentStatus,
   bestScore,
