@@ -282,8 +282,8 @@ export function useMastery(
       actionStamps.current = [...actionStamps.current.filter((t) => Date.now() - t < 60_000), Date.now()];
       const award = xpForEvent(event, {
         activeSeconds,
-        hasEvidence: ctx.hasEvidence,
-        alreadyAwarded: ctx.alreadyAwarded,
+        hasEvidence: ctx.hasEvidence ?? false,
+        alreadyAwarded: ctx.alreadyAwarded ?? false,
         xpToday,
         flagged,
         settings,
