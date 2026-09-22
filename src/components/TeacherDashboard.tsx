@@ -174,8 +174,12 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
       </div>
 
       {view === 'gradebook' ? (
+      {view === 'mastery' ? (
+        <TeacherMasteryPanels highContrast={highContrast} />
+      ) : view === 'gradebook' ? (
         <Gradebook rows={filtered} highContrast={highContrast} totalScenarios={totalScenarios} totalTerms={totalTerms} />
       ) : (
+
       <>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
