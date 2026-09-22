@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   BookOpen, CheckCircle2, Circle, ChevronDown, Volume2, Sparkles, Lightbulb,
   Layers, Calculator, Presentation, Target, Save, LogIn, Wrench, GraduationCap,
@@ -10,12 +10,29 @@ import {
 } from '@/lib/launchpad-content';
 import { PAGES_BY_CHAPTER } from '@/lib/textbook-pages';
 
-export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp }) {
+export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp, targetSectionId }) {
   const { user, displayName, progress, saveSection, signIn, syncing } = auth;
   const [view, setView] = useState('ch1'); // chapter id | 'vocab' | 'tools' | 'reference'
   const [openSection, setOpenSection] = useState('ch1-1');
   const [openPage, setOpenPage] = useState(null);
   const [noteDrafts, setNoteDrafts] = useState({});
+
+  useEffect(() => {
+    if (!targetSectionId) return;
+    const targetChapter = LAUNCHPAD_CHAPTERS.find((item) =>
+      item.sections.some((section) => section.id === targetSectionId),
+    );
+    if (!targetChapter) return;
+    if (!progress[targetSectionId]) {
+      saveSection(targetSectionId, { completed: false, notes: '' });
+    }
+    setView(targetChapter.id);
+    setOpenSection(targetSectionId);
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(`launchpad-${targetSectionId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [targetSectionId]);
 
   const completedCount = useMemo(
     () => ALL_LAUNCHPAD_SECTION_IDS.filter((id) => progress[id]?.completed).length,
@@ -281,9 +298,12 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                 const state = progress[section.id] || { completed: false, notes: '' };
                 const draft = noteDrafts[section.id] ?? state.notes ?? '';
                 return (
-                  <div key={section.id} className={`rounded-2xl overflow-hidden ${card}`}>
+                  <div id={`launchpad-${section.id}`} key={section.id} className={`scroll-mt-24 rounded-2xl overflow-hidden ${card}`}>
                     <button
-                      onClick={() => setOpenSection(isOpen ? null : section.id)}
+                      onClick={() => {
+                        if (!progress[section.id]) saveSection(section.id, { completed: false, notes: '' });
+                        setOpenSection(isOpen ? null : section.id);
+                      }}
                       className="w-full flex items-center justify-between gap-3 p-4 text-left"
                     >
                       <span className="flex items-center gap-3">

@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Target, Trophy, BookOpen, GraduationCap, Plus, Check, Trash2, UserCircle, Sparkles, Wand2, Loader2, AlertTriangle } from 'lucide-react';
 import type { GoalMetric, StudentGoal } from '@/hooks/useHubProgress';
+import type { ProgressMap } from '@/hooks/useStudentAuth';
 import { generateStudyPlan } from '@/lib/study-plan.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 import { supabase } from '@/integrations/supabase/client';
+import LearningProgressMap from './LearningProgressMap';
 
 type Props = {
   displayName: string;
@@ -22,6 +24,8 @@ type Props = {
   setActiveTab: (tab: string) => void;
   userId?: string | null;
   completedSectionIds?: string[];
+  sectionProgress: ProgressMap;
+  onOpenSection: (sectionId: string) => void;
 };
 
 const METRIC_LABEL: Record<GoalMetric, string> = {
@@ -49,6 +53,8 @@ export default function StudentProfileView({
   setActiveTab,
   userId,
   completedSectionIds = [],
+  sectionProgress,
+  onOpenSection,
 }: Props) {
   const [title, setTitle] = useState('');
   const [metric, setMetric] = useState<GoalMetric>('terms');
@@ -183,6 +189,12 @@ export default function StudentProfileView({
           );
         })}
       </div>
+
+      <LearningProgressMap
+        progress={sectionProgress}
+        highContrast={highContrast}
+        onOpenSection={onOpenSection}
+      />
 
       {/* AI study plan */}
       <div className={`rounded-2xl p-6 ${card}`}>
