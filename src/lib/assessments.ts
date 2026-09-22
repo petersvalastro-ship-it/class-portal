@@ -55,7 +55,9 @@ function shuffle<T>(list: T[], seed: string): T[] {
   const out = [...list];
   for (let i = out.length - 1; i > 0; i -= 1) {
     const j = Math.floor(rand() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
+    const tmp = out[i] as T;
+    out[i] = out[j] as T;
+    out[j] = tmp;
   }
   return out;
 }
@@ -146,7 +148,9 @@ export function sectionCheck(sectionId: string): Assessment | null {
   const pool = chapterItems(module.chapterId, module.vocabIndexes);
   if (!pool.length) return null;
   const start = (position * 3) % pool.length;
-  const items = [0, 1, 2].map((offset) => pool[(start + offset) % pool.length]);
+  const items = [0, 1, 2]
+    .map((offset) => pool[(start + offset) % pool.length])
+    .filter((item): item is AssessmentItem => Boolean(item));
   return {
     id: `check:${sectionId}`,
     tier: 'section',
@@ -191,6 +195,7 @@ export function chapterAssessment(chapterId: string): Assessment | null {
 
 export function assessmentById(assessmentId: string): Assessment | null {
   const [kind, node] = assessmentId.split(':');
+  if (!node) return null;
   if (kind === 'check') return sectionCheck(node);
   if (kind === 'module') return moduleAssessment(node);
   if (kind === 'chapter') return chapterAssessment(node);

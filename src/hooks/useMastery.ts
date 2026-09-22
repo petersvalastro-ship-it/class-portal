@@ -309,7 +309,7 @@ export function useMastery(
       const correct = responses.filter((r) => r.correct).length;
       const scorePct = responses.length ? Math.round((correct / responses.length) * 100) : 0;
       const sorted = responses.map((r) => r.seconds).sort((a, b) => a - b);
-      const median = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+      const median = sorted.length ? (sorted[Math.floor(sorted.length / 2)] ?? 0) : 0;
       const lowEffort = isLowEffortAttempt(median);
       const priorAttempts = attempts.filter((a) => a.assessmentId === assessment.id).length;
       const attemptNumber = priorAttempts + 1;

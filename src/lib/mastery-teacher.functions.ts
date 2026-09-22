@@ -115,7 +115,7 @@ export const getClassMastery = createServerFn({ method: 'POST' })
       row.attempts.push({
         studentId: attempt.student_id,
         assessmentId: attempt.assessment_id,
-        tier: attempt.tier,
+        tier: attempt.tier as 'section' | 'module' | 'chapter',
         nodeId: attempt.node_id,
         attemptNumber: Number(attempt.attempt_number) || 1,
         scorePct: Number(attempt.score_pct) || 0,
@@ -144,7 +144,7 @@ export const getClassMastery = createServerFn({ method: 'POST' })
     for (const override of overrides.data ?? []) {
       ensure(override.student_id).overrides.push({
         nodeId: override.node_id,
-        state: override.state,
+        state: override.state as 'teacher_unlocked' | 'retake_required',
         thresholdOverride: override.threshold_override === null ? null : Number(override.threshold_override),
       });
     }
