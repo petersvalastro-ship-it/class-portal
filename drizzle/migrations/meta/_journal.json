@@ -36,6 +36,13 @@
       "when": 1790003617249,
       "tag": "0004_create_grade_override",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790081478337,
+      "tag": "0005_mastery_assessments_and_xp_audit",
+      "breakpoints": true
     }
   ]
 }
