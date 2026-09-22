@@ -23,13 +23,16 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
       item.sections.some((section) => section.id === targetSectionId),
     );
     if (!targetChapter) return;
+    if (!progress[targetSectionId]) {
+      saveSection(targetSectionId, { completed: false, notes: '' });
+    }
     setView(targetChapter.id);
     setOpenSection(targetSectionId);
     const frame = window.requestAnimationFrame(() => {
       document.getElementById(`launchpad-${targetSectionId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [targetSectionId]);
+  }, [progress, saveSection, targetSectionId]);
 
   const completedCount = useMemo(
     () => ALL_LAUNCHPAD_SECTION_IDS.filter((id) => progress[id]?.completed).length,
@@ -297,7 +300,10 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                 return (
                   <div id={`launchpad-${section.id}`} key={section.id} className={`scroll-mt-24 rounded-2xl overflow-hidden ${card}`}>
                     <button
-                      onClick={() => setOpenSection(isOpen ? null : section.id)}
+                      onClick={() => {
+                        if (!progress[section.id]) saveSection(section.id, { completed: false, notes: '' });
+                        setOpenSection(isOpen ? null : section.id);
+                      }}
                       className="w-full flex items-center justify-between gap-3 p-4 text-left"
                     >
                       <span className="flex items-center gap-3">
