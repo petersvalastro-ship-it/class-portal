@@ -10,7 +10,7 @@ import {
 } from '@/lib/launchpad-content';
 import { PAGES_BY_CHAPTER } from '@/lib/textbook-pages';
 
-export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp, targetSectionId }) {
+export default function LaunchpadTextbook({ highContrast, speakText, auth, onEarnXp, targetSectionId, onSectionOpen, onSectionComplete }) {
   const { user, displayName, progress, saveSection, signIn, syncing } = auth;
   const [view, setView] = useState('ch1'); // chapter id | 'vocab' | 'tools' | 'reference'
   const [openSection, setOpenSection] = useState('ch1-1');
@@ -28,6 +28,7 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
     }
     setView(targetChapter.id);
     setOpenSection(targetSectionId);
+    onSectionOpen?.(targetSectionId);
     const frame = window.requestAnimationFrame(() => {
       document.getElementById(`launchpad-${targetSectionId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
@@ -68,7 +69,13 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
     const current = progress[sectionId] || { completed: false, notes: '' };
     const nextCompleted = !current.completed;
     saveSection(sectionId, { ...current, completed: nextCompleted });
-    if (nextCompleted && onEarnXp) onEarnXp(15);
+    // XP for finishing a section runs through the anti-farming rules: it needs
+    // real reading time plus a saved note or an answered check.
+    if (nextCompleted) {
+      const hasEvidence = Boolean((noteDrafts[sectionId] ?? current.notes ?? '').trim());
+      if (onSectionComplete) onSectionComplete(sectionId, hasEvidence);
+      else if (onEarnXp) onEarnXp(3);
+    }
   };
 
   const saveNotes = (sectionId) => {
@@ -302,6 +309,7 @@ export default function LaunchpadTextbook({ highContrast, speakText, auth, onEar
                     <button
                       onClick={() => {
                         if (!progress[section.id]) saveSection(section.id, { completed: false, notes: '' });
+                        onSectionOpen?.(section.id);
                         setOpenSection(isOpen ? null : section.id);
                       }}
                       className="w-full flex items-center justify-between gap-3 p-4 text-left"
