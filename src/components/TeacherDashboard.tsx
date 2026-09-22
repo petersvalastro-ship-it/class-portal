@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table, Trash2, Pencil } from 'lucide-react';
+import { Users, Trophy, BookOpen, RefreshCw, ClipboardList, Search, AlertTriangle, KeyRound, Check, Table, Trash2, Pencil, ShieldCheck } from 'lucide-react';
 import { getClassProgress, resetStudentPassword, deleteStudent, renameStudent, type StudentRow } from '@/lib/teacher.functions';
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 import Gradebook from './Gradebook';
+import TeacherMasteryPanels from './TeacherMasteryPanels';
 
 type Props = { highContrast: boolean; totalScenarios?: number; totalTerms?: number };
 
@@ -13,7 +14,7 @@ const SECTION_TITLES: Record<string, string> = Object.fromEntries(
 );
 
 export default function TeacherDashboard({ highContrast, totalScenarios = 1, totalTerms = 1 }: Props) {
-  const [view, setView] = useState<'progress' | 'gradebook'>('progress');
+  const [view, setView] = useState<'progress' | 'mastery' | 'gradebook'>('progress');
   const [rows, setRows] = useState<StudentRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
