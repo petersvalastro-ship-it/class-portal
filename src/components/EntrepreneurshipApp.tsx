@@ -43,6 +43,8 @@ import LaunchpadTextbook from './LaunchpadTextbook';
 import { useStudentAuth } from '@/hooks/useStudentAuth';
 import { useHubProgress } from '@/hooks/useHubProgress';
 import StudentProfileView from './StudentProfileView';
+import MasteryPortal from './MasteryPortal';
+import { useMastery } from '@/hooks/useMastery';
 import TeacherDashboard from './TeacherDashboard';
 import { useIsTeacher } from '@/hooks/useIsTeacher';
 import { StudentAccountModal } from './StudentAccountModal';
@@ -642,6 +644,7 @@ export default function EntrepreneurshipApp() {
     email: auth.user?.email ?? null,
   });
   const isTeacher = useIsTeacher(auth.user?.id);
+  const mastery = useMastery(auth.user?.id, { onEarnXp: (amount) => hub.setXp((current) => current + amount) });
   const { xp, setXp, completedScenarios, setCompletedScenarios, masteredTerms, setMasteredTerms, goals, setGoals } = hub;
 
   // Friendly reminder to sign in so work is saved to the account
@@ -896,6 +899,7 @@ export default function EntrepreneurshipApp() {
                 { id: 'entryticket', label: 'Class Tools · Entry Ticket' },
                 { id: 'feedback', label: 'Class Tools · Exit Ticket' },
                 { id: 'textbook', label: 'Learning · Textbook' },
+                { id: 'mastery', label: 'Learning · Mastery & Assessments' },
                 { id: 'entrepreneurs', label: 'Learning · Entrepreneurs' },
                 { id: 'glossary', label: 'Resources · Glossary' },
                 { id: 'calculators', label: 'Resources · Math Lab' },
@@ -959,9 +963,10 @@ export default function EntrepreneurshipApp() {
                 {
                   label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                   setOpen: setLearningMenuOpen,
-                  ids: ['textbook','entrepreneurs'],
+                  ids: ['textbook','mastery','entrepreneurs'],
                   items: [
                     { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
+                    { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                     { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                   ],
                 },
@@ -1074,9 +1079,10 @@ export default function EntrepreneurshipApp() {
                 label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                 setOpen: setLearningMenuOpen,
                 closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['textbook','entrepreneurs'],
+                ids: ['textbook','mastery','entrepreneurs'],
                 items: [
                   { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
+                  { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                   { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                 ],
               },
@@ -1425,6 +1431,25 @@ export default function EntrepreneurshipApp() {
             auth={auth}
             onEarnXp={(amount) => setXp((current) => current + amount)}
             targetSectionId={textbookTarget}
+            onSectionOpen={(sectionId) => mastery.setActiveNode(sectionId)}
+            onSectionComplete={(sectionId, hasEvidence) =>
+              mastery.awardXp('section_complete', sectionId, { hasEvidence })
+            }
+          />
+        )}
+
+        {activeTab === 'mastery' && (
+          <MasteryPortal
+            displayName={auth.displayName || 'there'}
+            xp={xp}
+            progress={auth.progress || {}}
+            highContrast={highContrast}
+            mastery={mastery}
+            signedIn={Boolean(auth.user)}
+            onOpenSection={(sectionId) => {
+              setTextbookTarget(sectionId);
+              setActiveTab('textbook');
+            }}
           />
         )}
 

@@ -216,6 +216,7 @@ export default function AssessmentRunner({
 
           {(() => {
             const item = assessment.items[index];
+            if (!item) return null;
             return (
               <fieldset className="space-y-3">
                 <legend className="text-lg font-black">{item.stem}</legend>
@@ -268,7 +269,7 @@ export default function AssessmentRunner({
                   setIndex((i) => i + 1);
                   setItemStart(Date.now());
                 }}
-                disabled={answers[assessment.items[index].id] === undefined}
+                disabled={answers[assessment.items[index]?.id ?? ''] === undefined}
               >
                 Next <ArrowRight aria-hidden="true" />
               </Button>

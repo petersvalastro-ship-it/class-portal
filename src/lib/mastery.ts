@@ -101,7 +101,7 @@ export function assessmentStatus(
   const list = attemptsFor(attempts, assessmentId);
   if (!list.length) return overrideState === 'teacher_unlocked' ? 'teacher_unlocked' : 'not_started';
   const best = Math.max(...list.map((a) => a.scorePct));
-  const firstPassed = list[0].scorePct >= threshold;
+  const firstPassed = (list[0]?.scorePct ?? 0) >= threshold;
   if (best >= 95 || (firstPassed && best >= threshold)) return 'mastered';
   if (best >= threshold) return 'passed';
   return 'failed';
@@ -156,6 +156,7 @@ export function moduleUnlocked(
   const index = siblings.findIndex((m) => m.id === moduleId);
   if (index <= 0) return { unlocked: true, reason: '' };
   const previous = siblings[index - 1];
+  if (!previous) return { unlocked: true, reason: '' };
   const threshold = thresholdFor(previous.id, ctx.settings, ctx.overrides, ctx.studentThreshold);
   if (hasPassed(`module:${previous.id}`, ctx.attempts, threshold, ctx.overrides, previous.id)) {
     return { unlocked: true, reason: '' };
@@ -181,6 +182,7 @@ export function chapterUnlocked(
   const index = LAUNCHPAD_CHAPTERS.findIndex((c) => c.id === chapterId);
   if (index <= 0) return { unlocked: true, reason: '' };
   const previous = LAUNCHPAD_CHAPTERS[index - 1];
+  if (!previous) return { unlocked: true, reason: '' };
   const threshold = thresholdFor(previous.id, ctx.settings, ctx.overrides, ctx.studentThreshold);
   if (hasPassed(`chapter:${previous.id}`, ctx.attempts, threshold, ctx.overrides, previous.id)) {
     return { unlocked: true, reason: '' };
@@ -232,6 +234,7 @@ export function retryState(
   const list = attemptsFor(attempts, assessment.id);
   if (!list.length) return { canRetry: true, secondsRemaining: 0, needsReview: false };
   const last = list[list.length - 1];
+  if (!last) return { canRetry: true, secondsRemaining: 0, needsReview: false };
   if (last.passed || assessment.tier === 'section') {
     return { canRetry: true, secondsRemaining: 0, needsReview: false };
   }
@@ -325,8 +328,9 @@ export function xpForEvent(
 
   const tiers = XP_TABLE[event];
   const attempt = Math.max(1, ctx.attemptNumber ?? 1);
-  const base = tiers[Math.min(attempt - 1, tiers.length - 1)];
-  const multiplier = tiers[0] ? base / tiers[0] : 1;
+  const base = tiers[Math.min(attempt - 1, tiers.length - 1)] ?? 0;
+  const first = tiers[0];
+  const multiplier = first ? base / first : 1;
 
   const remaining = Math.max(0, settings.dailyXpCap - (ctx.xpToday ?? 0));
   if (remaining <= 0) {

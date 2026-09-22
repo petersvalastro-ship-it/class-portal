@@ -381,13 +381,16 @@ export default function MasteryPortal({
                 );
               })}
 
-              {chapterTest && (
+              {chapterTest && (() => {
+                const chapterLessonsDone = chapter.sections.every((section) => progress[section.id]?.completed);
+                return (
                 <div className={`mt-4 grid gap-3 rounded-xl p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center ${highContrast ? 'border-2 border-yellow-400' : 'border border-[#C51C63]/30 bg-[#C51C63]/5'}`}>
                   <div className="min-w-0">
                     <p className="text-sm font-black">Chapter {chapter.number} assessment — {chapterTest.items.length} questions</p>
                     <p className={`text-xs font-bold ${muted}`}>
                       You need {chapterThreshold}% to open Chapter {chapter.number + 1}.
                       {chapterBest !== null ? ` Your best so far: ${chapterBest}%.` : ''}
+                      {!chapterLessonsDone ? ' Finish every lesson in this chapter first.' : ''}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
@@ -396,20 +399,21 @@ export default function MasteryPortal({
                         <Star key={star} className={`size-4 ${star < starsFor(chapterStatus, chapterBest) ? 'fill-current' : 'opacity-25'}`} />
                       ))}
                     </span>
-                    <Button type="button" onClick={() => setOpenAssessment(chapterTest)} disabled={!gate.unlocked}>
-                      {gate.unlocked ? (
+                    <Button type="button" onClick={() => setOpenAssessment(chapterTest)} disabled={!gate.unlocked || !chapterLessonsDone}>
+                      {gate.unlocked && chapterLessonsDone ? (
                         <>
                           <BookOpen aria-hidden="true" /> Open assessment
                         </>
                       ) : (
                         <>
-                          <LockKeyhole aria-hidden="true" /> Locked
+                          <LockKeyhole aria-hidden="true" /> {gate.unlocked ? 'Finish lessons' : 'Locked'}
                         </>
                       )}
                     </Button>
                   </div>
                 </div>
-              )}
+                );
+              })()}
             </section>
           );
         })}
