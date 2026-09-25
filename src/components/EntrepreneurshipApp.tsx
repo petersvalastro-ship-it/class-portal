@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList,
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList, Puzzle,
   GraduationCap, LogIn, LogOut, UserCircle, Copy, History
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
@@ -896,6 +896,7 @@ export default function EntrepreneurshipApp() {
 
                 { id: 'schedule', label: 'Class Tools · Schedule' },
                 { id: 'whiteboard', label: 'Class Tools · Whiteboard' },
+                { id: 'brainstarts', label: 'Class Tools · Brain Starts' },
                 { id: 'entryticket', label: 'Class Tools · Entry Ticket' },
                 { id: 'feedback', label: 'Class Tools · Exit Ticket' },
                 { id: 'textbook', label: 'Learning · Textbook' },
@@ -952,10 +953,11 @@ export default function EntrepreneurshipApp() {
                 {
                   label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                   setOpen: setClassToolsMenuOpen,
-                  ids: ['schedule','whiteboard','entryticket','feedback'],
+                  ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
                   items: [
                     { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                     { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                    { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                     { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                     { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                   ],
@@ -1067,10 +1069,11 @@ export default function EntrepreneurshipApp() {
                 label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                 setOpen: setClassToolsMenuOpen,
                 closeOthers: () => { setLearningMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['schedule','whiteboard','entryticket','feedback'],
+                ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
                 items: [
                   { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                   { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                  { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                   { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                   { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                 ],
@@ -1340,6 +1343,59 @@ export default function EntrepreneurshipApp() {
                 src="https://embed.figma.com/board/BMhyieAhM2wh7Yyo331rVJ/MS-ENTREPRENEURSHIP?node-id=0-1&embed-host=share"
                 allowFullScreen
               />
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'brainstarts' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <h2 className={`text-2xl font-bold flex items-center gap-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>
+                  <Puzzle className={highContrast ? 'text-yellow-300' : 'text-[#C51C63]'} />
+                  Brain Starts
+                </h2>
+                <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
+                  Warm up your entrepreneur brain with this week's crossword — tap a clue, type your answer, and see how many terms you know.
+                </p>
+              </div>
+              <a
+                href="https://ellieandray.my.canva.site/brain-start-ms-entrepreneurship-crossword"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
+                  highContrast
+                    ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                    : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                }`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in Canva
+              </a>
+            </div>
+            <div className="flex justify-center">
+              <div className={`w-full max-w-2xl rounded-2xl p-8 text-center ${highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15 shadow-lg'}`}>
+                <div className={`mx-auto mb-5 w-16 h-16 rounded-2xl flex items-center justify-center ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63]/10 text-[#C51C63]'}`}>
+                  <Puzzle className="w-8 h-8" />
+                </div>
+                <h3 className={`text-xl font-bold mb-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>Brain Starts Crossword</h3>
+                <p className={`text-sm mb-6 ${highContrast ? 'text-yellow-200' : 'text-[#414042]/70'}`}>
+                  This week's warm-up puzzle opens in a new tab on Canva. Solve the clues using the entrepreneurship terms you've been learning.
+                </p>
+                <a
+                  href="https://ellieandray.my.canva.site/brain-start-ms-entrepreneurship-crossword"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition ${
+                    highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                  }`}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Open the crossword
+                </a>
+              </div>
             </div>
           </div>
         )}
