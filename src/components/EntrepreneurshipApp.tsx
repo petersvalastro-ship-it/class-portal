@@ -953,10 +953,11 @@ export default function EntrepreneurshipApp() {
                 {
                   label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                   setOpen: setClassToolsMenuOpen,
-                  ids: ['schedule','whiteboard','entryticket','feedback'],
+                  ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
                   items: [
                     { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                     { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                    { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                     { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                     { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                   ],
@@ -1068,10 +1069,11 @@ export default function EntrepreneurshipApp() {
                 label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                 setOpen: setClassToolsMenuOpen,
                 closeOthers: () => { setLearningMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['schedule','whiteboard','entryticket','feedback'],
+                ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
                 items: [
                   { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                   { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
+                  { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                   { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                   { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                 ],
