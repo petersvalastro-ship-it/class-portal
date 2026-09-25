@@ -7,7 +7,7 @@ import {
   Eye, Type, Sun, Moon, VolumeX, ShieldAlert, Play, Check,
   Target, Briefcase, Plus, Trash2, ChevronRight, Zap, Menu, X,
   ExternalLink, Users, Mail, Presentation, Clock, MapPin, Cloud, CloudRain,
-  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList, Puzzle,
+  CloudSnow, CloudLightning, CloudFog, Cloudy, Thermometer, Wind, Quote, Calendar, MessageSquareText, ClipboardList, Puzzle, Lightbulb,
   GraduationCap, LogIn, LogOut, UserCircle, Copy, History
 } from 'lucide-react';
 import neiaHero from '../assets/neia-hero-new.jpeg.asset.json';
@@ -1356,8 +1356,9 @@ export default function EntrepreneurshipApp() {
                   Brain Starts
                 </h2>
                 <p className={`mt-1 text-sm ${highContrast ? 'text-white' : 'text-[#414042]/70'}`}>
-                  Warm up your entrepreneur brain with this week's crossword — tap a clue, type your answer, and see how many terms you know.
+                  Warm up your entrepreneur brain — start with the rebus picture puzzles, then try this week's crossword.
                 </p>
+
               </div>
               <a
                 href="https://ellieandray.my.canva.site/brain-start-ms-entrepreneurship-crossword"
@@ -1374,6 +1375,31 @@ export default function EntrepreneurshipApp() {
               </a>
             </div>
             <div className="flex justify-center">
+              <div className={`w-full max-w-2xl rounded-2xl p-8 text-center ${highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15 shadow-lg'}`}>
+                <div className={`mx-auto mb-5 w-16 h-16 rounded-2xl flex items-center justify-center ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#EFA835]/15 text-[#E94928]'}`}>
+                  <Lightbulb className="w-8 h-8" />
+                </div>
+                <h3 className={`text-xl font-bold mb-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>Brain Starts Rebus Puzzle</h3>
+                <p className={`text-sm mb-6 ${highContrast ? 'text-yellow-200' : 'text-[#414042]/70'}`}>
+                  Picture puzzles that spell out entrepreneurship words and phrases. Opens in a new tab on Canva.
+                </p>
+                <a
+                  href="https://ellieandray.my.canva.site/brain-start-rebus"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition ${
+                    highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#E94928] text-white font-bold shadow-md shadow-[#E94928]/20 hover:bg-[#E94928]/90'
+                  }`}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Open the rebus puzzle
+                </a>
+              </div>
+            </div>
+            <div className="flex justify-center">
+
               <div className={`w-full max-w-2xl rounded-2xl p-8 text-center ${highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15 shadow-lg'}`}>
                 <div className={`mx-auto mb-5 w-16 h-16 rounded-2xl flex items-center justify-center ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63]/10 text-[#C51C63]'}`}>
                   <Puzzle className="w-8 h-8" />
