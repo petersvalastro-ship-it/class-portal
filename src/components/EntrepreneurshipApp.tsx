@@ -1374,13 +1374,28 @@ export default function EntrepreneurshipApp() {
               </a>
             </div>
             <div className="flex justify-center">
-              <iframe
-                title="Brain Starts — MS Entrepreneurship Crossword"
-                className="w-full max-w-5xl rounded-xl shadow-lg bg-white"
-                height="700"
-                src="https://ellieandray.my.canva.site/brain-start-ms-entrepreneurship-crossword"
-                allowFullScreen
-              />
+              <div className={`w-full max-w-2xl rounded-2xl p-8 text-center ${highContrast ? 'bg-zinc-900 border-2 border-yellow-400' : 'bg-white border border-[#414042]/15 shadow-lg'}`}>
+                <div className={`mx-auto mb-5 w-16 h-16 rounded-2xl flex items-center justify-center ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63]/10 text-[#C51C63]'}`}>
+                  <Puzzle className="w-8 h-8" />
+                </div>
+                <h3 className={`text-xl font-bold mb-2 ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>Brain Starts Crossword</h3>
+                <p className={`text-sm mb-6 ${highContrast ? 'text-yellow-200' : 'text-[#414042]/70'}`}>
+                  This week's warm-up puzzle opens in a new tab on Canva. Solve the clues using the entrepreneurship terms you've been learning.
+                </p>
+                <a
+                  href="https://ellieandray.my.canva.site/brain-start-ms-entrepreneurship-crossword"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition ${
+                    highContrast
+                      ? 'bg-yellow-400 text-black font-extrabold border-2 border-white'
+                      : 'bg-[#C51C63] text-white font-bold shadow-md shadow-[#C51C63]/20 hover:bg-[#C51C63]/90'
+                  }`}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Open the crossword
+                </a>
+              </div>
             </div>
           </div>
         )}
