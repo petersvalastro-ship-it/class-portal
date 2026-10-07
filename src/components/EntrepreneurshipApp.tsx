@@ -1,4 +1,5 @@
 // @ts-nocheck
+import SyllabusPage from './SyllabusPage';
 import CaseStudiesPage from './CaseStudiesPage';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
@@ -618,7 +619,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { initialTab?: string } = {}) {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState(initialTab);
-  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; if (activeTab === 'casestudies' && p !== '/learning/case-studies') window.history.replaceState(null, '', '/learning/case-studies'); else if (activeTab !== 'casestudies' && p === '/learning/case-studies') window.history.replaceState(null, '', '/'); }, [activeTab]);
+  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; const map = { casestudies: '/learning/case-studies', syllabus: '/learning/syllabus' }; const target = map[activeTab] || '/'; if ((map[activeTab] || Object.values(map).includes(p)) && p !== target) window.history.replaceState(null, '', target); }, [activeTab]);
   const [textbookTarget, setTextbookTarget] = useState<string | null>(null);
   const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [classToolsMenuOpen, setClassToolsMenuOpen] = useState(false);
@@ -904,6 +905,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 { id: 'textbook', label: 'Learning · Textbook' },
                 { id: 'mastery', label: 'Learning · Mastery & Assessments' },
                 { id: 'casestudies', label: 'Learning · Case Studies' },
+                { id: 'syllabus', label: 'Learning · Syllabus' },
                 { id: 'entrepreneurs', label: 'Learning · Entrepreneurs' },
                 { id: 'glossary', label: 'Resources · Glossary' },
                 { id: 'calculators', label: 'Resources · Math Lab' },
@@ -968,11 +970,12 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 {
                   label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                   setOpen: setLearningMenuOpen,
-                  ids: ['textbook','mastery','casestudies','entrepreneurs'],
+                  ids: ['textbook','mastery','casestudies','syllabus','entrepreneurs'],
                   items: [
                     { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                     { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                     { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
+                    { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
                     { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                   ],
                 },
@@ -1086,11 +1089,12 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                 setOpen: setLearningMenuOpen,
                 closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['textbook','mastery','casestudies','entrepreneurs'],
+                ids: ['textbook','mastery','casestudies','syllabus','entrepreneurs'],
                 items: [
                   { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                   { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                   { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
+                  { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
                   { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                 ],
               },
@@ -1353,6 +1357,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
         )}
 
         {activeTab === 'casestudies' && <CaseStudiesPage highContrast={highContrast} />}
+        {activeTab === 'syllabus' && <SyllabusPage highContrast={highContrast} />}
         {activeTab === 'brainstarts' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">

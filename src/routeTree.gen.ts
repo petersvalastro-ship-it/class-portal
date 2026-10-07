@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as LearningCaseStudiesRouteImport } from './routes/learning.case-studies'
+import { Route as LearningSyllabusRouteImport } from './routes/learning.syllabus'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,49 @@ const LearningCaseStudiesRoute = LearningCaseStudiesRouteImport.update({
   path: '/learning/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearningSyllabusRoute = LearningSyllabusRouteImport.update({
+  id: '/learning/syllabus',
+  path: '/learning/syllabus',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
+  '/learning/syllabus': typeof LearningSyllabusRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
+  '/learning/syllabus': typeof LearningSyllabusRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
+  '/learning/syllabus': typeof LearningSyllabusRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/unlock' | '/learning/case-studies'
+  fullPaths: '/' | '/unlock' | '/learning/case-studies' | '/learning/syllabus'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/unlock' | '/learning/case-studies'
-  id: '__root__' | '/' | '/unlock' | '/learning/case-studies'
+  to: '/' | '/unlock' | '/learning/case-studies' | '/learning/syllabus'
+  id:
+    | '__root__'
+    | '/'
+    | '/unlock'
+    | '/learning/case-studies'
+    | '/learning/syllabus'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UnlockRoute: typeof UnlockRoute
   LearningCaseStudiesRoute: typeof LearningCaseStudiesRoute
+  LearningSyllabusRoute: typeof LearningSyllabusRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +97,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningCaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/syllabus': {
+      id: '/learning/syllabus'
+      path: '/learning/syllabus'
+      fullPath: '/learning/syllabus'
+      preLoaderRoute: typeof LearningSyllabusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UnlockRoute: UnlockRoute,
   LearningCaseStudiesRoute: LearningCaseStudiesRoute,
+  LearningSyllabusRoute: LearningSyllabusRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
