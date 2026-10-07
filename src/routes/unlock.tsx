@@ -65,7 +65,8 @@ function Unlock() {
           <img src={logoSrc} alt="NEIA" className="h-14 w-auto mx-auto" />
           <h1 className="mt-5 text-center text-2xl font-black text-[#414042]">NEIA Entrepreneur Hub</h1>
           <p className="mt-1 text-center text-sm text-[#414042]/70">
-            This hub is for our class. Enter the access password to continue.
+            Exclusively for Middle School Entrepreneurship students and faculty.
+            Enter the access password to continue.
           </p>
           <form onSubmit={onSubmit} className="mt-6 space-y-3">
             <label htmlFor="site-pass" className="text-xs font-bold uppercase tracking-wide text-[#414042]/70">
