@@ -105,6 +105,15 @@ function Unlock() {
               {busy && <Loader2 className="w-4 h-4 animate-spin" />} Enter the Hub
             </button>
           </form>
+          <p className="mt-6 text-center text-sm text-[#414042]/70">
+            Need help accessing this site? Email{" "}
+            <a
+              href="mailto:pietro.valastro@neiacademy.org"
+              className="font-semibold text-[#C51C63] underline underline-offset-2 hover:text-[#C51C63]/80"
+            >
+              pietro.valastro@neiacademy.org
+            </a>
+          </p>
         </div>
       </div>
     </main>
