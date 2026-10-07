@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import EntrepreneurshipApp from "@/components/EntrepreneurshipApp";
+import { requireSiteAccess } from "@/lib/gate.functions";
 
 export const Route = createFileRoute("/")({
+  beforeLoad: () => requireSiteAccess(),
   head: () => ({
     meta: [
       { title: "NEIA Entrepreneur Hub" },
