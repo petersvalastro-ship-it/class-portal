@@ -2104,9 +2104,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
           </h2>
         </div>
         <p
-          className={`mt-4 text-lg sm:text-2xl font-bold leading-snug ${
-            highContrast ? 'text-white' : 'text-white'
-          }`}
+          className="mt-4 text-lg sm:text-2xl font-bold leading-snug text-white"
         >
           “Entrepreneurship is the process of providing leadership and gathering resources to create
           feasible, scalable, and sustainable solutions that create greater economic and social
