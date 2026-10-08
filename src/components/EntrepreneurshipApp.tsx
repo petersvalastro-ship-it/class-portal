@@ -2082,6 +2082,38 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
       </div>
 
+      {/* ENTREPRENEURSHIP AT NEIA — program definition */}
+      <div
+        className={`rounded-2xl shadow-xs p-6 sm:p-8 border ${
+          highContrast
+            ? 'bg-zinc-900 border-2 border-white'
+            : 'bg-[#C51C63]/[0.06] border-[#C51C63]/25'
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <Quote
+            className={`w-7 h-7 sm:w-9 sm:h-9 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}
+            aria-hidden="true"
+          />
+          <h2
+            className={`title-glow text-2xl sm:text-4xl font-black uppercase tracking-tight ${
+              highContrast ? 'text-yellow-300' : 'text-[#C51C63]'
+            }`}
+          >
+            Entrepreneurship At NEIA
+          </h2>
+        </div>
+        <p
+          className={`mt-4 text-lg sm:text-2xl font-bold leading-snug ${
+            highContrast ? 'text-white' : 'text-[#414042]'
+          }`}
+        >
+          “Entrepreneurship is the process of providing leadership and gathering resources to create
+          feasible, scalable, and sustainable solutions that create greater economic and social
+          value.”
+        </p>
+      </div>
+
       {/* JOIN THE CLASS — Links to Google Classroom and Figma */}
       <div className={`rounded-2xl shadow-xs p-6 sm:p-8 ${highContrast ? 'bg-zinc-900 border-2 border-white' : 'bg-white border border-[#414042]/15'}`}>
         <div className="flex items-center gap-2 mb-4">
