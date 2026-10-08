@@ -11,3 +11,4 @@
 - [x] Update Terms of Use and Privacy Policy.
 - [x] Expand LaunchPad textbook readings with deeper entrepreneurial mindset alignment.
 - [x] Add clickable/copyable Quote of the Day with up to 3 prior days available.
+- [x] Add "Entrepreneurship At NEIA" definition card below the teacher intro, with larger title and hover glow.
