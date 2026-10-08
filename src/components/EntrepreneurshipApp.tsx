@@ -2096,7 +2096,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
             aria-hidden="true"
           />
           <h2
-            className={`title-glow text-2xl sm:text-4xl font-black uppercase tracking-tight ${
+            className={`${highContrast ? 'title-glow-hc' : 'title-glow'} text-2xl sm:text-4xl font-black uppercase tracking-tight ${
               highContrast ? 'text-yellow-300' : 'text-[#C51C63]'
             }`}
           >
