@@ -204,3 +204,27 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+
+/* Section title hover glow (magenta) */
+@utility title-glow {
+  transition: text-shadow 260ms ease-in-out;
+
+  &:hover {
+    text-shadow:
+      0 0 10px rgba(197, 28, 99, 0.55),
+      0 0 26px rgba(197, 28, 99, 0.4),
+      0 0 48px rgba(197, 28, 99, 0.28);
+  }
+}
+
+/* High-contrast variant of the title glow (yellow) */
+@utility title-glow-hc {
+  transition: text-shadow 260ms ease-in-out;
+
+  &:hover {
+    text-shadow:
+      0 0 10px rgba(253, 224, 71, 0.6),
+      0 0 26px rgba(253, 224, 71, 0.45),
+      0 0 48px rgba(253, 224, 71, 0.3);
+  }
+}
