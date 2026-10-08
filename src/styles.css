@@ -205,15 +205,15 @@
   animation-fill-mode: forwards;
 }
 
-/* Section title hover glow (magenta) */
+/* Section title hover glow (light text on the solid magenta panel) */
 @utility title-glow {
   transition: text-shadow 260ms ease-in-out;
 
   &:hover {
     text-shadow:
-      0 0 10px rgba(197, 28, 99, 0.55),
-      0 0 26px rgba(197, 28, 99, 0.4),
-      0 0 48px rgba(197, 28, 99, 0.28);
+      0 0 10px rgba(255, 255, 255, 0.7),
+      0 0 26px rgba(239, 168, 53, 0.55),
+      0 0 48px rgba(255, 255, 255, 0.35);
   }
 }
 

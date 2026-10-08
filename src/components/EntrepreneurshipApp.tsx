@@ -2084,20 +2084,20 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
 
       {/* ENTREPRENEURSHIP AT NEIA — program definition */}
       <div
-        className={`rounded-2xl shadow-xs p-6 sm:p-8 border ${
+        className={`rounded-2xl shadow-md p-6 sm:p-8 border ${
           highContrast
             ? 'bg-zinc-900 border-2 border-white'
-            : 'bg-[#C51C63]/[0.06] border-[#C51C63]/25'
+            : 'bg-[#C51C63] border-[#C51C63]'
         }`}
       >
         <div className="flex items-center gap-3">
           <Quote
-            className={`w-7 h-7 sm:w-9 sm:h-9 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#C51C63]'}`}
+            className={`w-7 h-7 sm:w-9 sm:h-9 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#EFA835]'}`}
             aria-hidden="true"
           />
           <h2
             className={`${highContrast ? 'title-glow-hc' : 'title-glow'} text-2xl sm:text-4xl font-black uppercase tracking-tight ${
-              highContrast ? 'text-yellow-300' : 'text-[#C51C63]'
+              highContrast ? 'text-yellow-300' : 'text-white'
             }`}
           >
             Entrepreneurship At NEIA
@@ -2105,7 +2105,7 @@ function DashboardView({ setActiveTab, xp, masteredCount, scenariosCount, speakT
         </div>
         <p
           className={`mt-4 text-lg sm:text-2xl font-bold leading-snug ${
-            highContrast ? 'text-white' : 'text-[#414042]'
+            highContrast ? 'text-white' : 'text-white'
           }`}
         >
           “Entrepreneurship is the process of providing leadership and gathering resources to create
