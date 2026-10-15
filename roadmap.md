@@ -12,3 +12,4 @@
 - [x] Expand LaunchPad textbook readings with deeper entrepreneurial mindset alignment.
 - [x] Add clickable/copyable Quote of the Day with up to 3 prior days available.
 - [x] Add "Entrepreneurship At NEIA" definition card below the teacher intro, with larger title and hover glow.
+- [x] Downloadable read-only NOVA knowledge-base export (CSV index, chapter Markdown, complete guide).
