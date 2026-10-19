@@ -13,7 +13,7 @@ export default function AssignmentPage({ highContrast }: { highContrast: boolean
         </ol>
         <a href="mailto:pietro.valastro@neiacademy.org?subject=10%2F19%2F26%20Assignment%20-%20Assumption%20Buster"
           className={`mt-3 inline-block px-4 py-2 rounded-xl font-bold ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white'}`}>
-          Email my PDF to Mr. Valastro
+          Email my PDF to my teacher
         </a>
       </div>
       <iframe
