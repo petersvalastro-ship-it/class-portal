@@ -15,3 +15,4 @@
 - [x] Downloadable read-only NOVA knowledge-base export (CSV index, chapter Markdown, complete guide).
 - [x] Sort Class Tools menu items alphabetically (desktop and phone menus).
 - [x] Sort Resources menu items alphabetically (desktop and phone menus).
+- [x] Add a View / Download PDF button for the Rebus Studio student guide on the Rebus Studio assignment page.
