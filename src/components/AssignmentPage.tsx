@@ -28,6 +28,16 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
         </button>
       )}
       <h2 className={`text-2xl font-bold ${highContrast ? 'text-yellow-300' : 'text-[#414042]'}`}>{title}</h2>
+      {pdfUrl && (
+        <div className={`flex flex-wrap items-center gap-3 rounded-xl p-3 text-sm ${highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#E94928]/10 border border-[#E94928]/35 text-[#414042]'}`}>
+          <FileDown className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} />
+          <span>Prefer to read it on paper? The full student guide is also available as a PDF.</span>
+          <a href={pdfUrl} target="_blank" rel="noreferrer" download="Rebus-Studio-Student-Guide.pdf"
+            className={`ml-auto inline-block px-4 py-2 rounded-xl font-bold ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#E94928] text-white hover:bg-[#E94928]/90'}`}>
+            View / Download PDF
+          </a>
+        </div>
+      )}
       <div className={`rounded-xl p-4 text-sm ${highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#EFA835]/15 border border-[#EFA835]/40 text-[#414042]'}`}>
         <p className="font-bold">How to turn this in:</p>
         <ol className="list-decimal ml-5 mt-1 space-y-0.5">
