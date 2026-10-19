@@ -621,7 +621,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { initialTab?: string } = {}) {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState(initialTab);
-  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; const map = { casestudies: '/learning/case-studies', syllabus: '/learning/syllabus', assignments: '/learning/assignments', assignment1019: '/learning/assignments/assumption-buster' }; const target = map[activeTab] || '/'; if ((map[activeTab] || Object.values(map).includes(p)) && p !== target) window.history.replaceState(null, '', target); }, [activeTab]);
+  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; const map = { casestudies: '/learning/case-studies', syllabus: '/learning/syllabus', assignments: '/learning/assignments', assignment1019: '/learning/assignments/assumption-buster', assignmentRebus: '/learning/assignments/rebus-studio' }; const target = map[activeTab] || '/'; if ((map[activeTab] || Object.values(map).includes(p)) && p !== target) window.history.replaceState(null, '', target); }, [activeTab]);
   const [textbookTarget, setTextbookTarget] = useState<string | null>(null);
   const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [classToolsMenuOpen, setClassToolsMenuOpen] = useState(false);
@@ -910,6 +910,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 { id: 'syllabus', label: 'Learning · Syllabus' },
                 { id: 'assignments', label: 'Learning · Assignments' },
                 { id: 'assignment1019', label: 'Learning · Assignments · Assumption Buster' },
+                { id: 'assignmentRebus', label: 'Learning · Assignments · Rebus Studio' },
                 { id: 'entrepreneurs', label: 'Learning · Entrepreneurs' },
                 { id: 'glossary', label: 'Resources · Glossary' },
                 { id: 'calculators', label: 'Resources · Math Lab' },
@@ -974,7 +975,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 {
                   label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                   setOpen: setLearningMenuOpen,
-                  ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
+                  ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','assignmentRebus','entrepreneurs'],
                   items: [
                     { id: 'assignments', label: 'Assignments', icon: ClipboardList },
                     { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
@@ -1094,7 +1095,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                 setOpen: setLearningMenuOpen,
                 closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
+                ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','assignmentRebus','entrepreneurs'],
                 items: [
                   { id: 'assignments', label: 'Assignments', icon: ClipboardList },
                   { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
@@ -1364,8 +1365,9 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
 
         {activeTab === 'casestudies' && <CaseStudiesPage highContrast={highContrast} />}
         {activeTab === 'syllabus' && <SyllabusPage highContrast={highContrast} />}
-        {activeTab === 'assignments' && <AssignmentsPage highContrast={highContrast} onOpen={() => setActiveTab('assignment1019')} />}
+        {activeTab === 'assignments' && <AssignmentsPage highContrast={highContrast} onOpen={(id) => setActiveTab(id === 'rebus-studio' ? 'assignmentRebus' : 'assignment1019')} />}
         {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentRebus' && <AssignmentPage assignment="rebus-studio" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'brainstarts' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">

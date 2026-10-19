@@ -9,6 +9,14 @@ const ASSIGNMENTS = [
     description:
       'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Save your finished work as a PDF and email it to Mr. Valastro.',
   },
+  {
+    id: 'rebus-studio',
+    title: 'Entrepreneurial Rebus Studio',
+    due: 'Assigned October 19, 2026',
+    focus: 'Creativity · Communicating ideas',
+    description:
+      'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Mr. Valastro.',
+  },
 ];
 
 export default function AssignmentsPage({ highContrast, onOpen }: { highContrast: boolean; onOpen: (id: string) => void }) {
@@ -43,7 +51,7 @@ export default function AssignmentsPage({ highContrast, onOpen }: { highContrast
               onClick={() => onOpen(a.id)}
               className={`mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition ${btn}`}
             >
-              Open Assumption Buster <ArrowRight className="w-4 h-4" />
+              Open {a.title} <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         ))}
