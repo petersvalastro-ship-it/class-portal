@@ -976,12 +976,12 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                   setOpen: setLearningMenuOpen,
                   ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
                   items: [
+                    { id: 'assignments', label: 'Assignments', icon: ClipboardList },
+                    { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
+                    { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                     { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                     { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
-                    { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
                     { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
-                    { id: 'assignments', label: 'Assignments', icon: ClipboardList },
-                    { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                   ],
                 },
                 {
@@ -1096,12 +1096,12 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
                 ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
                 items: [
+                  { id: 'assignments', label: 'Assignments', icon: ClipboardList },
+                  { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
+                  { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                   { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                   { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
-                  { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
                   { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
-                    { id: 'assignments', label: 'Assignments', icon: ClipboardList },
-                  { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                 ],
               },
               {
