@@ -394,7 +394,8 @@ window.dataSdk={K:'neia_assumption_buster',
         if (!result.isOk) {
           status('Could not confirm the submission. Please check with your teacher before trying again.', true);
         } else {
-          status('Assignment submitted successfully.');
+          status('Saved! In the print window, choose "Save as PDF" as the destination, then email the PDF to pietro.valastro@neiacademy.org.');
+          setTimeout(()=>window.print(),300);
         }
       } catch (_) {
         status('Could not confirm the submission. Please check with your teacher before trying again.', true);
