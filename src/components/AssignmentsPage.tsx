@@ -17,6 +17,14 @@ const ASSIGNMENTS = [
     description:
       'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Pietro.',
   },
+  {
+    id: 'customer-interview-lab',
+    title: 'Customer Interview Lab',
+    due: 'Thursday, October 22, 2026',
+    focus: 'Empathy · Turning assumptions into evidence',
+    description:
+      'Pick an assumption about your customer, plan and run a short customer interview, record what you heard, and decide what to do next based on the evidence. Save your finished work as a PDF and email it to Pietro.',
+  },
 ];
 
 export default function AssignmentsPage({ highContrast, onOpen }: { highContrast: boolean; onOpen: (id: string) => void }) {
