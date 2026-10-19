@@ -24,5 +24,5 @@
 - [x] (2026-10-19) Normalize assignment headings: shared scale (title 42px, section 24px, sub 19px, named items 17px) + Title Case across Assumption Buster, Rebus Studio, Customer Interview Lab
 - [x] (2026-10-19) Assumption Buster "View / Download PDF" now serves the uploaded Assumption_Buster_Student_Guide_2026-10-19.pdf (6 pages)
 
-- [ ] Uniform assignment buttons: "Download my work" (solid purple) + "Print / Save as PDF" (pale lavender) on every assignment page
-- [ ] Show weekday + date on every assignment (Mon Oct 19, Tue Oct 20, Thu Oct 22)
+- [x] (2026-10-19) Uniform assignment buttons injected on every assignment (top + bottom): "Download my work" (solid #61249a) + "Print / Save as PDF" (pale lavender); original Submit/Print buttons hidden; bars hidden in print; iframe sandbox gained allow-downloads
+- [x] (2026-10-19) Weekday added to every assignment date: Monday, October 19 / Tuesday, October 20 / Thursday, October 22, 2026 (list cards, page banners, download text)
