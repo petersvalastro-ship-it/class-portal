@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as LearningAssignmentsRouteImport } from './routes/learning.assignments'
 import { Route as LearningCaseStudiesRouteImport } from './routes/learning.case-studies'
 import { Route as LearningSyllabusRouteImport } from './routes/learning.syllabus'
+import { Route as LearningAssignmentsAssumptionBusterRouteImport } from './routes/learning.assignments_.assumption-buster'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const UnlockRoute = UnlockRouteImport.update({
   id: '/unlock',
   path: '/unlock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearningAssignmentsRoute = LearningAssignmentsRouteImport.update({
+  id: '/learning/assignments',
+  path: '/learning/assignments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearningCaseStudiesRoute = LearningCaseStudiesRouteImport.update({
@@ -34,44 +41,72 @@ const LearningSyllabusRoute = LearningSyllabusRouteImport.update({
   path: '/learning/syllabus',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearningAssignmentsAssumptionBusterRoute =
+  LearningAssignmentsAssumptionBusterRouteImport.update({
+    id: '/learning/assignments_/assumption-buster',
+    path: '/learning/assignments/assumption-buster',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/learning/assignments': typeof LearningAssignmentsRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
+  '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/learning/assignments': typeof LearningAssignmentsRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
+  '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/unlock': typeof UnlockRoute
+  '/learning/assignments': typeof LearningAssignmentsRoute
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
+  '/learning/assignments_/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/unlock' | '/learning/case-studies' | '/learning/syllabus'
+  fullPaths:
+    | '/'
+    | '/unlock'
+    | '/learning/assignments'
+    | '/learning/case-studies'
+    | '/learning/syllabus'
+    | '/learning/assignments/assumption-buster'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/unlock' | '/learning/case-studies' | '/learning/syllabus'
+  to:
+    | '/'
+    | '/unlock'
+    | '/learning/assignments'
+    | '/learning/case-studies'
+    | '/learning/syllabus'
+    | '/learning/assignments/assumption-buster'
   id:
     | '__root__'
     | '/'
     | '/unlock'
+    | '/learning/assignments'
     | '/learning/case-studies'
     | '/learning/syllabus'
+    | '/learning/assignments_/assumption-buster'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UnlockRoute: typeof UnlockRoute
+  LearningAssignmentsRoute: typeof LearningAssignmentsRoute
   LearningCaseStudiesRoute: typeof LearningCaseStudiesRoute
   LearningSyllabusRoute: typeof LearningSyllabusRoute
+  LearningAssignmentsAssumptionBusterRoute: typeof LearningAssignmentsAssumptionBusterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -90,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnlockRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/assignments': {
+      id: '/learning/assignments'
+      path: '/learning/assignments'
+      fullPath: '/learning/assignments'
+      preLoaderRoute: typeof LearningAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learning/case-studies': {
       id: '/learning/case-studies'
       path: '/learning/case-studies'
@@ -104,14 +146,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningSyllabusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/assignments_/assumption-buster': {
+      id: '/learning/assignments_/assumption-buster'
+      path: '/learning/assignments/assumption-buster'
+      fullPath: '/learning/assignments/assumption-buster'
+      preLoaderRoute: typeof LearningAssignmentsAssumptionBusterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UnlockRoute: UnlockRoute,
+  LearningAssignmentsRoute: LearningAssignmentsRoute,
   LearningCaseStudiesRoute: LearningCaseStudiesRoute,
   LearningSyllabusRoute: LearningSyllabusRoute,
+  LearningAssignmentsAssumptionBusterRoute:
+    LearningAssignmentsAssumptionBusterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

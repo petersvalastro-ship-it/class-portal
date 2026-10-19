@@ -1,6 +1,7 @@
 // @ts-nocheck
 import SyllabusPage from './SyllabusPage';
 import AssignmentPage from './AssignmentPage';
+import AssignmentsPage from './AssignmentsPage';
 import CaseStudiesPage from './CaseStudiesPage';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
@@ -620,7 +621,7 @@ const ENTREPRENEUR_PHOTOS = {
 export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { initialTab?: string } = {}) {
   // Navigation & UI state
   const [activeTab, setActiveTab] = useState(initialTab);
-  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; const map = { casestudies: '/learning/case-studies', syllabus: '/learning/syllabus' }; const target = map[activeTab] || '/'; if ((map[activeTab] || Object.values(map).includes(p)) && p !== target) window.history.replaceState(null, '', target); }, [activeTab]);
+  useEffect(() => { if (typeof window === 'undefined') return; const p = window.location.pathname; const map = { casestudies: '/learning/case-studies', syllabus: '/learning/syllabus', assignments: '/learning/assignments', assignment1019: '/learning/assignments/assumption-buster' }; const target = map[activeTab] || '/'; if ((map[activeTab] || Object.values(map).includes(p)) && p !== target) window.history.replaceState(null, '', target); }, [activeTab]);
   const [textbookTarget, setTextbookTarget] = useState<string | null>(null);
   const [resourcesMenuOpen, setResourcesMenuOpen] = useState(false);
   const [classToolsMenuOpen, setClassToolsMenuOpen] = useState(false);
@@ -907,7 +908,8 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 { id: 'mastery', label: 'Learning · Mastery & Assessments' },
                 { id: 'casestudies', label: 'Learning · Case Studies' },
                 { id: 'syllabus', label: 'Learning · Syllabus' },
-                { id: 'assignment1019', label: 'Learning · 10/19/26 Assignment' },
+                { id: 'assignments', label: 'Learning · Assignments' },
+                { id: 'assignment1019', label: 'Learning · Assignments · Assumption Buster' },
                 { id: 'entrepreneurs', label: 'Learning · Entrepreneurs' },
                 { id: 'glossary', label: 'Resources · Glossary' },
                 { id: 'calculators', label: 'Resources · Math Lab' },
@@ -972,13 +974,13 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 {
                   label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                   setOpen: setLearningMenuOpen,
-                  ids: ['textbook','mastery','casestudies','syllabus','assignment1019','entrepreneurs'],
+                  ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
                   items: [
                     { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                     { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                     { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
                     { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
-                    { id: 'assignment1019', label: '10/19/26 Assignment', icon: ClipboardList },
+                    { id: 'assignments', label: 'Assignments', icon: ClipboardList },
                     { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                   ],
                 },
@@ -1092,13 +1094,13 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 label: 'Learning', icon: GraduationCap, open: learningMenuOpen,
                 setOpen: setLearningMenuOpen,
                 closeOthers: () => { setClassToolsMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['textbook','mastery','casestudies','syllabus','assignment1019','entrepreneurs'],
+                ids: ['textbook','mastery','casestudies','syllabus','assignments','assignment1019','entrepreneurs'],
                 items: [
                   { id: 'textbook', label: 'LaunchPad Textbook', icon: GraduationCap },
                   { id: 'mastery', label: 'Mastery & Assessments', icon: Trophy },
                   { id: 'casestudies', label: 'Case Studies', icon: BookOpen },
                   { id: 'syllabus', label: 'Syllabus', icon: ClipboardList },
-                    { id: 'assignment1019', label: '10/19/26 Assignment', icon: ClipboardList },
+                    { id: 'assignments', label: 'Assignments', icon: ClipboardList },
                   { id: 'entrepreneurs', label: 'Entrepreneurs', icon: Users },
                 ],
               },
@@ -1362,7 +1364,8 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
 
         {activeTab === 'casestudies' && <CaseStudiesPage highContrast={highContrast} />}
         {activeTab === 'syllabus' && <SyllabusPage highContrast={highContrast} />}
-        {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} />}
+        {activeTab === 'assignments' && <AssignmentsPage highContrast={highContrast} onOpen={() => setActiveTab('assignment1019')} />}
+        {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'brainstarts' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
