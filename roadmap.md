@@ -23,3 +23,5 @@
 
 - [x] (2026-10-19) Normalize assignment headings: shared scale (title 42px, section 24px, sub 19px, named items 17px) + Title Case across Assumption Buster, Rebus Studio, Customer Interview Lab
 - [x] (2026-10-19) Assumption Buster "View / Download PDF" now serves the uploaded Assumption_Buster_Student_Guide_2026-10-19.pdf (6 pages)
+
+- [ ] Uniform assignment buttons: "Download my work" (solid purple) + "Print / Save as PDF" (pale lavender) on every assignment page
