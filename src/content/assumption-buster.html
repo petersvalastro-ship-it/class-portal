@@ -304,6 +304,12 @@
    </footer>
   </div>
   <script>
+window.dataSdk={K:'neia_assumption_buster',
+ all(){try{return JSON.parse(localStorage.getItem(this.K)||'[]')}catch(e){return[]}},
+ async init(h){this.h=h;setTimeout(()=>h.onDataChanged(this.all()),0);return{isOk:true}},
+ async create(r){try{const a=this.all();a.push(r);localStorage.setItem(this.K,JSON.stringify(a));this.h&&this.h.onDataChanged(a);return{isOk:true}}catch(e){return{isOk:false}}}};
+</script>
+  <script>
     const form = document.getElementById('assignment-form');
     const submitButton = document.getElementById('submit-button');
     const printButton = document.getElementById('print-button');
