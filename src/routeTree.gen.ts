@@ -15,6 +15,7 @@ import { Route as LearningAssignmentsRouteImport } from './routes/learning.assig
 import { Route as LearningCaseStudiesRouteImport } from './routes/learning.case-studies'
 import { Route as LearningSyllabusRouteImport } from './routes/learning.syllabus'
 import { Route as LearningAssignmentsAssumptionBusterRouteImport } from './routes/learning.assignments_.assumption-buster'
+import { Route as LearningAssignmentsCustomerInterviewLabRouteImport } from './routes/learning.assignments_.customer-interview-lab'
 import { Route as LearningAssignmentsRebusStudioRouteImport } from './routes/learning.assignments_.rebus-studio'
 
 const IndexRoute = IndexRouteImport.update({
@@ -48,6 +49,12 @@ const LearningAssignmentsAssumptionBusterRoute =
     path: '/learning/assignments/assumption-buster',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearningAssignmentsCustomerInterviewLabRoute =
+  LearningAssignmentsCustomerInterviewLabRouteImport.update({
+    id: '/learning/assignments_/customer-interview-lab',
+    path: '/learning/assignments/customer-interview-lab',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LearningAssignmentsRebusStudioRoute =
   LearningAssignmentsRebusStudioRouteImport.update({
     id: '/learning/assignments_/rebus-studio',
@@ -62,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
   '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRoutesByTo {
@@ -71,6 +79,7 @@ export interface FileRoutesByTo {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
   '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRoutesById {
@@ -81,6 +90,7 @@ export interface FileRoutesById {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments_/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments_/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
   '/learning/assignments_/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRouteTypes {
@@ -92,6 +102,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
+    | '/learning/assignments/customer-interview-lab'
     | '/learning/assignments/rebus-studio'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -101,6 +112,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
+    | '/learning/assignments/customer-interview-lab'
     | '/learning/assignments/rebus-studio'
   id:
     | '__root__'
@@ -110,6 +122,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments_/assumption-buster'
+    | '/learning/assignments_/customer-interview-lab'
     | '/learning/assignments_/rebus-studio'
   fileRoutesById: FileRoutesById
 }
@@ -120,6 +133,7 @@ export interface RootRouteChildren {
   LearningCaseStudiesRoute: typeof LearningCaseStudiesRoute
   LearningSyllabusRoute: typeof LearningSyllabusRoute
   LearningAssignmentsAssumptionBusterRoute: typeof LearningAssignmentsAssumptionBusterRoute
+  LearningAssignmentsCustomerInterviewLabRoute: typeof LearningAssignmentsCustomerInterviewLabRoute
   LearningAssignmentsRebusStudioRoute: typeof LearningAssignmentsRebusStudioRoute
 }
 
@@ -167,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningAssignmentsAssumptionBusterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/assignments_/customer-interview-lab': {
+      id: '/learning/assignments_/customer-interview-lab'
+      path: '/learning/assignments/customer-interview-lab'
+      fullPath: '/learning/assignments/customer-interview-lab'
+      preLoaderRoute: typeof LearningAssignmentsCustomerInterviewLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learning/assignments_/rebus-studio': {
       id: '/learning/assignments_/rebus-studio'
       path: '/learning/assignments/rebus-studio'
@@ -185,6 +206,8 @@ const rootRouteChildren: RootRouteChildren = {
   LearningSyllabusRoute: LearningSyllabusRoute,
   LearningAssignmentsAssumptionBusterRoute:
     LearningAssignmentsAssumptionBusterRoute,
+  LearningAssignmentsCustomerInterviewLabRoute:
+    LearningAssignmentsCustomerInterviewLabRoute,
   LearningAssignmentsRebusStudioRoute: LearningAssignmentsRebusStudioRoute,
 }
 export const routeTree = rootRouteImport
