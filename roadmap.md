@@ -16,3 +16,4 @@
 - [x] Sort Class Tools menu items alphabetically (desktop and phone menus).
 - [x] Sort Resources menu items alphabetically (desktop and phone menus).
 - [x] Add a View / Download PDF button for the Rebus Studio student guide on the Rebus Studio assignment page.
+- [x] Add a View / Download PDF button for the Assumption Buster student guide (generated 10-page PDF from the assignment).
