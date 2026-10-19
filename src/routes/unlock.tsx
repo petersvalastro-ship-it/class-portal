@@ -95,7 +95,7 @@ function Unlock() {
             </div>
             {error && (
               <p role="alert" className="text-sm font-semibold text-[#C51C63]">
-                That password isn't right. Check with Mr. Valastro and try again.
+                That password isn't right. Check with Pietro and try again.
               </p>
             )}
             <button

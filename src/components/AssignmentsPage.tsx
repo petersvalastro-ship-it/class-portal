@@ -7,7 +7,7 @@ const ASSIGNMENTS = [
     due: 'Assigned October 19, 2026',
     focus: 'Questioning assumptions · Evidence-based thinking',
     description:
-      'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Save your finished work as a PDF and email it to Mr. Valastro.',
+      'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Save your finished work as a PDF and email it to Pietro.',
   },
   {
     id: 'rebus-studio',
@@ -15,7 +15,7 @@ const ASSIGNMENTS = [
     due: 'Assigned October 19, 2026',
     focus: 'Creativity · Communicating ideas',
     description:
-      'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Mr. Valastro.',
+      'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Pietro.',
   },
 ];
 
