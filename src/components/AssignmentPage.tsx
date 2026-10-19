@@ -1,12 +1,13 @@
 import abHtml from '@/content/assumption-buster.html?raw';
 import { withAutosave } from '@/lib/assignment-autosave';
 import rebusHtml from '@/content/rebus-studio.html?raw';
+import rebusPdf from '@/assets/rebus-studio-student-guide.pdf.asset.json';
 
 const DOCS = {
   'assumption-buster': { title: 'Assumption Buster', html: abHtml },
-  'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml },
+  'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml, pdfUrl: rebusPdf.url },
 } as const;
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, FileDown } from 'lucide-react';
 
 export default function AssignmentPage({ highContrast, onBack, assignment = 'assumption-buster' }: { highContrast: boolean; onBack?: () => void; assignment?: keyof typeof DOCS }) {
   const { title, html } = DOCS[assignment];
