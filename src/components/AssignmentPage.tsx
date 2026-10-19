@@ -46,9 +46,9 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
       <div className={`rounded-xl p-4 text-sm ${highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#EFA835]/15 border border-[#EFA835]/40 text-[#414042]'}`}>
         <p className="font-bold">How to turn this in:</p>
         <ol className="list-decimal ml-5 mt-1 space-y-0.5">
-          <li>Fill out every part of the assignment below.</li>
-          <li>Click <b>Submit</b> or <b>Print / Save as PDF</b>, then choose <b>"Save as PDF"</b> as the destination.</li>
-          <li>Email the PDF to your teacher.</li>
+          <li>Fill out every part of the assignment below — your answers save as you type.</li>
+          <li>Click <b>Print / Save as PDF</b>, then choose <b>"Save as PDF"</b> as the destination.</li>
+          <li>Email the PDF to your teacher. (Click <b>Download my work</b> if you also want a text copy of your answers.)</li>
         </ol>
         <a href={`mailto:pietro.valastro@neiacademy.org?subject=${encodeURIComponent(title + " Assignment")}`}
           className={`mt-3 inline-block px-4 py-2 rounded-xl font-bold ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white'}`}>
@@ -57,8 +57,8 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
       </div>
       <iframe
         title={`${title} Assignment`}
-        srcDoc={withAutosave(html, assignment)}
-        sandbox="allow-scripts allow-forms allow-modals allow-same-origin allow-popups"
+        srcDoc={withAutosave(html, assignment, title)}
+        sandbox="allow-scripts allow-forms allow-modals allow-same-origin allow-popups allow-downloads"
         className={`w-full rounded-2xl bg-white ${highContrast ? 'border-2 border-yellow-400' : 'border border-[#414042]/15 shadow-md'}`}
         style={{ height: '85vh', minHeight: 700 }}
       />

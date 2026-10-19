@@ -9,7 +9,12 @@
     :root { --ink:#20332e; --muted:#5b6d63; --cream:#f7f5ee; --green:#245d46; --line:#d9e2d7; --orange:#eac08a; }
     * { box-sizing:border-box; }
     body { width:100%; margin:0; font-family:'DM Sans',sans-serif; color:var(--ink); }
-    h1,h2 { font-family:"DM Sans",sans-serif; }
+    body h1,body h2,body h3,body h4 { font-family:"DM Sans",sans-serif; }
+    body h1 { font-size:42px; line-height:1.1; font-weight:700; }
+    body h2 { font-size:24px; line-height:1.2; font-weight:700; }
+    body h3 { font-size:19px; line-height:1.25; font-weight:700; }
+    body h4 { font-size:17px; line-height:1.25; font-weight:700; }
+    [data-template-id="goal-text"] { font-size:20px; font-weight:600; line-height:1.35; }
     .paper { background:#fffefa; border:1px solid var(--line); border-radius:20px; box-shadow:0 8px 28px rgba(26,55,38,.045); }
     .field { display:block; width:100%; border:1px solid #c7d4c8; border-radius:11px; background:#fff; padding:11px 13px; color:var(--ink); outline:none; resize:vertical; }
     .field:focus, button:focus-visible, input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible { outline:3px solid #d19850; outline-offset:2px; }
@@ -46,7 +51,7 @@
     <div class="max-w-6xl mx-auto grid md:grid-cols-[1.15fr_.85fr]">
      <div class="px-6 py-12 sm:px-10 sm:py-16 flex flex-col justify-center">
       <p data-template-id="hero-eyebrow" class="canva-text uppercase tracking-[.2em] text-sm font-bold mb-3">STUDENT ASSIGNMENT · ENTREPRENEURSHIP</p>
-      <p data-template-id="assignment-date" class="canva-text text-sm font-semibold mb-5">October 19, 2026</p>
+      <p data-template-id="assignment-date" class="canva-text text-sm font-semibold mb-5">Monday, October 19, 2026</p>
       <h1 data-template-id="hero-title" class="canva-text leading-[1.08] mb-5">Assumption Buster</h1>
       <p data-template-id="hero-description" class="canva-text leading-relaxed max-w-xl">Ask customers. Collect evidence. Improve an idea. Your first idea does not have to be perfect—use what you learn to make a smarter next decision.</p>
       <div class="mt-8 flex flex-wrap gap-3 text-sm"><span data-template-id="hero-tag-one" class="canva-tag rounded-full px-4 py-2 bg-[#315b47]">Work with a partner</span> <span data-template-id="hero-tag-two" class="canva-tag rounded-full px-4 py-2 bg-[#315b47]">Survey 4–6 classmates</span>
@@ -79,7 +84,7 @@
       <h2 data-template-id="goal-text" class="canva-text leading-snug">I can gather customer evidence and use it to improve an idea.</h2>
      </section>
      <section data-template-id="success-panel" class="canva-card paper p-6">
-      <h2 data-template-id="success-heading" class="canva-text mb-3">Success check</h2>
+      <h2 data-template-id="success-heading" class="canva-text mb-3">Success Check</h2>
       <ul class="space-y-2 list-disc pl-5">
        <li data-template-id="success-one" class="canva-text">Identify a specific target audience.</li>
        <li data-template-id="success-two" class="canva-text">Write clear, neutral questions.</li>
@@ -203,7 +208,7 @@
        <p data-template-id="survey-five-example" class="canva-text note mb-2">Example: Which of these snack options would you be most likely to buy?</p><input id="survey-five" name="survey_decision" class="field" required>
       </div>
       <div class="mt-7 pt-6 border-t border-[#d9e2d7]">
-       <h3 data-template-id="quality-heading" class="canva-text font-bold mb-2">Survey quality check</h3>
+       <h3 data-template-id="quality-heading" class="canva-text font-bold mb-2">Survey Quality Check</h3>
        <p data-template-id="quality-intro" class="canva-text note mb-4">Exchange questions with another pair. Mark questions N (neutral), L (leading), or U (unclear). Revise at least one.</p>
        <div class="grid sm:grid-cols-2 gap-3"><label class="checkline"><input name="neutral_check" type="checkbox"><span data-template-id="quality-one" class="canva-text">Our wording does not suggest a preferred answer.</span></label> <label class="checkline"><input name="clear_check" type="checkbox"><span data-template-id="quality-two" class="canva-text">Each question is easy to understand.</span></label> <label class="checkline"><input name="useful_check" type="checkbox"><span data-template-id="quality-three" class="canva-text">The answers will help us decide.</span></label> <label class="checkline"><input name="privacy_check" type="checkbox"><span data-template-id="quality-four" class="canva-text">We do not request names or sensitive information.</span></label>
        </div>
@@ -239,7 +244,7 @@
        </div>
       </div>
       <div class="mt-7 pt-6 border-t border-[#d9e2d7]">
-       <h3 data-template-id="research-check-heading" class="canva-text font-bold mb-4">Research check</h3>
+       <h3 data-template-id="research-check-heading" class="canva-text font-bold mb-4">Research Check</h3>
        <div class="grid sm:grid-cols-2 gap-3"><label class="checkline"><input name="four_responses_check" type="checkbox"><span data-template-id="research-check-one" class="canva-text">We collected at least four responses.</span></label> <label class="checkline"><input name="actual_responses_check" type="checkbox"><span data-template-id="research-check-two" class="canva-text">We recorded actual ideas, behaviors, or preferences.</span></label> <label class="checkline"><input name="listening_check" type="checkbox"><span data-template-id="research-check-three" class="canva-text">We listened respectfully, including to disagreement.</span></label> <label class="checkline"><input name="pattern_check" type="checkbox"><span data-template-id="research-check-four" class="canva-text">We noticed a repeated response or meaningful difference.</span></label>
        </div>
       </div>
@@ -286,14 +291,14 @@
        </div>
       </div>
       <div class="mt-7 pt-6 border-t border-[#d9e2d7]">
-       <h3 data-template-id="final-check-heading" class="canva-text font-bold mb-4">Final self-check</h3>
+       <h3 data-template-id="final-check-heading" class="canva-text font-bold mb-4">Final Self-Check</h3>
        <div class="space-y-3"><label class="checkline"><input name="conclusion_check" type="checkbox"><span data-template-id="final-check-one" class="canva-text">My conclusion uses evidence from the research.</span></label> <label class="checkline"><input name="assumption_check" type="checkbox"><span data-template-id="final-check-two" class="canva-text">I can name an assumption that was confirmed or challenged.</span></label> <label class="checkline"><input name="specific_step_check" type="checkbox"><span data-template-id="final-check-three" class="canva-text">My next step is specific and possible.</span></label>
        </div>
       </div>
      </section>
      <section data-template-id="submission-panel" class="canva-card rounded-[20px] p-6 sm:p-8">
-      <h2 data-template-id="submission-heading" class="canva-text mb-2">Ready to turn it in?</h2>
-      <p data-template-id="submission-description" class="canva-text leading-relaxed mb-6">Review your answers, then submit your completed assignment. Fields marked * are required. Do not put classmates’ names in your research notes.</p>
+      <h2 data-template-id="submission-heading" class="canva-text mb-2">Ready to Turn It In?</h2>
+      <p data-template-id="submission-description" class="canva-text leading-relaxed mb-6">Review your answers, then download a copy of your work or save your completed assignment as a PDF. Fields marked * are required. Do not put classmates’ names in your research notes.</p>
       <div class="flex flex-wrap items-center gap-4"><button id="submit-button" data-template-id="submit-button" type="submit" class="canva-button rounded-xl px-7 py-3 font-bold transition hover:brightness-110 focus-visible:outline">Submit assignment</button> <button id="print-button" data-template-id="print-button" type="button" class="canva-button rounded-xl px-5 py-3 border border-current font-bold">Print / Save as PDF</button> <button id="retry-button" data-template-id="retry-button" type="button" class="canva-button hidden rounded-xl px-5 py-3 border border-current font-bold">Retry connection</button> <span id="status" role="status" aria-live="polite" class="font-semibold"></span>
       </div>
      </section>

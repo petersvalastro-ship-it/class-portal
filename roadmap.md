@@ -20,3 +20,9 @@
 - [x] (2026-10-19) Rebus Studio assignment: Print / Save as PDF button at top and bottom of the assignment content; print CSS hides both print buttons, Submit and form message in print output.
 - [x] Customer Interview Lab assignment (Thursday 10/22) added from Canva under Assignments
 - [x] (2026-10-19) Customer Interview Lab assignment: View / Download PDF box using the uploaded 18-page student guide (asset customer-interview-lab-student-guide.pdf).
+
+- [x] (2026-10-19) Normalize assignment headings: shared scale (title 42px, section 24px, sub 19px, named items 17px) + Title Case across Assumption Buster, Rebus Studio, Customer Interview Lab
+- [x] (2026-10-19) Assumption Buster "View / Download PDF" now serves the uploaded Assumption_Buster_Student_Guide_2026-10-19.pdf (6 pages)
+
+- [x] (2026-10-19) Uniform assignment buttons injected on every assignment (top + bottom): "Download my work" (solid #61249a) + "Print / Save as PDF" (pale lavender); original Submit/Print buttons hidden; bars hidden in print; iframe sandbox gained allow-downloads
+- [x] (2026-10-19) Weekday added to every assignment date: Monday, October 19 / Tuesday, October 20 / Thursday, October 22, 2026 (list cards, page banners, download text)
