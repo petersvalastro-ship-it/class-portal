@@ -15,6 +15,7 @@ import { Route as LearningAssignmentsRouteImport } from './routes/learning.assig
 import { Route as LearningCaseStudiesRouteImport } from './routes/learning.case-studies'
 import { Route as LearningSyllabusRouteImport } from './routes/learning.syllabus'
 import { Route as LearningAssignmentsAssumptionBusterRouteImport } from './routes/learning.assignments_.assumption-buster'
+import { Route as LearningAssignmentsRebusStudioRouteImport } from './routes/learning.assignments_.rebus-studio'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,6 +48,12 @@ const LearningAssignmentsAssumptionBusterRoute =
     path: '/learning/assignments/assumption-buster',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearningAssignmentsRebusStudioRoute =
+  LearningAssignmentsRebusStudioRouteImport.update({
+    id: '/learning/assignments_/rebus-studio',
+    path: '/learning/assignments/rebus-studio',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -63,6 +71,7 @@ export interface FileRoutesByTo {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -72,6 +81,7 @@ export interface FileRoutesById {
   '/learning/case-studies': typeof LearningCaseStudiesRoute
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments_/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
+  '/learning/assignments_/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -82,6 +92,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
+    | '/learning/assignments/rebus-studio'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -90,6 +101,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
+    | '/learning/assignments/rebus-studio'
   id:
     | '__root__'
     | '/'
@@ -98,6 +110,7 @@ export interface FileRouteTypes {
     | '/learning/case-studies'
     | '/learning/syllabus'
     | '/learning/assignments_/assumption-buster'
+    | '/learning/assignments_/rebus-studio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -107,6 +120,7 @@ export interface RootRouteChildren {
   LearningCaseStudiesRoute: typeof LearningCaseStudiesRoute
   LearningSyllabusRoute: typeof LearningSyllabusRoute
   LearningAssignmentsAssumptionBusterRoute: typeof LearningAssignmentsAssumptionBusterRoute
+  LearningAssignmentsRebusStudioRoute: typeof LearningAssignmentsRebusStudioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -153,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningAssignmentsAssumptionBusterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/assignments_/rebus-studio': {
+      id: '/learning/assignments_/rebus-studio'
+      path: '/learning/assignments/rebus-studio'
+      fullPath: '/learning/assignments/rebus-studio'
+      preLoaderRoute: typeof LearningAssignmentsRebusStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -164,6 +185,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearningSyllabusRoute: LearningSyllabusRoute,
   LearningAssignmentsAssumptionBusterRoute:
     LearningAssignmentsAssumptionBusterRoute,
+  LearningAssignmentsRebusStudioRoute: LearningAssignmentsRebusStudioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
