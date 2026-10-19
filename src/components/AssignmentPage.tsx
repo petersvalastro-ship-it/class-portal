@@ -2,11 +2,13 @@ import abPdf from '@/assets/assumption-buster-student-guide.pdf.asset.json';
 import abHtml from '@/content/assumption-buster.html?raw';
 import { withAutosave } from '@/lib/assignment-autosave';
 import rebusHtml from '@/content/rebus-studio.html?raw';
+import interviewHtml from '@/content/customer-interview-lab.html?raw';
 import rebusPdf from '@/assets/rebus-studio-student-guide.pdf.asset.json';
 
 const DOCS = {
   'assumption-buster': { title: 'Assumption Buster', html: abHtml, pdfUrl: abPdf.url, pdfName: 'Assumption-Buster-Student-Guide.pdf' },
   'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml, pdfUrl: rebusPdf.url, pdfName: 'Rebus-Studio-Student-Guide.pdf' },
+  'customer-interview-lab': { title: 'Customer Interview Lab', html: interviewHtml },
 } as const;
 import { ArrowLeft, FileDown } from 'lucide-react';
 
