@@ -57,7 +57,7 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
       </div>
       <iframe
         title={`${title} Assignment`}
-        srcDoc={withAutosave(html, assignment)}
+        srcDoc={withAutosave(html, assignment, title)}
         sandbox="allow-scripts allow-forms allow-modals allow-same-origin allow-popups"
         className={`w-full rounded-2xl bg-white ${highContrast ? 'border-2 border-yellow-400' : 'border border-[#414042]/15 shadow-md'}`}
         style={{ height: '85vh', minHeight: 700 }}
