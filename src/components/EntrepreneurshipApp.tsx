@@ -866,8 +866,8 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
               onClick={() => setActiveTab('assignments')}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition cursor-pointer ${
                 highContrast
-                  ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300 hover:bg-zinc-800'
-                  : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
+                  ? 'bg-[#C51C63] border-2 border-yellow-400 text-white hover:bg-[#a8164f]'
+                  : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#a8164f]'
               }`}
               title="View all class assignments"
             >
