@@ -987,10 +987,10 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 {
                   label: 'Resources', icon: Layers, open: resourcesMenuOpen,
                   setOpen: setResourcesMenuOpen,
-                  ids: ['glossary','calculators','practice','simulator'],
+                  ids: ['calculators','glossary','practice','simulator'],
                   items: [
-                    { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                     { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+                    { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                     { id: 'practice', label: 'Interactive Scenarios', icon: Target },
                     { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
                   ],
@@ -1108,10 +1108,10 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 label: 'Resources', icon: Layers, open: resourcesMenuOpen,
                 setOpen: setResourcesMenuOpen,
                 closeOthers: () => { setClassToolsMenuOpen(false); setLearningMenuOpen(false); },
-                ids: ['glossary','calculators','practice','simulator'],
+                ids: ['calculators','glossary','practice','simulator'],
                 items: [
-                  { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                   { id: 'calculators', label: 'Formula & Math Lab', icon: Calculator },
+                  { id: 'glossary', label: 'Glossary & Cards', icon: BookOpen },
                   { id: 'practice', label: 'Interactive Scenarios', icon: Target },
                   { id: 'simulator', label: 'Venture Pitch Builder', icon: Briefcase },
                 ],
