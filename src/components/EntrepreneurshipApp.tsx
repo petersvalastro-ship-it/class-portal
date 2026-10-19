@@ -962,11 +962,11 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 {
                   label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                   setOpen: setClassToolsMenuOpen,
-                  ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
+                  ids: ['brainstarts','schedule','whiteboard','entryticket','feedback'],
                   items: [
+                    { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                     { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                     { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
-                    { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                     { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                     { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                   ],
@@ -1081,11 +1081,11 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 label: 'Class Tools', icon: Calendar, open: classToolsMenuOpen,
                 setOpen: setClassToolsMenuOpen,
                 closeOthers: () => { setLearningMenuOpen(false); setResourcesMenuOpen(false); },
-                ids: ['schedule','whiteboard','brainstarts','entryticket','feedback'],
+                ids: ['brainstarts','schedule','whiteboard','entryticket','feedback'],
                 items: [
+                  { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                   { id: 'schedule', label: 'Class Schedule', icon: Calendar },
                   { id: 'whiteboard', label: 'Class Whiteboard', icon: Presentation },
-                  { id: 'brainstarts', label: 'Brain Starts', icon: Puzzle },
                   { id: 'entryticket', label: 'Entry Ticket', icon: ClipboardList },
                   { id: 'feedback', label: 'Exit Ticket', icon: MessageSquareText },
                 ],
