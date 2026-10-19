@@ -1,11 +1,12 @@
+import abPdf from '@/assets/assumption-buster-student-guide.pdf.asset.json';
 import abHtml from '@/content/assumption-buster.html?raw';
 import { withAutosave } from '@/lib/assignment-autosave';
 import rebusHtml from '@/content/rebus-studio.html?raw';
 import rebusPdf from '@/assets/rebus-studio-student-guide.pdf.asset.json';
 
 const DOCS = {
-  'assumption-buster': { title: 'Assumption Buster', html: abHtml },
-  'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml, pdfUrl: rebusPdf.url },
+  'assumption-buster': { title: 'Assumption Buster', html: abHtml, pdfUrl: abPdf.url, pdfName: 'Assumption-Buster-Student-Guide.pdf' },
+  'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml, pdfUrl: rebusPdf.url, pdfName: 'Rebus-Studio-Student-Guide.pdf' },
 } as const;
 import { ArrowLeft, FileDown } from 'lucide-react';
 
@@ -13,6 +14,7 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
   const doc = DOCS[assignment];
   const { title, html } = doc;
   const pdfUrl = 'pdfUrl' in doc ? doc.pdfUrl : undefined;
+  const pdfName = 'pdfName' in doc ? doc.pdfName : 'Student-Guide.pdf';
   return (
     <div className="space-y-4">
       {onBack && (
@@ -32,7 +34,7 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
         <div className={`flex flex-wrap items-center gap-3 rounded-xl p-3 text-sm ${highContrast ? 'bg-black border-2 border-yellow-400 text-white' : 'bg-[#E94928]/10 border border-[#E94928]/35 text-[#414042]'}`}>
           <FileDown className={`w-5 h-5 shrink-0 ${highContrast ? 'text-yellow-300' : 'text-[#E94928]'}`} />
           <span>Prefer to read it on paper? The full student guide is also available as a PDF.</span>
-          <a href={pdfUrl} target="_blank" rel="noreferrer" download="Rebus-Studio-Student-Guide.pdf"
+          <a href={pdfUrl} target="_blank" rel="noreferrer" download={pdfName}
             className={`ml-auto inline-block px-4 py-2 rounded-xl font-bold ${highContrast ? 'bg-yellow-400 text-black' : 'bg-[#E94928] text-white hover:bg-[#E94928]/90'}`}>
             View / Download PDF
           </a>
