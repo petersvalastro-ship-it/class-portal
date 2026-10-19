@@ -227,7 +227,7 @@ export function StudentAccountModal({ open, onClose, highContrast, onGoogle, onC
 
           <p className={`flex items-start gap-2 text-xs ${highContrast ? 'text-yellow-200' : 'text-[#414042]/60'}`}>
             <ShieldCheck className="w-4 h-4 shrink-0" />
-            No email needed. Write your password somewhere safe — Mr. Valastro can reset it if you forget.
+            No email needed. Write your password somewhere safe — Pietro can reset it if you forget.
           </p>
         </div>
       </div>
