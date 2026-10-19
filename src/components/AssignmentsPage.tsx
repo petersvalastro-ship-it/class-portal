@@ -4,7 +4,7 @@ const ASSIGNMENTS = [
   {
     id: 'assumption-buster',
     title: 'Assumption Buster',
-    due: 'Assigned October 19, 2026',
+    due: 'Assigned Monday, October 19, 2026',
     focus: 'Questioning assumptions · Evidence-based thinking',
     description:
       'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Save your finished work as a PDF and email it to Pietro.',
@@ -12,7 +12,7 @@ const ASSIGNMENTS = [
   {
     id: 'rebus-studio',
     title: 'Entrepreneurial Rebus Studio',
-    due: 'Assigned October 19, 2026',
+    due: 'Assigned Tuesday, October 20, 2026',
     focus: 'Creativity · Communicating ideas',
     description:
       'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Pietro.',
@@ -20,7 +20,7 @@ const ASSIGNMENTS = [
   {
     id: 'customer-interview-lab',
     title: 'Customer Interview Lab',
-    due: 'Thursday, October 22, 2026',
+    due: 'Assigned Thursday, October 22, 2026',
     focus: 'Empathy · Turning assumptions into evidence',
     description:
       'Pick an assumption about your customer, plan and run a short customer interview, record what you heard, and decide what to do next based on the evidence. Save your finished work as a PDF and email it to Pietro.',
