@@ -19,3 +19,4 @@
 - [x] Add a View / Download PDF button for the Assumption Buster student guide (generated 10-page PDF from the assignment).
 - [x] (2026-10-19) Rebus Studio assignment: Print / Save as PDF button at top and bottom of the assignment content; print CSS hides both print buttons, Submit and form message in print output.
 - [x] Customer Interview Lab assignment (Thursday 10/22) added from Canva under Assignments
+- [x] (2026-10-19) Customer Interview Lab assignment: View / Download PDF box using the uploaded 18-page student guide (asset customer-interview-lab-student-guide.pdf).
