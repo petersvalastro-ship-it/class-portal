@@ -862,12 +862,18 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
                 <span className="hidden sm:inline">Student Account</span>
               </button>
             )}
-            <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border ${
-              highContrast ? 'bg-zinc-900 border-2 border-yellow-400 text-yellow-300' : 'bg-white/10 border-white/20 text-white'
-            }`}>
-              <Trophy className="w-4 h-4 text-[#EFA835]" />
-              <span>{xp} XP</span>
-            </div>
+            <button
+              onClick={() => setActiveTab('assignments')}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full font-bold text-xs shadow-xs border transition cursor-pointer ${
+                highContrast
+                  ? 'bg-[#C51C63] border-2 border-yellow-400 text-white hover:bg-[#a8164f]'
+                  : 'bg-[#C51C63] border-[#C51C63] text-white hover:bg-[#a8164f]'
+              }`}
+              title="View all class assignments"
+            >
+              <ClipboardList className="w-4 h-4 text-[#EFA835]" />
+              <span>View Assignments</span>
+            </button>
           </div>
         </div>
       </header>
