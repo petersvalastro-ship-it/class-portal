@@ -1,4 +1,5 @@
 import abHtml from '@/content/assumption-buster.html?raw';
+import { withAutosave } from '@/lib/assignment-autosave';
 import rebusHtml from '@/content/rebus-studio.html?raw';
 
 const DOCS = {
@@ -38,7 +39,7 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
       </div>
       <iframe
         title={`${title} Assignment`}
-        srcDoc={html}
+        srcDoc={withAutosave(html, assignment)}
         sandbox="allow-scripts allow-forms allow-modals allow-same-origin allow-popups"
         className={`w-full rounded-2xl bg-white ${highContrast ? 'border-2 border-yellow-400' : 'border border-[#414042]/15 shadow-md'}`}
         style={{ height: '85vh', minHeight: 700 }}
