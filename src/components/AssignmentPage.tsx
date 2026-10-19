@@ -14,6 +14,7 @@ export default function AssignmentPage({ highContrast, onBack, assignment = 'ass
   const doc = DOCS[assignment];
   const { title, html } = doc;
   const pdfUrl = 'pdfUrl' in doc ? doc.pdfUrl : undefined;
+  const pdfName = 'pdfName' in doc ? doc.pdfName : 'Student-Guide.pdf';
   return (
     <div className="space-y-4">
       {onBack && (
