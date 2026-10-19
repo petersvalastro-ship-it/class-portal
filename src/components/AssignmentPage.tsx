@@ -10,7 +10,9 @@ const DOCS = {
 import { ArrowLeft, FileDown } from 'lucide-react';
 
 export default function AssignmentPage({ highContrast, onBack, assignment = 'assumption-buster' }: { highContrast: boolean; onBack?: () => void; assignment?: keyof typeof DOCS }) {
-  const { title, html } = DOCS[assignment];
+  const doc = DOCS[assignment];
+  const { title, html } = doc;
+  const pdfUrl = 'pdfUrl' in doc ? doc.pdfUrl : undefined;
   return (
     <div className="space-y-4">
       {onBack && (
