@@ -25,6 +25,14 @@ const ASSIGNMENTS = [
     description:
       'Pick an assumption about your customer, plan and run a short customer interview, record what you heard, and decide what to do next based on the evidence. Save your finished work as a PDF and email it to Pietro.',
   },
+  {
+    id: 'friday-learning-loop',
+    title: 'Friday Learning Loop: Week in Four Frames',
+    due: 'Friday, October 23, 2026',
+    focus: 'Connecting ideas · Collaboration · Reflection',
+    description:
+      'Warm up with the Brain Smart Start rebus, then work with your team to connect what we noticed, asked, learned and decided this week, create a new rebus, swap feedback in a gallery, and finish an individual reflection. Save your finished work as a PDF and email it to Pietro.',
+  },
 ];
 
 export default function AssignmentsPage({ highContrast, onOpen }: { highContrast: boolean; onOpen: (id: string) => void }) {
