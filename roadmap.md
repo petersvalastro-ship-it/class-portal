@@ -21,4 +21,5 @@
 - [x] Customer Interview Lab assignment (Thursday 10/22) added from Canva under Assignments
 - [x] (2026-10-19) Customer Interview Lab assignment: View / Download PDF box using the uploaded 18-page student guide (asset customer-interview-lab-student-guide.pdf).
 
-- [ ] Normalize assignment titles & section headers: consistent heading sizes/Title Case across Assumption Buster, Rebus Studio, Customer Interview Lab
+- [x] (2026-10-19) Normalize assignment headings: shared scale (title 42px, section 24px, sub 19px, named items 17px) + Title Case across Assumption Buster, Rebus Studio, Customer Interview Lab
+- [x] (2026-10-19) Assumption Buster "View / Download PDF" now serves the uploaded Assumption_Buster_Student_Guide_2026-10-19.pdf (6 pages)
