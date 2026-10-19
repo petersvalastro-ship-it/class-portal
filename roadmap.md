@@ -17,3 +17,4 @@
 - [x] Sort Resources menu items alphabetically (desktop and phone menus).
 - [x] Add a View / Download PDF button for the Rebus Studio student guide on the Rebus Studio assignment page.
 - [x] Add a View / Download PDF button for the Assumption Buster student guide (generated 10-page PDF from the assignment).
+- [x] (2026-10-19) Rebus Studio assignment: Print / Save as PDF button at top and bottom of the assignment content; print CSS hides both print buttons, Submit and form message in print output.

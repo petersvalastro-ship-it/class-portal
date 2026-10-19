@@ -61,6 +61,9 @@
     .submit{background:#64219a;color:#fff;border-radius:12px;padding:15px 25px;font-weight:800;cursor:pointer;transition:transform .2s,background .2s;box-shadow:0 6px 0 #42106b}
     .submit:hover:not(:disabled){background:#52147f;transform:translateY(-2px)}
     .submit:disabled{opacity:.65;cursor:wait}
+    .print-btn{background:#fff;color:#64219a;border:2px solid #64219a;border-radius:12px;padding:13px 23px;font-weight:800;cursor:pointer;transition:transform .2s,background .2s;display:inline-flex;align-items:center;gap:9px}
+    .print-btn:hover{background:#f6effa;transform:translateY(-2px)}
+    @media print{.print-btn,.submit,#form-message,.hero-image-wrap{display:none!important}}
     .message{border-radius:12px;padding:14px 16px;font-weight:700}
     .message.error{background:#fff0ed;color:#902f19}
     .message.success{background:#eef8f0;color:#176039}
@@ -103,6 +106,7 @@
        <strong data-template-id="product-label" style="font-size:15.9995px;font-weight:700;color:rgb(180, 61, 32)" class="canva-text">FINAL PRODUCT</strong><span data-template-id="product-value" style="font-size:15.9995px;font-weight:400;color:rgb(36, 36, 36)" class="canva-text">3 rebus puzzles plus answer key</span>
       </div>
      </div>
+     <div class="flex flex-wrap gap-3 mt-6 print-row"><button type="button" class="print-btn">🖨️ Print / Save as PDF</button></div>
      <form id="assignment-form" novalidate>
       <div class="mt-8">
        <label data-template-id="student-name-label" style="font-size:15.9995px;font-weight:700;color:rgb(36, 36, 36)" class="canva-text prompt" for="student_name">Student name</label><input id="student_name" name="student_name" class="field" autocomplete="name" maxlength="120" required>
@@ -342,7 +346,7 @@
          <label data-template-id="exit-two-label" style="font-size:15.9995px;font-weight:700;color:rgb(36, 36, 36)" class="canva-text prompt" for="exit_ticket_2">2. Complete the sentence: Entrepreneurs learn by…</label><textarea id="exit_ticket_2" name="exit_ticket_2" class="field" required></textarea>
         </div>
        </div>
-       <p data-template-id="submit-note" style="font-size:15.9995px;font-weight:400;color:rgb(104, 99, 108)" class="canva-text mt-6 mb-4">Submitting saves your completed digital assignment to a Canva Sheet. It does not turn in a Google Classroom attachment; follow any additional directions from your teacher.</p><button id="submit-button" type="submit" class="submit canva-button"><span data-template-id="submit-label" style="font-size:15.9995px;font-weight:700;color:rgb(255, 255, 255)" class="canva-text">Submit assignment</span><span data-template-id="submitting-label" style="font-size:15.9995px;font-weight:700;color:rgb(255, 255, 255)" class="canva-text hidden">Submitting…</span></button>
+       <p data-template-id="submit-note" style="font-size:15.9995px;font-weight:400;color:rgb(104, 99, 108)" class="canva-text mt-6 mb-4">Submitting saves your completed digital assignment to a Canva Sheet. It does not turn in a Google Classroom attachment; follow any additional directions from your teacher.</p><button id="submit-button" type="submit" class="submit canva-button"><span data-template-id="submit-label" style="font-size:15.9995px;font-weight:700;color:rgb(255, 255, 255)" class="canva-text">Submit assignment</span><span data-template-id="submitting-label" style="font-size:15.9995px;font-weight:700;color:rgb(255, 255, 255)" class="canva-text hidden">Submitting…</span></button><button type="button" class="print-btn ml-3">🖨️ Print / Save as PDF</button>
        <div id="form-message" role="status" aria-live="polite" class="hidden mt-4"></div>
       </section>
      </form>
@@ -362,6 +366,7 @@ window.dataSdk={K:'neia_rebus_studio',
   lucide.createIcons();
   const form = document.getElementById('assignment-form');
   const button = document.getElementById('submit-button');
+  document.querySelectorAll('.print-btn').forEach(btn => btn.addEventListener('click', () => window.print()));
   const message = document.getElementById('form-message');
   const readyLabel = document.querySelector('[data-template-id="submit-label"]');
   const pendingLabel = document.querySelector('[data-template-id="submitting-label"]');
