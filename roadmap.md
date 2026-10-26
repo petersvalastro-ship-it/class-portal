@@ -29,3 +29,4 @@
 - [x] (2026-10-19) Friday Learning Loop: Week in Four Frames assignment (Friday, October 23, 2026) built from uploaded PDF, with View / Download PDF box
 - [x] (2026-10-19) View Assignments button in header top-right (replaces XP chip), pink, opens Assignments page
 - [x] (2026-10-26) Founders of Learning assignment (Mon 10/26–Fri 10/30) + Assignments page grouped by week (This Week on top)
+- [x] (2026-10-26) Submit to Pietro button on every assignment + Assignment Inbox tab in Teacher Dashboard (read-only viewer, review/notes, new badge)

@@ -7,7 +7,8 @@
 //     and "Print / Save as PDF".
 //  3. Hides each assignment's own submit/print buttons so students always see the
 //     same controls, and keeps both bars out of the printed PDF.
-export function withAutosave(html: string, key: string, title = 'Assignment'): string {
+export function withAutosave(html: string, key: string, title = 'Assignment', readOnlyAnswers?: Record<string, unknown>): string {
+  if (readOnlyAnswers) return html.replace('</body>', readOnlyScript(readOnlyAnswers) + '</body>');
   const script =
     '<script>(function(){' +
     'var K="neia_autosave_' + key + '";' +
@@ -25,6 +26,8 @@ export function withAutosave(html: string, key: string, title = 'Assignment'): s
     '+"[data-neia-actions] button{border:0;border-radius:8px;padding:15px 28px;font-family:\'DM Sans\',sans-serif;font-size:16px;font-weight:700;line-height:1;cursor:pointer}"' +
     '+"[data-neia-actions] .dl{background:#61249a;color:#fff}"' +
     '+"[data-neia-actions] .pr{background:#f5e9fa;color:#61249a}"' +
+    '+"[data-neia-actions] .sb{background:#C51C63;color:#fff}"' +
+    '+"[data-neia-actions] .st{width:100%;margin:2px 0 0;text-align:center;font-size:14px;font-weight:700;color:#61249a;min-height:1em}"' +
     '+"[data-neia-actions] button:hover{filter:brightness(.95)}"' +
     '+"@media print{[data-neia-actions],[data-autosave]{display:none!important}}";' +
     'function labelFor(el){' +
@@ -48,7 +51,12 @@ export function withAutosave(html: string, key: string, title = 'Assignment'): s
     'var c=document.createElement("p");c.className="cap";c.textContent="Turn in your work";w.appendChild(c);' +
     'var d=document.createElement("button");d.type="button";d.className="dl";d.textContent="Download my work";d.onclick=download;' +
     'var p=document.createElement("button");p.type="button";p.className="pr";p.textContent="Print / Save as PDF";p.onclick=function(){window.print();};' +
-    'w.appendChild(d);w.appendChild(p);return w;}' +
+    'var sb=document.createElement("button");sb.type="button";sb.className="sb";sb.textContent="Submit to Pietro";sb.onclick=submit;' +
+    'w.appendChild(sb);w.appendChild(d);w.appendChild(p);var st=document.createElement("p");st.className="st";st.setAttribute("data-neia-status","");w.appendChild(st);return w;}' +
+    'function collect(){var d={};fields().forEach(function(el,i){d[id(el,i)]=(el.type==="checkbox"||el.type==="radio")?el.checked:el.value;});return d;}' +
+    'function setStatus(t){Array.prototype.forEach.call(document.querySelectorAll("[data-neia-status]"),function(e){e.textContent=t;});}' +
+    'function submit(){save(false);setStatus("Submitting\u2026");parent.postMessage({type:"neia-submit",key:' + JSON.stringify(key) + ',answers:collect()},"*");}' +
+    'window.addEventListener("message",function(e){if(e.data&&e.data.type==="neia-submit-status")setStatus(e.data.text);});' +
     'function place(){' +
     'var a=document.querySelector("header");' +
     'if(!a){var t=document.querySelector("h1");if(t&&t.closest){var c=t.closest("section,div");if(c)a=c;}}' +
@@ -70,4 +78,16 @@ export function withAutosave(html: string, key: string, title = 'Assignment'): s
     'if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start);else start();' +
     '})();</script>';
   return html.replace('</body>', script + '</body>');
+}
+
+// Read-only viewer used by the Teacher Dashboard inbox: fills in a student's
+// submitted answers, then locks every field and hides the student controls.
+function readOnlyScript(answers: Record<string, unknown>): string {
+  return '<script>(function(){var A=' + JSON.stringify(answers).replace(/</g, '\\u003c') + ';' +
+    'function go(){var els=Array.prototype.slice.call(document.querySelectorAll("input,textarea,select")).filter(function(el){return el.type!=="submit"&&el.type!=="button"&&el.type!=="file"&&(el.name||el.id);});' +
+    'els.forEach(function(el,i){var k=(el.name||el.id)+(el.type==="radio"?"::"+el.value:"")+"#"+(el.name||el.id?"":i);var v=A[k];' +
+    'if(v!==undefined){if(el.type==="checkbox"||el.type==="radio")el.checked=!!v;else el.value=v;}' +
+    'el.setAttribute("readonly","");if(el.type==="checkbox"||el.type==="radio"||el.tagName==="SELECT")el.disabled=true;});' +
+    'document.head.insertAdjacentHTML("beforeend","<style>#submit-button,#print-button,#retry-button,#download,#print,.print-btn,.submit,[data-template-id=\\"submit-button\\"],[data-template-id=\\"print-button\\"],[data-template-id=\\"retry-button\\"],[data-template-id=\\"download-button\\"]{display:none!important}textarea[readonly],input[readonly]{background:#fbf8fe!important}</style>");}' +
+    'if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();})();</script>';
 }

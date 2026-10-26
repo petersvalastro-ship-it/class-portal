@@ -13,7 +13,7 @@ const ASSIGNMENTS = [
     due: 'Monday, October 26 – Friday, October 30, 2026',
     focus: 'Teaching others · Feedback & iteration',
     description:
-      'With your partner, plan, build, test and revise a 10-minute entrepreneurship lesson: plan Monday, build and test Tuesday, revise Thursday, final lesson ready Friday. Presentations begin next week. Save your finished planning guide as a PDF and email it to Pietro.',
+      'With your partner, plan, build, test and revise a 10-minute entrepreneurship lesson: plan Monday, build and test Tuesday, revise Thursday, final lesson ready Friday. Presentations begin next week. Click Submit to Pietro when your planning guide is finished.',
   },
   {
     id: 'assumption-buster',
@@ -22,7 +22,7 @@ const ASSIGNMENTS = [
     due: 'Monday, October 19, 2026',
     focus: 'Questioning assumptions · Evidence-based thinking',
     description:
-      'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Save your finished work as a PDF and email it to Pietro.',
+      'Spot a common assumption people make about entrepreneurs or business, test it with research, and explain what you found using evidence from our class case studies. Click Submit to Pietro when you are finished.',
   },
   {
     id: 'rebus-studio',
@@ -31,7 +31,7 @@ const ASSIGNMENTS = [
     due: 'Tuesday, October 20, 2026',
     focus: 'Creativity · Communicating ideas',
     description:
-      'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Save your finished work as a PDF and email it to Pietro.',
+      'Read the case study, design three entrepreneurship rebus puzzles, peer-test and revise them, then finish the exit ticket. Click Submit to Pietro when you are finished.',
   },
   {
     id: 'customer-interview-lab',
@@ -40,7 +40,7 @@ const ASSIGNMENTS = [
     due: 'Thursday, October 22, 2026',
     focus: 'Empathy · Turning assumptions into evidence',
     description:
-      'Pick an assumption about your customer, plan and run a short customer interview, record what you heard, and decide what to do next based on the evidence. Save your finished work as a PDF and email it to Pietro.',
+      'Pick an assumption about your customer, plan and run a short customer interview, record what you heard, and decide what to do next based on the evidence. Click Submit to Pietro when you are finished.',
   },
   {
     id: 'friday-learning-loop',
@@ -49,7 +49,7 @@ const ASSIGNMENTS = [
     due: 'Friday, October 23, 2026',
     focus: 'Connecting ideas · Collaboration · Reflection',
     description:
-      'Warm up with the Brain Smart Start rebus, then work with your team to connect what we noticed, asked, learned and decided this week, create a new rebus, swap feedback in a gallery, and finish an individual reflection. Save your finished work as a PDF and email it to Pietro.',
+      'Warm up with the Brain Smart Start rebus, then work with your team to connect what we noticed, asked, learned and decided this week, create a new rebus, swap feedback in a gallery, and finish an individual reflection. Click Submit to Pietro when you are finished.',
   },
 ];
 
