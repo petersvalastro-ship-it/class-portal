@@ -7,12 +7,15 @@ import rebusPdf from '@/assets/rebus-studio-student-guide.pdf.asset.json';
 import interviewPdf from '@/assets/customer-interview-lab-student-guide.pdf.asset.json';
 import fridayHtml from '@/content/friday-learning-loop.html?raw';
 import fridayPdf from '@/assets/friday-learning-loop-student-guide.pdf.asset.json';
+import foundersHtml from '@/content/founders-of-learning.html?raw';
+import foundersPdf from '@/assets/founders-of-learning-student-guide.pdf.asset.json';
 
 const DOCS = {
   'assumption-buster': { title: 'Assumption Buster', html: abHtml, pdfUrl: abPdf.url, pdfName: 'Assumption-Buster-Student-Guide.pdf' },
   'rebus-studio': { title: 'Entrepreneurial Rebus Studio', html: rebusHtml, pdfUrl: rebusPdf.url, pdfName: 'Rebus-Studio-Student-Guide.pdf' },
   'customer-interview-lab': { title: 'Customer Interview Lab', html: interviewHtml, pdfUrl: interviewPdf.url, pdfName: 'Customer-Interview-Lab-Student-Guide.pdf' },
   'friday-learning-loop': { title: 'Friday Learning Loop: Week in Four Frames', html: fridayHtml, pdfUrl: fridayPdf.url, pdfName: 'Friday-Learning-Loop-Student-Guide.pdf' },
+  'founders-of-learning': { title: 'Founders of Learning: Build, Teach, Improve', html: foundersHtml, pdfUrl: foundersPdf.url, pdfName: 'Founders-of-Learning-Planning-Guide.pdf' },
 } as const;
 import { ArrowLeft, FileDown } from 'lucide-react';
 
