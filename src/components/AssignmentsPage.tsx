@@ -1,8 +1,23 @@
 import { ClipboardList, ArrowRight, CalendarDays, Sparkles } from 'lucide-react';
 
+const WEEKS = [
+  { id: 'oct26', label: 'This Week', dates: 'Monday, October 26 – Friday, October 30, 2026', current: true },
+  { id: 'oct19', label: 'Last Week', dates: 'Monday, October 19 – Friday, October 23, 2026', current: false },
+];
+
 const ASSIGNMENTS = [
   {
+    id: 'founders-of-learning',
+    week: 'oct26',
+    title: 'Founders of Learning: Build, Teach, Improve',
+    due: 'Monday, October 26 – Friday, October 30, 2026',
+    focus: 'Teaching others · Feedback & iteration',
+    description:
+      'With your partner, plan, build, test and revise a 10-minute entrepreneurship lesson: plan Monday, build and test Tuesday, revise Thursday, final lesson ready Friday. Presentations begin next week. Save your finished planning guide as a PDF and email it to Pietro.',
+  },
+  {
     id: 'assumption-buster',
+    week: 'oct19',
     title: 'Assumption Buster',
     due: 'Monday, October 19, 2026',
     focus: 'Questioning assumptions · Evidence-based thinking',
@@ -11,6 +26,7 @@ const ASSIGNMENTS = [
   },
   {
     id: 'rebus-studio',
+    week: 'oct19',
     title: 'Entrepreneurial Rebus Studio',
     due: 'Tuesday, October 20, 2026',
     focus: 'Creativity · Communicating ideas',
@@ -19,6 +35,7 @@ const ASSIGNMENTS = [
   },
   {
     id: 'customer-interview-lab',
+    week: 'oct19',
     title: 'Customer Interview Lab',
     due: 'Thursday, October 22, 2026',
     focus: 'Empathy · Turning assumptions into evidence',
@@ -27,6 +44,7 @@ const ASSIGNMENTS = [
   },
   {
     id: 'friday-learning-loop',
+    week: 'oct19',
     title: 'Friday Learning Loop: Week in Four Frames',
     due: 'Friday, October 23, 2026',
     focus: 'Connecting ideas · Collaboration · Reflection',
@@ -52,8 +70,18 @@ export default function AssignmentsPage({ highContrast, onOpen }: { highContrast
         <p className={`mt-1 text-sm ${muted}`}>Class assignments for MS Entrepreneurship (Grades 7 &amp; 8). Open an assignment to complete it.</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
-        {ASSIGNMENTS.map((a) => (
+      {WEEKS.map((w) => (
+        <section key={w.id} className="space-y-3">
+          <div className={`rounded-2xl px-5 py-4 flex flex-wrap items-center gap-3 ${w.current ? (hc ? 'bg-yellow-400 text-black' : 'bg-[#C51C63] text-white shadow-md') : (hc ? 'bg-zinc-800 border-2 border-white/40 text-white' : 'bg-[#414042]/10 border border-[#414042]/20 text-[#414042]')}`}>
+            <CalendarDays className="w-6 h-6 shrink-0" />
+            <div>
+              <h3 className="text-xl font-extrabold leading-tight">{w.label}</h3>
+              <p className="text-sm font-semibold opacity-90">{w.dates}</p>
+            </div>
+            {w.current && <span className={`ml-auto px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${hc ? 'bg-black text-yellow-300' : 'bg-[#EFA835] text-[#414042]'}`}>Current</span>}
+          </div>
+          <div className={`grid grid-cols-1 gap-4 ${w.current ? '' : 'opacity-90'}`}>
+{ASSIGNMENTS.filter((a) => a.week === w.id).map((a) => (
           <div key={a.id} className={`rounded-2xl p-5 ${card}`}>
             <div className="flex flex-wrap items-center gap-2">
               <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${badge}`}>
@@ -71,7 +99,9 @@ export default function AssignmentsPage({ highContrast, onOpen }: { highContrast
             </button>
           </div>
         ))}
-      </div>
+                </div>
+        </section>
+      ))}
 
       <div className={`rounded-2xl p-4 text-sm ${hc ? 'bg-zinc-900/60 border border-yellow-400/50 text-white/85' : 'bg-[#EFA835]/10 border border-[#EFA835]/40 text-[#414042]/80'}`}>
         <Sparkles className="w-4 h-4 inline mr-1.5 -mt-0.5" />
