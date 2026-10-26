@@ -4,6 +4,8 @@ import { getClassProgress, resetStudentPassword, deleteStudent, renameStudent, t
 import { LAUNCHPAD_CHAPTERS, ALL_LAUNCHPAD_SECTION_IDS } from '@/lib/launchpad-content';
 import Gradebook from './Gradebook';
 import TeacherMasteryPanels from './TeacherMasteryPanels';
+import AssignmentInbox from './AssignmentInbox';
+import { Inbox } from 'lucide-react';
 
 type Props = { highContrast: boolean; totalScenarios?: number; totalTerms?: number };
 
@@ -14,7 +16,8 @@ const SECTION_TITLES: Record<string, string> = Object.fromEntries(
 );
 
 export default function TeacherDashboard({ highContrast, totalScenarios = 1, totalTerms = 1 }: Props) {
-  const [view, setView] = useState<'progress' | 'mastery' | 'gradebook'>('progress');
+  const [view, setView] = useState<'progress' | 'mastery' | 'gradebook' | 'inbox'>('progress');
+  const [newSubs, setNewSubs] = useState(0);
   const [rows, setRows] = useState<StudentRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -149,11 +152,12 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         {([
           { id: 'progress' as const, label: 'Class progress', icon: Users },
           { id: 'mastery' as const, label: 'Mastery & XP', icon: ShieldCheck },
           { id: 'gradebook' as const, label: 'Gradebook', icon: Table },
+          { id: 'inbox' as const, label: 'Assignment Inbox', icon: Inbox },
         ]).map((tab) => (
 
           <button
@@ -170,11 +174,13 @@ export default function TeacherDashboard({ highContrast, totalScenarios = 1, tot
             }`}
           >
             <tab.icon className="w-4 h-4" /> {tab.label}
+            {tab.id === 'inbox' && newSubs > 0 && <span className="ml-1 px-1.5 rounded-full bg-[#EFA835] text-[#414042] text-xs">{newSubs}</span>}
           </button>
         ))}
       </div>
 
-      {view === 'mastery' ? (
+      <div className={view === 'inbox' ? '' : 'hidden'}><AssignmentInbox highContrast={highContrast} roster={rows} onNewCount={setNewSubs} /></div>
+      {view === 'inbox' ? null : view === 'mastery' ? (
 
         <TeacherMasteryPanels highContrast={highContrast} />
       ) : view === 'gradebook' ? (

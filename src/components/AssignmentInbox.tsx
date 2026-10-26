@@ -27,8 +27,8 @@ export default function AssignmentInbox({ highContrast: hc, roster, onNewCount }
   useEffect(() => { load(); }, []);
   useEffect(() => { onNewCount?.(subs.filter((s) => !s.reviewed_at).length); }, [subs, onNewCount]);
 
-  const names = useMemo(() => new Map(roster.map((r) => [r.user_id, r])), [roster]);
-  const nameOf = (id: string) => names.get(id)?.display_name || names.get(id)?.email || 'Student';
+  const names = useMemo(() => new Map(roster.map((r) => [r.userId, r])), [roster]);
+  const nameOf = (id: string) => names.get(id)?.name || names.get(id)?.email || 'Student';
 
   async function markReviewed(s: Sub, reviewed: boolean) {
     setSaving(true);
@@ -86,7 +86,7 @@ export default function AssignmentInbox({ highContrast: hc, roster, onNewCount }
           {(Object.entries(ASSIGNMENT_DOCS) as [AssignmentKey, (typeof ASSIGNMENT_DOCS)[AssignmentKey]][]).filter(([, d]) => d.week === w.id).map(([key, d]) => {
             const list = subs.filter((s) => s.assignment_key === key);
             const done = new Set(list.map((s) => s.student_id));
-            const missing = roster.filter((r) => !done.has(r.user_id));
+            const missing = roster.filter((r) => !done.has(r.userId));
             return (
               <div key={key} className={`rounded-2xl p-4 ${card}`}>
                 <div className="flex flex-wrap items-center gap-2">
@@ -99,15 +99,14 @@ export default function AssignmentInbox({ highContrast: hc, roster, onNewCount }
                       <li key={s.id}>
                         <button onClick={() => { setOpen(s); setNote(s.teacher_note); }} className="w-full flex flex-wrap items-center gap-2 py-2 text-left text-sm hover:opacity-80">
                           <span className="font-bold">{nameOf(s.student_id)}</span>
-                          {names.get(s.student_id)?.grade_level && <span className="opacity-70">Grade {names.get(s.student_id)?.grade_level}</span>}
-                          <span className="opacity-70">{when(s.submitted_at)}{s.submit_count > 1 ? ` · resubmitted ×${s.submit_count}` : ''}</span>
+                                                    <span className="opacity-70">{when(s.submitted_at)}{s.submit_count > 1 ? ` · resubmitted ×${s.submit_count}` : ''}</span>
                           <span className={`ml-auto px-2 py-0.5 rounded-full text-xs font-bold ${s.reviewed_at ? (hc ? 'bg-white/20' : 'bg-[#414042]/10') : (hc ? 'bg-yellow-400 text-black' : 'bg-[#EFA835] text-[#414042]')}`}>{s.reviewed_at ? 'Reviewed' : 'New'}</span>
                         </button>
                       </li>
                     ))}
                   </ul>
                 )}
-                {missing.length > 0 && <p className="mt-2 text-xs opacity-70">Not yet submitted: {missing.map((r) => r.display_name || r.email).join(', ')}</p>}
+                {missing.length > 0 && <p className="mt-2 text-xs opacity-70">Not yet submitted: {missing.map((r) => r.name || r.email).join(', ')}</p>}
               </div>
             );
           })}

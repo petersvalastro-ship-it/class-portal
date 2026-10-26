@@ -655,6 +655,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
   // Friendly reminder to sign in so work is saved to the account
   const [showSignInReminder, setShowSignInReminder] = useState(false);
   const [showAccountModal, setShowAccountModal] = useState(false);
+  const openAccount = useCallback(() => setShowAccountModal(true), []);
   const [reminderDismissed, setReminderDismissed] = useState(false);
   const activityCount = xp + masteredTerms.length + Object.keys(completedScenarios).length;
   useEffect(() => {
@@ -1375,11 +1376,11 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
         {activeTab === 'casestudies' && <CaseStudiesPage highContrast={highContrast} />}
         {activeTab === 'syllabus' && <SyllabusPage highContrast={highContrast} />}
         {activeTab === 'assignments' && <AssignmentsPage highContrast={highContrast} onOpen={(id) => setActiveTab(id === 'rebus-studio' ? 'assignmentRebus' : id === 'customer-interview-lab' ? 'assignmentInterview' : id === 'friday-learning-loop' ? 'assignmentFriday' : id === 'founders-of-learning' ? 'assignmentFounders' : 'assignment1019')} />}
-        {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
-        {activeTab === 'assignmentInterview' && <AssignmentPage assignment="customer-interview-lab" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
-        {activeTab === 'assignmentFriday' && <AssignmentPage assignment="friday-learning-loop" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
-        {activeTab === 'assignmentFounders' && <AssignmentPage assignment="founders-of-learning" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
-        {activeTab === 'assignmentRebus' && <AssignmentPage assignment="rebus-studio" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} onNeedSignIn={openAccount} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentInterview' && <AssignmentPage assignment="customer-interview-lab" highContrast={highContrast} onNeedSignIn={openAccount} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentFriday' && <AssignmentPage assignment="friday-learning-loop" highContrast={highContrast} onNeedSignIn={openAccount} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentFounders' && <AssignmentPage assignment="founders-of-learning" highContrast={highContrast} onNeedSignIn={openAccount} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentRebus' && <AssignmentPage assignment="rebus-studio" highContrast={highContrast} onNeedSignIn={openAccount} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'brainstarts' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
