@@ -16,6 +16,7 @@ import { Route as LearningCaseStudiesRouteImport } from './routes/learning.case-
 import { Route as LearningSyllabusRouteImport } from './routes/learning.syllabus'
 import { Route as LearningAssignmentsAssumptionBusterRouteImport } from './routes/learning.assignments_.assumption-buster'
 import { Route as LearningAssignmentsCustomerInterviewLabRouteImport } from './routes/learning.assignments_.customer-interview-lab'
+import { Route as LearningAssignmentsFoundersOfLearningRouteImport } from './routes/learning.assignments_.founders-of-learning'
 import { Route as LearningAssignmentsFridayLearningLoopRouteImport } from './routes/learning.assignments_.friday-learning-loop'
 import { Route as LearningAssignmentsRebusStudioRouteImport } from './routes/learning.assignments_.rebus-studio'
 
@@ -56,6 +57,12 @@ const LearningAssignmentsCustomerInterviewLabRoute =
     path: '/learning/assignments/customer-interview-lab',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LearningAssignmentsFoundersOfLearningRoute =
+  LearningAssignmentsFoundersOfLearningRouteImport.update({
+    id: '/learning/assignments_/founders-of-learning',
+    path: '/learning/assignments/founders-of-learning',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LearningAssignmentsFridayLearningLoopRoute =
   LearningAssignmentsFridayLearningLoopRouteImport.update({
     id: '/learning/assignments_/friday-learning-loop',
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
   '/learning/assignments/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
+  '/learning/assignments/founders-of-learning': typeof LearningAssignmentsFoundersOfLearningRoute
   '/learning/assignments/friday-learning-loop': typeof LearningAssignmentsFridayLearningLoopRoute
   '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
@@ -88,6 +96,7 @@ export interface FileRoutesByTo {
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
   '/learning/assignments/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
+  '/learning/assignments/founders-of-learning': typeof LearningAssignmentsFoundersOfLearningRoute
   '/learning/assignments/friday-learning-loop': typeof LearningAssignmentsFridayLearningLoopRoute
   '/learning/assignments/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
@@ -100,6 +109,7 @@ export interface FileRoutesById {
   '/learning/syllabus': typeof LearningSyllabusRoute
   '/learning/assignments_/assumption-buster': typeof LearningAssignmentsAssumptionBusterRoute
   '/learning/assignments_/customer-interview-lab': typeof LearningAssignmentsCustomerInterviewLabRoute
+  '/learning/assignments_/founders-of-learning': typeof LearningAssignmentsFoundersOfLearningRoute
   '/learning/assignments_/friday-learning-loop': typeof LearningAssignmentsFridayLearningLoopRoute
   '/learning/assignments_/rebus-studio': typeof LearningAssignmentsRebusStudioRoute
 }
@@ -113,6 +123,7 @@ export interface FileRouteTypes {
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
     | '/learning/assignments/customer-interview-lab'
+    | '/learning/assignments/founders-of-learning'
     | '/learning/assignments/friday-learning-loop'
     | '/learning/assignments/rebus-studio'
   fileRoutesByTo: FileRoutesByTo
@@ -124,6 +135,7 @@ export interface FileRouteTypes {
     | '/learning/syllabus'
     | '/learning/assignments/assumption-buster'
     | '/learning/assignments/customer-interview-lab'
+    | '/learning/assignments/founders-of-learning'
     | '/learning/assignments/friday-learning-loop'
     | '/learning/assignments/rebus-studio'
   id:
@@ -135,6 +147,7 @@ export interface FileRouteTypes {
     | '/learning/syllabus'
     | '/learning/assignments_/assumption-buster'
     | '/learning/assignments_/customer-interview-lab'
+    | '/learning/assignments_/founders-of-learning'
     | '/learning/assignments_/friday-learning-loop'
     | '/learning/assignments_/rebus-studio'
   fileRoutesById: FileRoutesById
@@ -147,6 +160,7 @@ export interface RootRouteChildren {
   LearningSyllabusRoute: typeof LearningSyllabusRoute
   LearningAssignmentsAssumptionBusterRoute: typeof LearningAssignmentsAssumptionBusterRoute
   LearningAssignmentsCustomerInterviewLabRoute: typeof LearningAssignmentsCustomerInterviewLabRoute
+  LearningAssignmentsFoundersOfLearningRoute: typeof LearningAssignmentsFoundersOfLearningRoute
   LearningAssignmentsFridayLearningLoopRoute: typeof LearningAssignmentsFridayLearningLoopRoute
   LearningAssignmentsRebusStudioRoute: typeof LearningAssignmentsRebusStudioRoute
 }
@@ -202,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearningAssignmentsCustomerInterviewLabRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learning/assignments_/founders-of-learning': {
+      id: '/learning/assignments_/founders-of-learning'
+      path: '/learning/assignments/founders-of-learning'
+      fullPath: '/learning/assignments/founders-of-learning'
+      preLoaderRoute: typeof LearningAssignmentsFoundersOfLearningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learning/assignments_/friday-learning-loop': {
       id: '/learning/assignments_/friday-learning-loop'
       path: '/learning/assignments/friday-learning-loop'
@@ -229,6 +250,8 @@ const rootRouteChildren: RootRouteChildren = {
     LearningAssignmentsAssumptionBusterRoute,
   LearningAssignmentsCustomerInterviewLabRoute:
     LearningAssignmentsCustomerInterviewLabRoute,
+  LearningAssignmentsFoundersOfLearningRoute:
+    LearningAssignmentsFoundersOfLearningRoute,
   LearningAssignmentsFridayLearningLoopRoute:
     LearningAssignmentsFridayLearningLoopRoute,
   LearningAssignmentsRebusStudioRoute: LearningAssignmentsRebusStudioRoute,

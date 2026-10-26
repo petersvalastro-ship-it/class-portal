@@ -1377,6 +1377,7 @@ export default function EntrepreneurshipApp({ initialTab = 'dashboard' }: { init
         {activeTab === 'assignment1019' && <AssignmentPage highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'assignmentInterview' && <AssignmentPage assignment="customer-interview-lab" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'assignmentFriday' && <AssignmentPage assignment="friday-learning-loop" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
+        {activeTab === 'assignmentFounders' && <AssignmentPage assignment="founders-of-learning" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'assignmentRebus' && <AssignmentPage assignment="rebus-studio" highContrast={highContrast} onBack={() => setActiveTab('assignments')} />}
         {activeTab === 'brainstarts' && (
           <div className="space-y-4">
