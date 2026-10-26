@@ -3,7 +3,7 @@ import SyllabusPage from './SyllabusPage';
 import AssignmentPage from './AssignmentPage';
 import AssignmentsPage from './AssignmentsPage';
 import CaseStudiesPage from './CaseStudiesPage';
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { 
   BookOpen, Calculator, Rocket, Trophy, Volume2, Sparkles, 
   CheckCircle2, XCircle, ArrowLeft, ArrowRight, HelpCircle, RefreshCw, 
