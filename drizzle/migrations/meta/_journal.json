@@ -43,6 +43,13 @@
       "when": 1790081478337,
       "tag": "0005_mastery_assessments_and_xp_audit",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792977979287,
+      "tag": "0006_assignment_submission",
+      "breakpoints": true
     }
   ]
 }

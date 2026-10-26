@@ -98,6 +98,42 @@ export type Database = {
         }
         Relationships: []
       }
+      assignment_submission: {
+        Row: {
+          answers: Json
+          assignment_key: string
+          assignment_title: string
+          id: string
+          reviewed_at: string | null
+          student_id: string
+          submit_count: number
+          submitted_at: string
+          teacher_note: string
+        }
+        Insert: {
+          answers?: Json
+          assignment_key: string
+          assignment_title?: string
+          id?: string
+          reviewed_at?: string | null
+          student_id: string
+          submit_count?: number
+          submitted_at?: string
+          teacher_note?: string
+        }
+        Update: {
+          answers?: Json
+          assignment_key?: string
+          assignment_title?: string
+          id?: string
+          reviewed_at?: string | null
+          student_id?: string
+          submit_count?: number
+          submitted_at?: string
+          teacher_note?: string
+        }
+        Relationships: []
+      }
       class_setting: {
         Row: {
           daily_xp_cap: number
