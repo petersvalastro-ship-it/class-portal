@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "bd7286c0-d0c8-4234-83e6-a87dd1a70405",
-  "project_id": "7a191690-67f8-4bff-b542-d2b824d505b7",
-  "url": "/__l5e/assets-v1/bd7286c0-d0c8-4234-83e6-a87dd1a70405/arlan-hamilton.jpg",
-  "r2_key": "a/v1/7a191690-67f8-4bff-b542-d2b824d505b7/bd7286c0-d0c8-4234-83e6-a87dd1a70405/arlan-hamilton.jpg",
-  "original_filename": "arlan-hamilton.jpg",
-  "size": 95293,
   "content_type": "image/jpeg",
-  "created_at": "2026-09-10T15:56:02Z"
+  "created_at": "2026-09-10T15:56:02Z",
+  "original_filename": "arlan-hamilton.jpg",
+  "project_id": "01d55f6a-c338-4cae-8ab9-83b4cbaa4319",
+  "r2_key": "a/v1/01d55f6a-c338-4cae-8ab9-83b4cbaa4319/bd7286c0-d0c8-4234-83e6-a87dd1a70405/arlan-hamilton.jpg",
+  "size": 95293,
+  "url": "/__l5e/assets-v1/bd7286c0-d0c8-4234-83e6-a87dd1a70405/arlan-hamilton.jpg",
+  "version": 1
 }

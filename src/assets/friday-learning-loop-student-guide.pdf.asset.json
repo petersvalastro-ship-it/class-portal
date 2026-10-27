@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "5cf3fc07-13c9-41f8-9910-35112b5b2038",
-  "project_id": "7a191690-67f8-4bff-b542-d2b824d505b7",
-  "url": "/__l5e/assets-v1/5cf3fc07-13c9-41f8-9910-35112b5b2038/friday-learning-loop-student-guide.pdf",
-  "r2_key": "a/v1/7a191690-67f8-4bff-b542-d2b824d505b7/5cf3fc07-13c9-41f8-9910-35112b5b2038/friday-learning-loop-student-guide.pdf",
-  "original_filename": "friday-learning-loop-student-guide.pdf",
-  "size": 204752,
   "content_type": "application/pdf",
-  "created_at": "2026-10-19T16:24:13Z"
+  "created_at": "2026-10-19T16:24:13Z",
+  "original_filename": "friday-learning-loop-student-guide.pdf",
+  "project_id": "01d55f6a-c338-4cae-8ab9-83b4cbaa4319",
+  "r2_key": "a/v1/01d55f6a-c338-4cae-8ab9-83b4cbaa4319/5cf3fc07-13c9-41f8-9910-35112b5b2038/friday-learning-loop-student-guide.pdf",
+  "size": 204752,
+  "url": "/__l5e/assets-v1/5cf3fc07-13c9-41f8-9910-35112b5b2038/friday-learning-loop-student-guide.pdf",
+  "version": 1
 }
